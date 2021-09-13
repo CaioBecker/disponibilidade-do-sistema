@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
               <th class='align-middle' style='text-align: center;'> Visualizar</th>";
         if (strtoupper($_SESSION['adm']) == 'S'){
           echo "<th class='align-middle' style='text-align: center;'> Ativo</th>
-                <th class='align-middle' style='text-align: center;'> Editar</th>";
+                <th class='align-middle' style='text-align: center;'> Opções</th>";
         } 
 
         while ($row_usuario = mysqli_fetch_array($result_usuario)) {
@@ -99,17 +99,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     echo "<td class='text-center'>" .
                     "<a class='botoes' style='color: #3c3c3c;' href='sn_ativo_usu.php?id=" . 
                     $row_usuario['cd_usuario']  . "&sn_ativo=N&tabela=usuarios" .
-                     "' onclick=\"return confirm('Tem certeza que deseja desativar esse registro?');\">" . 
+                     "' onclick=\"return confirm('Tem certeza que deseja desativar esse usuario?');\">" . 
                     "<i class='fa fa-toggle-on' aria-hidden='true'></i>" . "</a>" . "</td>";
                 } 
                 else {
                     echo "<td class='text-center'>" . 
                     "<a class='botoes' style='color: #3c3c3c;' href='sn_ativo_usu.php?id=" .
                     $row_usuario['cd_usuario']  . "&sn_ativo=S&tabela=usuarios" . 
-                    "' onclick=\"return confirm('Tem certeza que deseja ativar esse registro?');\">" . 
+                    "' onclick=\"return confirm('Tem certeza que deseja ativar esse usuario?');\">" . 
                     "<i class='fa fa-toggle-off' aria-hidden='true'></i>" . "</a>" . "</td>"; 
                 };
-                echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='editar_usu.php?cd_usuario=" .  $row_usuario['cd_usuario'] . "'>" . "<i class='fas fa-pen'></i>" . "</a> "; 		
+                echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='editar_usu.php?cd_usuario=" .  $row_usuario['cd_usuario'] . "'>" . "<i class='fas fa-pen'></i>" . "</a>  
+                    <a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_usu.php?id=" .
+                    $row_usuario['cd_usuario']  . "&sn_ativo=S&tabela=usuarios" . 
+                    "' onclick=\"return confirm('Tem certeza que deseja excluir esse registro?');\">" . 
+                    "<i class='fas fa-trash-alt'></i>" . "</a>" . "</td>"; 
             }else { 
                 echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='visualizar_usu.php?cd_usuario=" .  $row_usuario['cd_usuario'] . "'>" . "<i class='fas fa-eye'></i>" . "</a> "; 		
             } 

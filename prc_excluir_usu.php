@@ -2,7 +2,7 @@
     session_start();
     include 'conexao.php';
 
-    $cd_usu = $_SESSION['usu_ex'];
+    $cd_usu = filter_input(INPUT_GET,'id');
     echo '</br> cd_usu: </br>'. $cd_usu;
     $result_excluir_usu = "DELETE FROM usuarios WHERE cd_usuario = '$cd_usu'";
     echo '</br>excluir usu: </br>'. $result_excluir_usu;

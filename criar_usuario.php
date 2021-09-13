@@ -6,7 +6,7 @@
     
 ?>
 
-<h11><i class="fas fa-user"></i> Editar Usuario</h11>
+<h11><i class="fas fa-user"></i> Criar Usuario</h11>
 <h27> <a href="usuarios.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
 
 </br>

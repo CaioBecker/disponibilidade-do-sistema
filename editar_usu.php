@@ -8,6 +8,8 @@ session_start();
     $ativo = $row_usuario_edit['sn_ativo'];
     $adm = $row_usuario_edit['adm'];
    
+    $_SESSION['usu_ex'] = $id;
+
        //echo $adm;
     
 ?>
@@ -68,16 +70,7 @@ session_start();
         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button> 
     </div>
 </form>
-<form method="post" action="prc_excluir_usu.php">
-    <?php
-    $_SESSION['usu_ex'] = $id;
-    ?>
-    <div class="col-md-2">
-        </br>
-        <button type="submit" class="btn btn-adm"><i class="fas fa-trash-alt"></i> Excluir</button> 
-    </div>
-</form>
-</div>
+
 <?php
     include 'rodape.php';
 ?>
