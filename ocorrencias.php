@@ -13,6 +13,16 @@ include 'sql_ocorrencias.php';
             include 'js/mensagens_usuario.php';
         ?>
 
+<?php
+    if(@$row_oco['cd_ocorrencia'] = '' && @$_SESSION['pesquisa'] == 'S' ){
+
+    $_SESSION['msgerro'] = "Valor não encontrado.";
+    $_SESSION['pesquisa'] == "N";
+    //header('Location: ocorrencias.php');
+ 
+    }
+?>
+
 <h11><i class="fa fa-list-ul"></i> Ocorrências </h11>
 <span class="espaco_pequeno" style="width: 6px;" ></span>
 <h27> <a href="home.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
@@ -43,15 +53,7 @@ include 'sql_ocorrencias.php';
         </div>
     </div>
 
-    <?php
-    if(@$row_oco['cd_ocorrencia'] = '' && @$_SESSION['pesquisa'] == 'S' ){
-
-    $_SESSION['msgerro'] = "Valor não encontrado.";
-    $_SESSION['pesquisa'] == "N";
-    header('Location: ocorrencias.php');
  
-    }
-?>
     
 
 <?php
