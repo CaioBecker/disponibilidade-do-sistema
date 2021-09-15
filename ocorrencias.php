@@ -13,7 +13,7 @@ include 'sql_ocorrencias.php';
             include 'js/mensagens_usuario.php';
         ?>
 
-<h11><i class="fa fa-list-ul"></i>Ocorrencias</h11>
+<h11><i class="fa fa-list-ul"></i> Ocorrências </h11>
 <span class="espaco_pequeno" style="width: 6px;" ></span>
 <h27> <a href="home.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
 
@@ -28,13 +28,14 @@ include 'sql_ocorrencias.php';
         </div>
         <div class="col-md-3 ">
             Data de inicio:
-            <input class="form-control " type="datetime-local" id="id_dt_oco_in" name="dt_oco_in"> </input>
+            <input class="form-control " type="datetime-local" id="id_dt_oco_in" name="dt_oco_in" onblur ="valida_dt_inicio()"> </input>
 </div>
         <div class="col-md-3 ">
             Data fim:
-            <input class="form-control " type="datetime-local" id="id_dt_oco_fm" name="dt_oco_fm"> </input>
+            <input class="form-control " type="datetime-local" id="id_dt_oco_fm" name="dt_oco_fm" onblur ="valida_dt_fim()"> </input> 
         </div>
-        <div class="col-md-3 input-group">
+        <div class="col-md-3">
+</br>
             <button type="submit" class="btn btn-primary" id="btn_pesquisar" style=""> <i class="fa fa-search" aria-hidden="true"></i></button>	
 </form>
             <a href="adicionar_ocorrencia.php" class="btn btn-verde" type="submit"><h21><i class="fas fa-plus"></i></h21></a>
@@ -50,9 +51,9 @@ include 'sql_ocorrencias.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {   
-
-    if(@$row_oco['count'] =  '0'){
-        $_SESSION['msgerro'] = "Valor não encontrado.";
+    echo $row_qtd['QTD'];
+    if($row_qtd['QTD'] == '0'){
+        //$_SESSION['msgerro'] = "Valor não encontrado.";
                         
         header('Location: ocorrencias.php');
     }else{
@@ -96,9 +97,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             }
             echo "<td style='text-align: center;'>" . $row_oco['cd_usuario'] . "<br>" . "</td>";
             echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='visualizar_oco.php?cd_oco=" .  $row_oco['cd_ocorrencia'] . "'>" . "<i class='fas fa-eye'></i>" . "</a> "; 		
+            if ($row_oco['dt_fim'] == '1970-01-01 01:00:00'){
+            echo "<a class='btn btn-primary' href='editar_oco.php?cd_oco=" .  $row_oco['cd_ocorrencia'] . "'>" . "<i class='fas fa-pen'></i>". "</a>" ;
+            }
             if ($_SESSION['adm'] == 'S'){
-                echo "<a class='btn btn-primary' href='editar_oco.php?cd_oco=" .  $row_oco['cd_ocorrencia'] . "'>" . "<i class='fas fa-pen'></i>" ."<a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_oco.php?id=" .
-                    $row_oco['cd_ocorrencia']  . "&sn_ativo=S&tabela=usuarios" . 
+                echo "<a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_oco.php?id=" . $row_oco['cd_ocorrencia']  . "&sn_ativo=S&tabela=usuarios" . 
                     "' onclick=\"return confirm('Tem certeza que deseja excluir esse registro?');\">" . 
                     "<i class='fas fa-trash-alt'></i>" . "</a>" . "</td>";
             } 
@@ -115,3 +118,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <?php 
 include 'rodape.php';
 ?>
+
+<script>
+
+    function valida_dt_inicio(){
+
+    var dt_inicio = document.getElementById('id_dt_oco_in').value;
+    var dt_fim = document.getElementById('id_dt_oco_fm').value;
+
+    if(dt_inicio >= dt_fim && dt_fim != ''){
+        alert("Data fim Não Pode Ser Menor Ou Igual A Data inicio ");
+        document.getElementById('id_dt_oco_fm').value= "";
+        window.setTiemout(function ()
+        {
+            document.getElementById('id_dt_oco_fm').focus();
+        }, 0);
+        return false;
+    }  
+    if(dt_inicio == dt_fim){
+        alert("Data fim Não Pode Ser Igual A Data inicio ");
+        document.getElementById('id_dt_oco_fm').value= "";
+        window.setTiemout(function ()
+        {
+            document.getElementById('id_dt_oco_fm').focus();
+        }, 0);
+        return false;
+    }  
+    }
+
+    function valida_dt_fim(){
+
+    var dt_inicio = document.getElementById('id_dt_oco_in').value;
+    var dt_fim = document.getElementById('id_dt_oco_fm').value;
+
+    if(dt_inicio == dt_fim ){
+        alert("Data fim Não Pode Ser Igual A Data inicio ");
+        document.getElementById('id_dt_oco_fm').value= "";
+        window.setTiemout(function ()
+        {
+            document.getElementById('id_dt_oco_fm').focus();
+        }, 0);
+        return false;
+    }  
+    if(dt_inicio >= dt_fim && dt_inicio != ''){
+        alert("Data fim Não Pode Ser Menor Ou Igual A Data inicio ");
+        document.getElementById('id_dt_oco_fm').value= "";
+        window.setTiemout(function ()
+        {
+            document.getElementById('id_dt_oco_fm').focus();
+        }, 0);
+        return false;
+    }
+    }
+
+
+</script>

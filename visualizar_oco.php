@@ -21,7 +21,7 @@
         Codigo da ocorrencia:
         <input class="form-control" type="text" id="cd_usuh" name="cd_usuh" value="<?php echo $id?>" disabled>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
     </br>
         Usuario responsavel:
         <input class="form-control" type="text" id="cd_usuh" name="cd_usuh" value="<?php echo $row_oco_viu['cd_usuario'];?>" disabled>

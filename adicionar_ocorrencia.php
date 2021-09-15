@@ -6,8 +6,8 @@
     
 ?>
 
-<h11><i class="fas fa-user"></i> Adicionar ocorrencia</h11>
-<h27> <a href="usuarios.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
+<h11><i class="fas fa-user"></i> Adicionar ocorrência </h11>
+<h27> <a href="ocorrencias.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
 
 </br>
 <form method="post" action="prc_adicionar_ocorrencia.php">

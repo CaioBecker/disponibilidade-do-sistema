@@ -6,6 +6,7 @@
     //echo $_SESSION['CD_USUARIO'];
     $dt_inicio = date('d/m/Y H:i:s', strtotime($row_oco_edit['dt_inicio']));
     @$dt_fim = date('d/m/Y H:i:s', strtotime($row_oco_edit['dt_fim']));
+    $dt_inicio_j = date('Y-m-d HTi:s', strtotime($row_oco_edit['dt_inicio']));
     //$_SESSION['usu'] = $id;
     //echo $dt_fim;
     
@@ -66,14 +67,15 @@
 <div class="row">
     <div class="col-md-3">
         Data inicio:
-        <input class="form-control" type="text" value="<?php echo $dt_inicio; ?>" id="dt_inicio" name="dt_inicio" disabled>
+        <input class="form-control" type="text" value="<?php echo $dt_inicio; ?>" id="dt_inicio_h" name="dt_inicio_h" disabled>
+        <input class="form-control" type="hidden" value="<?php echo $dt_inicio_j; ?>" id="dt_inicio" name="dt_inicio">
     </div>
     <div class="col-md-3">
         Data fim:
         <?php 
         if($dt_fim == '01/01/1970 01:00:00'){ 
         ?>
-            <input class="form-control" type="text" placeholder="Não foi encerrado" id="dt_fim" name="dt_fim" >
+            <input class="form-control" type="datetime-local" placeholder="Não foi encerrado" id="dt_fim" name="dt_fim" onblur="valida_dt_fim()">
         <?php
         }else{
         ?>
@@ -97,3 +99,29 @@
 <?php
     include 'rodape.php';
 ?>
+
+<script type="text/javascript">
+function valida_dt_fim(){
+    var dt_inicio = document.getElementById('dt_inicio').value;
+    var dt_fim = document.getElementById('dt_fim').value;
+
+    if(dt_inicio == dt_fim ){
+        alert("Data fim Não Pode Ser Igual A Data inicio ");
+        document.getElementById('dt_fim').value= "";
+        window.setTiemout(function ()
+        {
+            document.getElementById('dt_fim').focus();
+        }, 0);
+        return false;
+    }  
+    if(dt_inicio >= dt_fim){
+        alert("Data fi não pode ser menor que data inicio");
+        document.getElementById('dt_fim').value= "";
+        window.setTiemout(function ()
+        {
+            document.getElementById('dt_fim').focus();
+        }, 0);
+        return false;
+    }
+}
+</script>

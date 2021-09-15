@@ -14,22 +14,32 @@ echo '</br> ds oco: </br>' . $var_ds_oco;
 echo '</br> ds deta: </br>' . $var_ds_deta;
 echo '</br> dt fim: </br>' . $var_dt_fim;
 
+if ($var_dt_fim == ''){
+    $result_oco = "UPDATE ocorrencias_sistema SET 
+                    ds_ocorrencia = '$var_ds_oco', 
+                    ds_detalhada = '$var_ds_deta' 
+                    WHERE cd_usuario = '$var_cd_oco'";
+    echo '</br>' . $result_oco;
+    $update_oco = mysqli_query($conn, $result_oco);
+}else{
+    $result_oco = "UPDATE ocorrencias_sistema SET 
+                    ds_ocorrencia = '$var_ds_oco', 
+                    ds_detalhada = '$var_ds_deta', 
+                    dt_fim = '$var_dt_fim'
+                    WHERE cd_usuario = '$var_cd_oco'";
+                    echo '</br>' . $result_oco;
+    $update_oco = mysqli_query($conn, $result_oco);
+}
 
-$result_usu = "UPDATE usuarios SET 
-                        nm_usuario='$var_nm_usu',
-                        setor='$var_setor',
-                        adm=UPPER('$var_adm') WHERE cd_usuario = '$var_cd_usu'";
-                        echo "</br>".$result_usu;
-$updade_usu = mysqli_query($conn,$result_usu);
 
-if(!$updade_usu){
-    $erro = mysqli_error($updade_usu);	
+if(!$update_oco){
+    $erro = mysqli_error($update_oco);	
     $_SESSION['msgerro'] = 'Erro ao atualizar o usuario! ' . htmlentities($erro['message']);
-    //header('usuarios.php');
+    header('ocorrencias.php');
     return 0;
 }else{
-    $_SESSION['msg'] = 'Usuario ' . $var_cd_usu . ' editado com sucesso!';
-    //header('location: usuarios.php'); 
+    $_SESSION['msg'] = 'Ocorrencia ' . $var_cd_oco . ' editada com sucesso!';
+    header('location: ocorrencias.php'); 
     return 0;
 }
 ?>

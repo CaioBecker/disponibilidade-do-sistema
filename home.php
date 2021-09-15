@@ -21,7 +21,7 @@ $_SESSION['adm'] = $row_usuario_home['adm'];
         
         <a href="usuarios.php" class="botao_home" type="submit"><h21><i class="fas fa-users"></i> Usuarios </h21></a>
 		<span class="espaco_pequeno"></span>
-        <a href="ocorrencias.php" class="botao_home" type="submit"><h21><i class="fas fa-book"></i> Ocorrencias </h21></a>
+        <a href="ocorrencias.php" class="botao_home" type="submit"><h21><i class="fas fa-book"></i> Ocorrências </h21></a>
 		<span class="espaco_pequeno"></span>
 <?php
 include 'rodape.php';

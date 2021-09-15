@@ -41,7 +41,7 @@ if($cd_oco != '' && $dt_inicio != '' && $dt_fim != '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
-
+    
 }
 elseif($cd_oco == '' && $dt_inicio != '' && $dt_fim != '')
 {
@@ -49,6 +49,7 @@ elseif($cd_oco == '' && $dt_inicio != '' && $dt_fim != '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
+    
 }
 elseif($cd_oco != '' && $dt_inicio == '' && $dt_fim != '')
 {
@@ -56,7 +57,7 @@ elseif($cd_oco != '' && $dt_inicio == '' && $dt_fim != '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
-
+    
 }
 elseif($cd_oco != '' && $dt_inicio != '' && $dt_fim == '')
 {
@@ -64,6 +65,7 @@ elseif($cd_oco != '' && $dt_inicio != '' && $dt_fim == '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
+    
 }
 elseif($cd_oco == '' && $dt_inicio =='' && $dt_fim != '')
 {
@@ -71,6 +73,7 @@ elseif($cd_oco == '' && $dt_inicio =='' && $dt_fim != '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
+    
 }
 elseif($cd_oco == '' && $dt_inicio != '' && $dt_fim == '')
 {
@@ -78,6 +81,7 @@ elseif($cd_oco == '' && $dt_inicio != '' && $dt_fim == '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
+    
 }
 elseif ($cd_oco != '' && $dt_inicio == '' && $dt_fim == '')
 {
@@ -85,6 +89,7 @@ elseif ($cd_oco != '' && $dt_inicio == '' && $dt_fim == '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
+    
 }
 else
 {
@@ -92,6 +97,7 @@ else
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
+    
 }
 //$row_oco = mysqli_fetch_array($result_ocorrencia);
 ?>

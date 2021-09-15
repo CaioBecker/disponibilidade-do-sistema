@@ -26,13 +26,14 @@ include 'sql_usuarios.php';
          <label> Código do usuario: </label>
     </div>
 
-        <div class="col-md-5 input-group">
+        <div class="col-md-4 input-group">
             
             <input class="form-control input-group" type="text" id="id_cd_usu" name="cd_usu" placeholder="Digite o código do usuario"> </input>
             <button type="submit" class="btn btn-primary" id="btn_pesquisar" style=""> <i class="fa fa-search" aria-hidden="true"></i></button>	
 </form>
-            <a href="criar_usuario.php" class="btn btn-verde" type="submit"><h21><i class="fas fa-plus"></i></h21></a>
-
+<?php if($_SESSION['adm'] == 'S'){ ?>            
+<a href="criar_usuario.php" class="btn btn-verde" type="submit"><h21><i class="fas fa-plus"></i></h21></a>
+<?php } ?>
         </div>
     </div>
 
@@ -45,11 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {   
     if (@$_POST['cd_usu'] == '') {
 				
-        //$_SESSION['msgerro'] = "Insira um valor válido.";
+        $_SESSION['msgerro'] = "Insira um valor.";
                         
         header('Location: usuarios.php');
     }else if(@$row_usuario['count'] =  '0'){
-        //$_SESSION['msgerro'] = "Valor não encontrado.";
+        $_SESSION['msgerro'] = "Valor não encontrado.";
                         
         header('Location: usuarios.php');
     }else{
