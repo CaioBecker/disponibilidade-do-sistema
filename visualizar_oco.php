@@ -31,13 +31,13 @@
     <div class="col-md-4">
     </br>
         Descrição da ocorrencia:
-        <textarea rows="5" cols="50" class="form-control" value="<?php echo $row_oco_viu['ds_ocorrencia']?>" id="ds_oco" name="ds_oco" disabled></textarea>
+        <textarea rows="5" cols="50" class="form-control"  id="ds_oco" name="ds_oco" disabled><?php echo $row_oco_viu['ds_ocorrencia']?></textarea>
 
     </div>
     <div class="col-md-3">
     </br>
         Descrição detalhada:
-        <textarea rows="5" cols="50" class="form-control" value="<?php echo $row_oco_viu['ds_detalhada']?>" id="ds_oco" name="ds_oco" disabled></textarea>
+        <textarea rows="5" cols="50" class="form-control" id="ds_oco" name="ds_oco" disabled><?php echo $row_oco_viu['ds_detalhada']?></textarea>
 
     </div>
     

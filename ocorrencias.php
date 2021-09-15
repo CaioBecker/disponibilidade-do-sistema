@@ -47,19 +47,16 @@ include 'sql_ocorrencias.php';
 
 <?php
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {   
-    if (@$_POST['cd_usu'] == '') {
-				
-        $_SESSION['msgerro'] = "Insira um valor válido.";
-                        
-        header('Location: ocorrencias.php');
-    }else if(@$row_oco['count'] =  '0'){
+
+    if(@$row_oco['count'] =  '0'){
         $_SESSION['msgerro'] = "Valor não encontrado.";
                         
         header('Location: ocorrencias.php');
     }else{
-        $temp_v_valor = @$_POST['cd_cd_oco'];						
+        $temp_v_valor = @$_POST['cd_oco'];						
         $dt_inicio = @$_POST['dt_oco_in'];
         $dt_fim = @$_POST['dt_oco_fm'];
         header('Location: ocorrencias.php?pagina=1&filtro=' . $temp_v_valor.'&dt_inicio='. $dt_inicio.'&dt_fim='.$dt_fim);	
@@ -86,25 +83,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
               <th class='align-middle' style='text-align: center;'> Opções </th>";
         
 
-        while ($row_oco = mysqli_fetch_array($result_usuario)) {
+        while ($row_oco = mysqli_fetch_array($result_ocorrencia)) {
 						
             echo "</tr></thead>";		
             echo "<td style='text-align: center;'>" . $row_oco['cd_ocorrencia']. "<br>" . "</td>";
             echo "<td style='text-align: center;'>" . $row_oco['ds_ocorrencia'] . "<br>" . "</td>";
-            echo "<td style='text-align: center;'>" . $row_oco['dt_inicio'] . "<br>" . "</td>"; 
+            echo "<td style='text-align: center;'>" . date('d/m/Y H:i', strtotime($row_oco['dt_inicio'])) . "<br>" . "</td>"; 
             if ($row_oco['dt_fim'] == '1970-01-01 01:00:00'){
                 echo "<td style='text-align: center;'> Não foi encerrado <br>" . "</td>"; 
             }else{
-            echo "<td style='text-align: center;'>" . $row_oco['dt_fim'] . "<br>" . "</td>"; 
+            echo "<td style='text-align: center;'>" . date('d/m/Y H:i', strtotime($row_oco['dt_fim'])) . "<br>" . "</td>"; 
             }
             echo "<td style='text-align: center;'>" . $row_oco['cd_usuario'] . "<br>" . "</td>";
             echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='visualizar_oco.php?cd_oco=" .  $row_oco['cd_ocorrencia'] . "'>" . "<i class='fas fa-eye'></i>" . "</a> "; 		
             if ($_SESSION['adm'] == 'S'){
-                echo "<a class='btn btn-primary' href='editar_oco.php?cd_oco=" .  $row_oco['cd_ocorrencia'] . "'>" . "<i class='fas fa-pen'></i>" ."<a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_usu.php?id=" .
+                echo "<a class='btn btn-primary' href='editar_oco.php?cd_oco=" .  $row_oco['cd_ocorrencia'] . "'>" . "<i class='fas fa-pen'></i>" ."<a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_oco.php?id=" .
                     $row_oco['cd_ocorrencia']  . "&sn_ativo=S&tabela=usuarios" . 
                     "' onclick=\"return confirm('Tem certeza que deseja excluir esse registro?');\">" . 
                     "<i class='fas fa-trash-alt'></i>" . "</a>" . "</td>";
-            }
+            } 
   
         }
 
