@@ -43,7 +43,15 @@ include 'sql_ocorrencias.php';
         </div>
     </div>
 
+    <?php
+    if(@$row_oco['cd_ocorrencia'] = '' && @$_SESSION['pesquisa'] == 'S' ){
 
+    $_SESSION['msgerro'] = "Valor não encontrado.";
+    $_SESSION['pesquisa'] == "N";
+    header('Location: ocorrencias.php');
+ 
+    }
+?>
     
 
 <?php
@@ -84,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
               <th class='align-middle' style='text-align: center;'> Opções </th>";
         
 
-        while ($row_oco = mysqli_fetch_array($result_ocorrencia)) {
+        while ($row_oco) {
 						
             echo "</tr></thead>";		
             echo "<td style='text-align: center;'>" . $row_oco['cd_ocorrencia']. "<br>" . "</td>";

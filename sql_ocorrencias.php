@@ -2,6 +2,7 @@
 
 include 'conexao.php';
 
+$_SESSION['pesquisa'] = 'S';
 $cd_oco_vali = filter_input(INPUT_GET,'filtro');
 $dt_inicio_vali = filter_input(INPUT_GET,'dt_inicio');
 $dt_fim_vali = filter_input(INPUT_GET,'dt_fim');
@@ -99,5 +100,5 @@ else
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
     
 }
-//$row_oco = mysqli_fetch_array($result_ocorrencia);
+$row_oco = mysqli_fetch_array($result_ocorrencia);
 ?>
