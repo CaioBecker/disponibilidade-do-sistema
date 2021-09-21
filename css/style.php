@@ -1056,5 +1056,28 @@ a.paginacao_atual {
     border: solid 1px #ced4da;
 }
 
+.caixa_aviso_b{
+
+    border-right-width: thin;
+    border-right-style: solid;
+    border-right-color: rgb(230, 138, 0);
+    border-left-width: thin;
+    border-left-style: solid;
+    border-left-color: rgb(230, 138, 0);
+    border-bottom-width: thin;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(230, 138, 0);
+}
+.caixa_aviso{
+    border-right-width: thin;
+    border-right-style: solid;
+    border-right-color: rgb(230, 138, 0);
+    border-left-width: thin;
+    border-left-style: solid;
+    border-left-color: rgb(230, 138, 0);
+
+    
+}
+
 </style>
 

@@ -42,7 +42,7 @@
     <header>    
 
         <nav class="navbar navbar-expand-md navbar-dark bg-color">
-            <a class="navbar-brand" href="home.php">
+            <a class="navbar-brand" >
                 <img src="img/logo/icone_santa_casa_sjc_branco.png" height="28px" width="28px" class="d-inline-block align-top" alt="Santa Casa de São José dos Campos">
                 <h10>Controle de ocorrências</h10>
             </a>

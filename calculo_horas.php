@@ -28,5 +28,5 @@ $data = new DateTime();
 $dataAtual = clone $data;
 $data->add($intervalo);
 $horasUteisEntreDuasDatas = $dataAtual->diff($data);
-echo '</br>Horas úteis entre duas datas: '. $horasUteisEntreDuasDatas->format('%d dias %H horas %i minutos');
+//echo '</br>Horas úteis entre duas datas: '. $horasUteisEntreDuasDatas->format('%d dias %H horas %i minutos');
 ?>
