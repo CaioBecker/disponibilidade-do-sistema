@@ -42,7 +42,11 @@ if($cd_oco != '' && $dt_inicio != '' && $dt_fim != '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
-    
+
+    $qtd_ocorrencia = "SELECT count(*) as qtd FROM ocorrencias_sistema WHERE cd_ocorrencia = '$cd_oco' AND dt_inicio >= '$dt_inicio' AND dt_fim <= '$dt_fim' 
+                        ORDER BY cd_ocorrencia";
+    $qtd_result_ocorrencia = mysqli_query($conn ,$qtd_ocorrencia);
+
 }
 elseif($cd_oco == '' && $dt_inicio != '' && $dt_fim != '')
 {
@@ -50,7 +54,11 @@ elseif($cd_oco == '' && $dt_inicio != '' && $dt_fim != '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
-    
+
+    $qtd_ocorrencia = "SELECT count(*) as qtd FROM ocorrencias_sistema WHERE dt_inicio >= '$dt_inicio' AND dt_fim <= '$dt_fim' 
+                        ORDER BY cd_ocorrencia";
+    $qtd_result_ocorrencia = mysqli_query($conn ,$qtd_ocorrencia);
+
 }
 elseif($cd_oco != '' && $dt_inicio == '' && $dt_fim != '')
 {
@@ -58,7 +66,11 @@ elseif($cd_oco != '' && $dt_inicio == '' && $dt_fim != '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
-    
+
+    $qtd_ocorrencia = "SELECT count(*) as qtd FROM ocorrencias_sistema WHERE cd_ocorrencia = '$cd_oco' AND dt_fim <= '$dt_fim' 
+                        ORDER BY cd_ocorrencia";
+    $qtd_result_ocorrencia = mysqli_query($conn ,$qtd_ocorrencia);
+
 }
 elseif($cd_oco != '' && $dt_inicio != '' && $dt_fim == '')
 {
@@ -66,7 +78,11 @@ elseif($cd_oco != '' && $dt_inicio != '' && $dt_fim == '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
-    
+
+    $qtd_ocorrencia = "SELECT count(*) as qtd FROM ocorrencias_sistema WHERE cd_ocorrencia = '$cd_oco' AND dt_inicio >= '$dt_inicio'  
+                        ORDER BY cd_ocorrencia";
+    $qtd_result_ocorrencia = mysqli_query($conn ,$qtd_ocorrencia);
+
 }
 elseif($cd_oco == '' && $dt_inicio =='' && $dt_fim != '')
 {
@@ -74,7 +90,11 @@ elseif($cd_oco == '' && $dt_inicio =='' && $dt_fim != '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
-    
+
+    $qtd_ocorrencia = "SELECT count(*) as qtd FROM ocorrencias_sistema WHERE  dt_fim <= '$dt_fim' 
+                        ORDER BY cd_ocorrencia";
+    $qtd_result_ocorrencia = mysqli_query($conn ,$qtd_ocorrencia);
+
 }
 elseif($cd_oco == '' && $dt_inicio != '' && $dt_fim == '')
 {
@@ -82,7 +102,11 @@ elseif($cd_oco == '' && $dt_inicio != '' && $dt_fim == '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
-    
+
+    $qtd_ocorrencia = "SELECT count(*) as qtd FROM ocorrencias_sistema WHERE dt_inicio >= '$dt_inicio' 
+                        ORDER BY cd_ocorrencia";
+    $qtd_result_ocorrencia = mysqli_query($conn ,$qtd_ocorrencia);
+
 }
 elseif ($cd_oco != '' && $dt_inicio == '' && $dt_fim == '')
 {
@@ -90,7 +114,11 @@ elseif ($cd_oco != '' && $dt_inicio == '' && $dt_fim == '')
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
-    
+
+    $qtd_ocorrencia = "SELECT count(*) as qtd FROM ocorrencias_sistema WHERE cd_ocorrencia = '$cd_oco' 
+                        ORDER BY cd_ocorrencia";
+    $qtd_result_ocorrencia = mysqli_query($conn ,$qtd_ocorrencia);
+
 }
 else
 {
@@ -98,7 +126,13 @@ else
                         ORDER BY cd_ocorrencia";
     //echo $consulta_ocorrencia;
     $result_ocorrencia = mysqli_query($conn ,$consulta_ocorrencia);
-    
+
+    $qtd_ocorrencia = "SELECT count(*) as qtd FROM ocorrencias_sistema
+                        ORDER BY cd_ocorrencia";
+    $qtd_result_ocorrencia = mysqli_query($conn ,$qtd_ocorrencia);
+
 }
-$row_oco = mysqli_fetch_array($result_ocorrencia);
+//echo "</br> result: </br>" . $qtd_result_ocorrencia;
+
+$row_qtd = mysqli_fetch_array($qtd_result_ocorrencia);
 ?>

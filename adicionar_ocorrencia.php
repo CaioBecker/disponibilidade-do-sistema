@@ -26,13 +26,13 @@
 <div class="row">
     <div class="col-md-3">
     </br>
-        Data inicio:
+        Hora inicial:
         <input class="form-control" type="datetime-local" id="dt_inicio" name="dt_inicio"  onblur="valida_dt_inicio()" required>
     </div>
     <div class="col-md-3">
     </br>
  
-        Data fim:
+        Hora final:
         <input class="form-control" type="datetime-local" id="dt_fim" name="dt_fim"  onblur="valida_dt_fim()">
     </div>
 </div>
@@ -56,8 +56,8 @@
     var dt_inicio = document.getElementById('dt_inicio').value;
     var dt_fim = document.getElementById('dt_fim').value;
 
-    if(dt_inicio >= dt_fim && dt_fim != ''){
-        alert("Data fim Não Pode Ser Menor Ou Igual A Data inicio ");
+    if(dt_inicio.substring(0, 10) != dt_fim.substring(0, 10) && dt_fim != '' && dt_inicio != ''){
+        alert("Os Dias Não Podem Ser Diferentes");
         document.getElementById('dt_fim').value= "";
         window.setTiemout(function ()
         {
@@ -65,8 +65,8 @@
         }, 0);
         return false;
     }  
-    if(dt_inicio == dt_fim){
-        alert("Data fim Não Pode Ser Igual A Data inicio ");
+    if(dt_inicio == dt_fim ){
+        alert("Hora Final Não Pode Ser Igual A Hora Inicial");
         document.getElementById('dt_fim').value= "";
         window.setTiemout(function ()
         {
@@ -74,6 +74,17 @@
         }, 0);
         return false;
     }  
+
+    if(dt_inicio.substring(11, 16) > dt_fim.substring(11, 16) && dt_fim != '' && dt_inicio != ''){
+        alert("Hora Final Não Pode Ser Menor Que Hora Final");
+        document.getElementById('dt_fim').value= "";
+        window.setTiemout(function ()
+        {
+            document.getElementById('dt_fim').focus();
+        }, 0);
+        return false;
+    } 
+
     }
 
     function valida_dt_fim(){
@@ -82,7 +93,7 @@
     var dt_fim = document.getElementById('dt_fim').value;
 
     if(dt_inicio == dt_fim ){
-        alert("Data fim Não Pode Ser Igual A Data inicio ");
+        alert("Hora Final Não Pode Ser Igual A Hora inicia");
         document.getElementById('dt_fim').value= "";
         window.setTiemout(function ()
         {
@@ -90,8 +101,8 @@
         }, 0);
         return false;
     }  
-    if(dt_inicio >= dt_fim && dt_inicio != ''){
-        alert("Data fim Não Pode Ser Menor Ou Igual A Data inicio ");
+    if(dt_inicio.substring(0, 10) != dt_fim.substring(0, 10) && dt_inicio != '' && dt_inicio != ''){
+        alert("Os Dias Não Podem Ser Diferentes");
         document.getElementById('dt_fim').value= "";
         window.setTiemout(function ()
         {
@@ -99,6 +110,17 @@
         }, 0);
         return false;
     }
+
+    if(dt_inicio.substring(11, 16) > dt_fim.substring(11, 16) && dt_fim != '' && dt_inicio != ''){
+        alert("Hora Final Não Pode Ser Menor Que Hora Final");
+        document.getElementById('dt_fim').value= "";
+        window.setTiemout(function ()
+        {
+            document.getElementById('dt_fim').focus();
+        }, 0);
+        return false;
+    } 
+
     }
 
 

@@ -6,7 +6,7 @@
     //echo $_SESSION['CD_USUARIO'];
     $dt_inicio = date('d/m/Y H:i:s', strtotime($row_oco_edit['dt_inicio']));
     @$dt_fim = date('d/m/Y H:i:s', strtotime($row_oco_edit['dt_fim']));
-    $dt_inicio_j = date('Y-m-d HTi:s', strtotime($row_oco_edit['dt_inicio']));
+    $dt_inicio_j = date('Y-m-d H:i:s', strtotime($row_oco_edit['dt_inicio']));
     //$_SESSION['usu'] = $id;
     //echo $dt_fim;
     
@@ -100,13 +100,16 @@
     include 'rodape.php';
 ?>
 
-<script type="text/javascript">
-function valida_dt_fim(){
+<script>
+
+    function valida_dt_fim(){
+
     var dt_inicio = document.getElementById('dt_inicio').value;
     var dt_fim = document.getElementById('dt_fim').value;
+    
 
     if(dt_inicio == dt_fim ){
-        alert("Data fim Não Pode Ser Igual A Data inicio ");
+        alert("Hora Final Não Pode Ser Igual A Hora inicia");
         document.getElementById('dt_fim').value= "";
         window.setTiemout(function ()
         {
@@ -114,8 +117,9 @@ function valida_dt_fim(){
         }, 0);
         return false;
     }  
-    if(dt_inicio >= dt_fim){
-        alert("Data fi não pode ser menor que data inicio");
+
+    if(dt_inicio.substring(0, 10) != dt_fim.substring(0, 10) && dt_inicio != '' && dt_fim != ''){
+        alert("Os Dias Não Podem Ser Diferentes");
         document.getElementById('dt_fim').value= "";
         window.setTiemout(function ()
         {
@@ -123,5 +127,19 @@ function valida_dt_fim(){
         }, 0);
         return false;
     }
-}
+
+   // "Hora final Não Poder Ser Menor Que Hora Inicial"
+    if(dt_inicio.substring(11, 16) > dt_fim.substring(11, 16) && dt_inicio != '' && dt_fim != ''){
+        alert("Hora Final Não Pode Ser Menor Que Hora Final");
+        document.getElementById('dt_fim').value= "";
+        window.setTiemout(function ()
+        {
+            document.getElementById('dt_fim').focus();
+        }, 0);
+        return false;
+    }  
+
+    }
+
+
 </script>

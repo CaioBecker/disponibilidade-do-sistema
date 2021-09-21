@@ -12,7 +12,13 @@ include 'sql_usuarios.php';
             include 'js/mensagens.php';
             include 'js/mensagens_usuario.php';
         ?>
-
+<?php
+if($row_qtd['qtd'] ==  '0'){
+        $_SESSION['msgerro'] = "Valor não encontrado.";
+                        
+        header('Location: usuarios.php');
+    }
+?>
 <h11><i class="fa fa-list-ul"></i>Usuarios</h11>
 <span class="espaco_pequeno" style="width: 6px;" ></span>
 <h27> <a href="home.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
@@ -41,16 +47,13 @@ include 'sql_usuarios.php';
     
 
 <?php
-
+//echo $row_qtd['qtd'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {   
+    
     if (@$_POST['cd_usu'] == '') {
 				
         $_SESSION['msgerro'] = "Insira um valor.";
-                        
-        header('Location: usuarios.php');
-    }else if(@$row_usuario['count'] =  '0'){
-        $_SESSION['msgerro'] = "Valor não encontrado.";
                         
         header('Location: usuarios.php');
     }else{

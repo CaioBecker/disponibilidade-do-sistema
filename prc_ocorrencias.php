@@ -7,7 +7,7 @@ include 'conexao.php';
 $var_cd_oco = $_POST['cd_oco'];
 $var_ds_oco = $_POST['ds_oco'];
 $var_ds_deta = $_POST['ds_deta'];
-$var_dt_fim = $_POST['dt_fim'];
+$var_dt_fim = date('Y-m-d H:i:s', strtotime($_POST['dt_fim']));
 
 echo '</br> cd oco: </br>' . $var_cd_oco;
 echo '</br> ds oco: </br>' . $var_ds_oco;
@@ -18,7 +18,7 @@ if ($var_dt_fim == ''){
     $result_oco = "UPDATE ocorrencias_sistema SET 
                     ds_ocorrencia = '$var_ds_oco', 
                     ds_detalhada = '$var_ds_deta' 
-                    WHERE cd_usuario = '$var_cd_oco'";
+                    WHERE cd_ocorrencia = '$var_cd_oco'";
     echo '</br>' . $result_oco;
     $update_oco = mysqli_query($conn, $result_oco);
 }else{
@@ -26,7 +26,7 @@ if ($var_dt_fim == ''){
                     ds_ocorrencia = '$var_ds_oco', 
                     ds_detalhada = '$var_ds_deta', 
                     dt_fim = '$var_dt_fim'
-                    WHERE cd_usuario = '$var_cd_oco'";
+                    WHERE cd_ocorrencia = '$var_cd_oco'";
                     echo '</br>' . $result_oco;
     $update_oco = mysqli_query($conn, $result_oco);
 }
