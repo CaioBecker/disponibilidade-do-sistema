@@ -1060,24 +1060,31 @@ a.paginacao_atual {
 
     border-right-width: thin;
     border-right-style: solid;
-    border-right-color: rgb(230, 138, 0);
+    border-right-color: #6996EF;
     border-left-width: thin;
     border-left-style: solid;
-    border-left-color: rgb(230, 138, 0);
+    border-left-color: #6996EF;
     border-bottom-width: thin;
     border-bottom-style: solid;
-    border-bottom-color: rgb(230, 138, 0);
+    border-bottom-color: #6996EF;
 }
 .caixa_aviso{
     border-right-width: thin;
     border-right-style: solid;
-    border-right-color: rgb(230, 138, 0);
+    border-right-color: #6996EF;
     border-left-width: thin;
     border-left-style: solid;
-    border-left-color: rgb(230, 138, 0);
+    border-left-color: #6996EF;
 
     
 }
+.caixa_aviso_total{
+
+border-width: thin;
+border-style: solid;
+border-color: #6996EF;
+}
+
 
 </style>
 
