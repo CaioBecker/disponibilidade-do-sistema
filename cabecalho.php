@@ -1,7 +1,7 @@
 
 <?php
     //PHP GERAL
-
+    //include 'valida_usu.php';
     //PAGINA ATUAL
     $_SESSION['pagina_acesso'] = substr($_SERVER["PHP_SELF"],1,30);
 
@@ -9,8 +9,8 @@
     ob_start();
 
     //VARIAVEIS NOME
-    @$nome = @$_SESSION['usuarioNome'];
-    @$pri_nome = substr(@$nome, 0, strpos(@$nome, ' '));
+    @$nome = @$_SESSION['nomeusuario'];
+    $pri_nome = substr(@$nome, 0, strpos(@$nome, ' '));
 
     //ACESSO RESTRITO
     //include 'acesso_restrito.php';
@@ -63,14 +63,17 @@
                 </div>
                 <div class="menu_preto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#.php" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bars" aria-hidden="true"></i> Menu</a></a>
+                        
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
 
                             <!--Menu
                             <a class="dropdown-item" style="background-color: #f5f5f5;" href="javascript:void(0)" ><i class="fas fa-pills"></i> Medicamentos</a>-->
 
 							<a class="dropdown-item" href="home.php"><i class="fas fa-home"></i> Home</a>
+                            <a class="dropdown-item" href="usuarios.php"><i class="fas fa-users"></i> Usuarios</a>
+                            <a class="dropdown-item" href="ocorrencias.php"><i class="fa fa-book"></i> Ocorrencias</a>
 
         <div class="div_br"> </div>
 

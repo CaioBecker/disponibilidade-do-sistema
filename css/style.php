@@ -1067,6 +1067,8 @@ a.paginacao_atual {
     border-bottom-width: thin;
     border-bottom-style: solid;
     border-bottom-color: #6996EF;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 .caixa_aviso{
     border-right-width: thin;
