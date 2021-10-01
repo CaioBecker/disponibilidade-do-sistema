@@ -5,7 +5,7 @@ include 'sql_usuarios.php';
 //$row_usuario = mysqli_fetch_array($result_usuario);
 //$_SESSION['adm'] = $row_usuario['adm'];
 //echo $_SESSION['adm'];
-
+$qtd_row = '1';
 ?>
 
 <?php
@@ -37,11 +37,78 @@ if($row_qtd['qtd'] ==  '0'){
             <input class="form-control input-group" type="text" id="id_cd_usu" name="cd_usu" placeholder="Digite o código do usuario"> </input>
             <button type="submit" class="btn btn-primary" id="btn_pesquisar" style=""> <i class="fa fa-search" aria-hidden="true"></i></button>	
 </form>
-<?php if($_SESSION['adm'] == 'S'){ ?>            
-<a href="criar_usuario.php" class="btn btn-verde" type="submit"><h21><i class="fas fa-plus"></i></h21></a>
-<?php } ?>
+<?php if($_SESSION['adm'] == 'S'){ ?>      
+    <button type="button" class="btn btn-verde" data-toggle="modal" data-target=".bd-example-modal-lg">
+        <h21><i class="fas fa-plus"></i></h21>
+    </button>   
+    <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="prc_criar_usuarios.php">
+                        <div class="row">
+                            <div class="col-md-4">
+                            </br>
+                                Usuario:
+                                <input class="form-control" type="text" id="cd_usu" name="cd_usu" onblur="valida_usu()" required>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                            </br>
+                                Nome do Usuario:
+                                <input class="form-control"  type="text" id="nm_usu" name="nm_usu" required>
+                            </div>
+                            <div class="col-md-3">
+                            </br>
+                                Setor:
+                                <input class="form-control" type="text" id="setor_usu" name="setor_usu" required>
+                            </div>
+                            <div class="col-md-4">
+                            </br>
+                        
+                                Tipo usuario:
+                            
+                                <select class="form-control" name="tp_usu" id="tp_usu" onblur="">
+                                <option value='S'>Administrador</option>
+                                <option value='N'>Comum</option>
+                                </select>
+                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 input-group">
+                                Senha:
+                            </div>
+                            <div class="col-md-3 input-group">
+                                <input class="input-group form-control " type="password" id="senha" name="senha" required>
+                                <button class="btn btn-primary" type="button" onclick="mostrarSenha()"><i class="fa fa-eye" aria-hidden="true"></i></button> <span class="espaco">
+                            </div>
+                        </div>
+                        
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button>
+                    </from>
+                </div>
+            </div>
         </div>
     </div>
+
+    <?php } ?>
+        </div>
+    </div>
+    
+
 
 
     
@@ -97,7 +164,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             
                         
             if(strtoupper($_SESSION['adm']) == 'S') { 
-                echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='visualizar_usu.php?cd_usuario=" .  $row_usuario['cd_usuario'] . "'>" . "<i class='fas fa-eye'></i>" . "</a> "; 		
+                echo "<td style='text-align: center;'>" . "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#visu_Modal" . $qtd_row . "'>
+                <h21><i class='fas fa-eye'></i></h21></button>" . "" . "</a> "; 
                 if ($row_usuario['sn_ativo'] == 'S') { 
                 
                     echo "<td class='text-center'>" .
@@ -113,25 +181,178 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     "' onclick=\"return confirm('Tem certeza que deseja ativar esse usuario?');\">" . 
                     "<i class='fa fa-toggle-off' aria-hidden='true'></i>" . "</a>" . "</td>"; 
                 };
-                echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='editar_usu.php?cd_usuario=" .  $row_usuario['cd_usuario'] . "'>" . "<i class='fas fa-pen'></i>" . "</a>  
+                echo "<td style='text-align: center;'>" . "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editar_Modal" . $qtd_row . "'>
+                <h21><i class='fas fa-pen'></i></h21></button>" . "" . "  
                     <a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_usu.php?id=" .
                     $row_usuario['cd_usuario']  . "&sn_ativo=S&tabela=usuarios" . 
                     "' onclick=\"return confirm('Tem certeza que deseja excluir esse registro?');\">" . 
                     "<i class='fas fa-trash-alt'></i>" . "</a>" . "</td>"; 
             }else { 
-                echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='visualizar_usu.php?cd_usuario=" .  $row_usuario['cd_usuario'] . "'>" . "<i class='fas fa-eye'></i>" . "</a> "; 		
+                echo "<td style='text-align: center;'>" . "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#visu_Modal" . $qtd_row . "'>
+                <h21><i class='fas fa-eye'></i></h21></button>" . "" . "</a> "; 		
             } 
             
          echo "</tr>";
+         ?>
+         <div class="modal fade bd-example-modal-lg" id="visu_Modal<?php echo $qtd_row;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Visualizar usuario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                            </br>
+                                Usuario:
+                                <input class="form-control" type="text" id="cd_usuh" name="cd_usuh" value="<?php echo $row_usuario['cd_usuario']?>" disabled>
+                            </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-md-4">
+                            </br>
+                                Nome do Usuario:
+                                <input class="form-control"  type="text" id="nm_usu" name="nm_usu" value="<?php echo $row_usuario['nm_usuario']?>" disabled>
+                            </div>
+                            <div class="col-md-3">
+                            </br>
+                                Setor:
+                                <input class="form-control" type="text" id="setor_usu" name="setor_usu" value="<?php echo $row_usuario['setor']?>" disabled>
+                            </div>
+                            <div class="col-md-3">
+                            </br>
+                        
+                                Tipo usuario:
+                            
+                                <?php 
+                                
+                                if($row_usuario['adm'] == 'S'){
+                                ?>
+                                    <input class="form-control" type="text" id="setor_usu" name="setor_usu" value="Administrador" disabled>
+                                <?php
+                                }else{
+                                ?>
+                                    <input class="form-control" type="text" id="setor_usu" name="setor_usu" value="Comum" disabled>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+                    </div>
+                </div>
+            </div>
+         </div>
+
+         <div class="modal fade bd-example-modal-lg" id="editar_Modal<?php echo $qtd_row;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar usuario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <form method="post" action="prc_usuarios.php">
+                        <div class="row">
+                            <div class="col-md-4">
+                            </br>
+                                Usuario:
+                                <input class="form-control" type="text" id="cd_usuh" name="cd_usuh" value="<?php echo $row_usuario['cd_usuario']?>" disabled>
+                                <input class="form-control" type="hidden" id="cd_usu" name="cd_usu" value="<?php echo $row_usuario['cd_usuario']?>">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                            </br>
+                                Nome do Usuario:
+                                <input class="form-control"  type="text" id="nm_usu" name="nm_usu" value="<?php echo $row_usuario['nm_usuario']?>">
+                            </div>
+                            <div class="col-md-3">
+                            </br>
+                                Setor:
+                                <input class="form-control" type="text" id="setor_usu" name="setor_usu" value="<?php echo $row_usuario['setor']?>">
+                            </div>
+                            <div class="col-md-4">
+                            </br>
+                        
+                                Tipo usuario:
+                            
+                                <select class="form-control" name="tp_usu" id="tp_usu">
+                                <?php
+                                if(isset($row_usuario['adm'])){
+                                        //EXIBA ELE
+                                        if($row_usuario['adm'] == 'S'){
+                                        echo "<option value='S'>Administrador</option>";
+                                        echo "<option value='N'>Comum</option>";
+                                        }else{
+                                            echo  '<option value="'. $row_usuario['adm'] . '">Comum</option>';
+                                            echo "<option value='S'>Administrador</option>";
+                                        }
+                                    } else {
+                                                        
+                                        //SENAO SOLICITA QUE SE SELECIONE UM VALOR
+                                        echo "<option value=''>SELECIONE UM VALOR</option>";
+                                    }
+                                    
+                                
+                                ?>
+                                </select>
+                            
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+         </div>
+     <?php
+     $qtd_row = $qtd_row + 1;
         }
 
         echo "</table></div>";
 
+        ?>
         
 
 
-?>
 
 <?php 
 include 'rodape.php';
 ?>
+
+<script>
+    function valida_usu(){
+    var usu = document.getElementbyId('cd_usu').value;
+    <?php 
+        
+        $valida_usu = "SELECT COUNT(*) as QTD FROM usuarios where cd_usuario = '" ?>usu <?php "'" 
+    ?> usu
+    <?php "'";
+        $result_usu = mysqli_query($conn,$valida_usu);
+        $row_qt_usu = mysqli_fecth_array($result_usu);
+        if($row_qt_usu > 0){
+    ?>
+        alert("Usuario já existe");
+        document.getElementById('cd_usu').value= "";
+        window.setTiemout(function ()
+        {
+            document.getElementById('cd_usu').focus();
+        }, 0);
+        return false;
+    <?php } ?>
+    
+}
+</script>

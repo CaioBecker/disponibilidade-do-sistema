@@ -27,7 +27,7 @@ if(@$row_qtd['qtd'] ==  '0'){
 <div class="div_br"> </div>     
 
 <form method="Post" autocomplete="off">
-    <div class="row">
+<div class="row">
 
         <div class="col-md-2">
             <label> Código do serviço: </label>
@@ -42,18 +42,41 @@ if(@$row_qtd['qtd'] ==  '0'){
             
             <input class="form-control" type="text" id="id_cd_serv" name="cd_serv" placeholder="Digite o código do serviço"> </input>
         </div>
-        <div class="col-md-3 input-group">
+        <div class="col-md-4 input-group">
             <input class="form-control" type="text" id="id_tp_serv" name="tp_serv" placeholder="Digite o tipo de serviço"> </input>
-            <button type="submit" class="btn btn-primary" id="btn_pesquisar" style=""> <i class="fa fa-search" aria-hidden="true"></i></button>	
-</form>
-<?php if($_SESSION['adm'] == 'S'){ ?>            
-<a href="criar_servico.php" class="btn btn-verde" type="submit"><h21><i class="fas fa-plus"></i></h21></a>
-<?php } ?>
+            <button type="submit" class="btn btn-primary" id="btn_pesquisar" style=""> <i class="fa fa-search" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-verde" data-toggle="modal" data-target="#exampleModal">
+                <h21><i class="fas fa-plus"></i></h21>
+            </button>
         </div>
+    </div>	
+</form>
+
+</br>
+<!-- Button trigger modal -->
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cadastrar serviço</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="Post" autocomplete="off" action='prc_criar_servico.php'>
+        <input class="form-control" type="text" id="id_tp_serv_c" name="tp_serv_c" placeholder="Digite o tipo de serviço"> </input>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Salvar</button>
+        </from>
+      </div>
     </div>
-
-
-    
+  </div>
+</div>
 
 <?php
 //echo $row_qtd['qtd'];
@@ -85,11 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 						
             echo "</tr></thead>";		
             echo "<td style='text-align: center;'>" . $row_servico['cd_servico']. "<br>" . "</td>";
-            echo "<td style='text-align: center;'>" . $row_servico['tp_servico'] . "<br>" . "</td>";
-            echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='visualizar_usu.php?cd_servico=" .  $row_servico['cd_servico'] . "'>" . "<i class='fas fa-eye'></i>" . "</a> "; 		          
-            echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='editar_usu.php?cd_servico=" .  $row_servico['cd_servico'] . "'>" . "<i class='fas fa-pen'></i>" . "</a>  
-                  <a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_usu.php?id=" .
-                  $row_servico['cd_servico']  . "&sn_ativo=S&tabela=usuarios" . 
+            echo "<td style='text-align: center;'>" . $row_servico['servico'] . "<br>" . "</td>";
+            echo "<td style='text-align: center;'>" . "<a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_serv.php?id=" .
+                  $row_servico['cd_servico']. 
                   "' onclick=\"return confirm('Tem certeza que deseja excluir esse registro?');\">" . 
                   "<i class='fas fa-trash-alt'></i>" . "</a>" . "</td>"; 
             

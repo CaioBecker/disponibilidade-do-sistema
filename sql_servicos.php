@@ -6,23 +6,23 @@ $v_valor = filter_input(INPUT_GET,'filtro');
 $tipo = filter_input(INPUT_GET,'tipo');
 
 if ($v_valor != '' && $tipo != '' ){
-$consulta_servico = "SELECT * FROM servicos WHERE cd_servico = '$v_valor' and tp_servico like '%$tipo%' 
+ $consulta_servico = "SELECT * FROM servicos WHERE cd_servico = '$v_valor' and servico like '%$tipo%' 
                     ORDER BY cd_servico";
 
-$qtd_consulta_servico = "SELECT count(*) as qtd FROM servicos WHERE cd_servico = '$v_valor' and tp_servico like '%$tipo%' 
+$qtd_consulta_servico = "SELECT count(*) as qtd FROM servicos WHERE cd_servico = '$v_valor' and servico like '%$tipo%' 
                     ORDER BY cd_servico";
                     //echo $qtd_consulta_servico;
 
 }else if($v_valor != '' && $tipo == ''){
-    $consulta_servico = "SELECT * FROM servicos WHERE cd_servico = '$v_valor'
+     $consulta_servico = "SELECT * FROM servicos WHERE cd_servico = '$v_valor'
                     ORDER BY cd_servico";
     $qtd_consulta_servico = "SELECT count(*) as qtd FROM servicos WHERE cd_servico = '$v_valor' 
                     ORDER BY cd_servico";
 //echo $consulta_servico;
 }else if($v_valor == '' && $tipo != ''){
-    $consulta_servico = "SELECT * FROM servicos WHERE tp_servico like '%$tipo%'
+     $consulta_servico = "SELECT * FROM servicos WHERE servico like '%$tipo%'
                     ORDER BY cd_servico";
-    $qtd_consulta_servico = "SELECT count(*) as qtd FROM servicos WHERE tp_servico like '%$tipo%' 
+    $qtd_consulta_servico = "SELECT count(*) as qtd FROM servicos WHERE servico like '%$tipo%' 
                     ORDER BY cd_servico";
 }else{
     $consulta_servico = "SELECT * FROM servicos 
