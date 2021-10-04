@@ -21,79 +21,73 @@
     <div class="col-md-2">
     </br>
         Codigo da ocorrencia:
-        <input class="form-control" type="text" id="cd_oco_h" name="cd_oco_h" value="<?php echo $id?>" disabled>
-        <input class="form-control" type="hidden" id="cd_oco" name="cd_oco" value="<?php echo $id?>">
+        <input class="form-control" type="text" id="cd_ocoh" name="cd_ocoh" value="<?php echo $id?>" disabled>
+        <input class="form-control" type="hidden" id="cd_oco" name="cd_oco" value="<?php echo $id?>" >
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
     </br>
         Usuario responsavel:
-        <input class="form-control" type="text" id="cd_usu" name="cd_usu" value="<?php echo $row_oco_edit['cd_usuario'];?>" disabled>
+        <input class="form-control" type="text" id="cd_usuh" name="cd_usuh" value="<?php echo $row_oco_edit['cd_usuario'];?>" disabled>
+        <input class="form-control" type="hidden" id="cd_usu" name="cd_usu" value="<?php echo $row_oco_edit['cd_usuario'];?>">
+
+    </div>
+</div>
+</br>
+<div class="row">
+    <div class="col-md-4">
+        Titulo:
+        <input class="form-control" type="text" value="<?php echo $row_oco_edit['titulo']; ?>" id="titulo" name="titulo" >
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
     </br>
-        Descrição da ocorrencia:
-        <?php 
-        if($dt_fim == '01/01/1970 01:00:00'){
-        ?>
-        <textarea rows="5" cols="50" class="form-control" id="ds_oco" name="ds_oco" ><?php echo $row_oco_edit['ds_ocorrencia']?></textarea>
-        <?php 
-        }else{
-        ?>
-            <textarea rows="5" cols="50" class="form-control" id="ds_oco" name="ds_oco" disabled><?php echo $row_oco_edit['ds_ocorrencia']?></textarea>
-        <?php 
-        } 
-        ?>
+        Problema:
+        <textarea rows="5" cols="50" class="form-control"  id="ds_oco" name="ds_oco" ><?php echo $row_oco_edit['ds_ocorrencia']?></textarea>
+
     </div>
-    <div class="col-md-4">
+
+    <div class="col-md-6">
     </br>
-        Descrição detalhada:
-        <?php 
-        if($dt_fim == '01/01/1970 01:00:00'){
-        ?>
-            <textarea rows="5" cols="50" class="form-control" id="ds_deta" name="ds_deta" ><?php echo $row_oco_edit['ds_detalhada']?></textarea>
-        <?php 
-        }else{
-        ?>
-            <textarea rows="5" cols="50" class="form-control" id="ds_deta" name="ds_deta"  disabled><?php echo $row_oco_edit['ds_detalhada']?></textarea>
-        <?php 
-        } 
-        ?>
+        Solução:
+        <textarea rows="5" cols="50" class="form-control" id="ds_deta" name="ds_deta" ><?php echo $row_oco_edit['ds_detalhada']?></textarea>
+
     </div>
     
+</div>
+<div class="row">
+    <div class="col-md-4">
+        Serviço:
+        <?php 
+            $serv = $row_oco_edit['cd_servico'];
+
+            $consulta_serv = "SELECT * FROM servicos where cd_servico = '$serv'";
+            $result = mysqli_query($conn,$consulta_serv);
+            $row_serv = mysqli_fetch_array($result);
+        ?>
+        <input class="form-control" value="<?php echo $row_serv['servico']; ?>" disabled>
+    </div>
 </div>
 </br>
 <div class="row">
     <div class="col-md-3">
         Data inicio:
-        <input class="form-control" type="text" value="<?php echo $dt_inicio; ?>" id="dt_inicio_h" name="dt_inicio_h" disabled>
-        <input class="form-control" type="hidden" value="<?php echo $dt_inicio_j; ?>" id="dt_inicio" name="dt_inicio">
+        <input class="form-control" type="text" value="<?php echo $dt_inicio; ?>" id="dt_inicio" name="dt_inicio" disabled>
     </div>
     <div class="col-md-3">
         Data fim:
-        <?php 
-        if($dt_fim == '01/01/1970 01:00:00'){ 
-        ?>
-            <input class="form-control" type="datetime-local" placeholder="Não foi encerrado" id="dt_fim" name="dt_fim" onblur="valida_dt_fim()">
-        <?php
-        }else{
-        ?>
-            <input class="form-control" type="text" value="<?php echo $dt_fim;?>" id="dt_fim" name="dt_fim" disabled >
-        <?php 
-        } 
-        ?>                                         
-        
+        <input class="form-control" type="datetime-local" id="dt_fim" name="dt_fim" >
     </div>
 
 </div>
-
-
-<div class="row-md">
-    <div class="col-md-2 ">
-        </br>
-        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button> 
+<div class="row">
+</br>
+    <div class="col-md-2">
+</br>
+    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button>
+            </br>
     </div>
+</div>
 </form>
 
 <?php

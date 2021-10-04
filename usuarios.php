@@ -56,27 +56,27 @@ if($row_qtd['qtd'] ==  '0'){
                             <div class="col-md-4">
                             </br>
                                 Usuario:
-                                <input class="form-control" type="text" id="cd_usu" name="cd_usu" onblur="valida_usu()" required>
-                                
+                                <input class="form-control" type="text" id="cd_usu" name="cd_usus" onblur="valida_usu()" required>
+                        
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-5">
                             </br>
                                 Nome do Usuario:
-                                <input class="form-control"  type="text" id="nm_usu" name="nm_usu" required>
+                                <input class="form-control"  type="text" id="nm_usu" name="nm_usus" required>
                             </div>
                             <div class="col-md-3">
                             </br>
                                 Setor:
-                                <input class="form-control" type="text" id="setor_usu" name="setor_usu" required>
+                                <input class="form-control" type="text" id="setor_usu" name="setor_usus" required>
                             </div>
                             <div class="col-md-4">
                             </br>
                         
                                 Tipo usuario:
                             
-                                <select class="form-control" name="tp_usu" id="tp_usu" onblur="">
+                                <select class="form-control" name="tp_usu" id="tp_usus" onblur="">
                                 <option value='S'>Administrador</option>
                                 <option value='N'>Comum</option>
                                 </select>
@@ -88,7 +88,7 @@ if($row_qtd['qtd'] ==  '0'){
                                 Senha:
                             </div>
                             <div class="col-md-3 input-group">
-                                <input class="input-group form-control " type="password" id="senha" name="senha" required>
+                                <input class="input-group form-control " type="password" id="senhas" name="senha" required>
                                 <button class="btn btn-primary" type="button" onclick="mostrarSenha()"><i class="fa fa-eye" aria-hidden="true"></i></button> <span class="espaco">
                             </div>
                         </div>
@@ -288,19 +288,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                 <select class="form-control" name="tp_usu" id="tp_usu">
                                 <?php
                                 if(isset($row_usuario['adm'])){
-                                        //EXIBA ELE
-                                        if($row_usuario['adm'] == 'S'){
+                                    if($row_usuario['adm'] == 'S'){
+                                    echo "<option value='S'>Administrador</option>";
+                                    echo "<option value='N'>Comum</option>";
+                                    }else{
+                                        echo  '<option value="'. $row_usuario['adm'] . '">Comum</option>';
                                         echo "<option value='S'>Administrador</option>";
-                                        echo "<option value='N'>Comum</option>";
-                                        }else{
-                                            echo  '<option value="'. $row_usuario['adm'] . '">Comum</option>';
-                                            echo "<option value='S'>Administrador</option>";
-                                        }
-                                    } else {
-                                                        
-                                        //SENAO SOLICITA QUE SE SELECIONE UM VALOR
-                                        echo "<option value=''>SELECIONE UM VALOR</option>";
                                     }
+                                } else {
+                                    echo "<option value=''>SELECIONE UM VALOR</option>";
+                                }
                                     
                                 
                                 ?>
@@ -308,7 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                             
                             </div>
                         </div>
-                        
+                        </br>
                         
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -332,27 +329,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <?php 
 include 'rodape.php';
 ?>
-
 <script>
     function valida_usu(){
-    var usu = document.getElementbyId('cd_usu').value;
-    <?php 
-        
-        $valida_usu = "SELECT COUNT(*) as QTD FROM usuarios where cd_usuario = '" ?>usu <?php "'" 
-    ?> usu
-    <?php "'";
-        $result_usu = mysqli_query($conn,$valida_usu);
-        $row_qt_usu = mysqli_fecth_array($result_usu);
-        if($row_qt_usu > 0){
-    ?>
-        alert("Usuario já existe");
-        document.getElementById('cd_usu').value= "";
-        window.setTiemout(function ()
-        {
-            document.getElementById('cd_usu').focus();
-        }, 0);
-        return false;
-    <?php } ?>
-    
-}
+        var usu_js = document.getElementById('cd_usu');
+        $_SESSION['cd_usuario_js'] = usu_js;
+    }
 </script>

@@ -74,7 +74,7 @@ if( $row_qtd['qtd'] == '0'){
           <table class='table table-striped' cellspacing='0' cellpadding='0'>" . "<thead><tr>"; 
 				
 	echo "<th class='align-middle' style='text-align: center;'> Código da ocorrencia</th>			  
-	      <th class='align-middle' style='text-align: center;'> Descrição</th>
+	      <th class='align-middle' style='text-align: center;'> Titulo</th>
           <th class='align-middle' style='text-align: center;'> Data incicio</th>
           <th class='align-middle' style='text-align: center;'> Data fim</th>
           <th class='align-middle' style='text-align: center;'> Usuario responsavel</th>
@@ -85,7 +85,7 @@ if( $row_qtd['qtd'] == '0'){
 						
         echo "</tr></thead>";		
         echo "<td style='text-align: center;'>" . $row_oco['cd_ocorrencia']. "<br>" . "</td>";
-        echo "<td style='text-align: center;'>" . $row_oco['ds_ocorrencia'] . "<br>" . "</td>";
+        echo "<td style='text-align: center;'>" . $row_oco['titulo'] . "<br>" . "</td>";
         echo "<td style='text-align: center;'>" . date('d/m/Y H:i', strtotime($row_oco['dt_inicio'])) . "<br>" . "</td>"; 
         if ($row_oco['dt_fim'] == '1970-01-01 01:00:00'){
             echo "<td style='text-align: center;'> Não foi encerrado <br>" . "</td>"; 

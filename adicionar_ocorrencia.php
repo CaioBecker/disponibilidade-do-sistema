@@ -1,5 +1,5 @@
 <?php
-
+include 'sql_criar_oco.php';
     include 'cabecalho.php';
     $id  = filter_input(INPUT_GET, 'cd_usuario', FILTER_SANITIZE_STRING);
     
@@ -13,15 +13,29 @@
 </br>
 <form method="post" action="prc_adicionar_ocorrencia.php">
 <div class="row">
-    <div class="col-md-6">
-    </br>
-        Descrição:
-        <textarea rows="5" cols="50" placeholder="DIGITE A DESCRIÇÃO" class="form-control" id="ds_oco" name="ds_oco" required></textarea>
+    <div class="col-md-3">
+        Titulo:
+        <input class="form-control" type="text" id="titulo" name="titulo"   required>
     </div>
+</div>
+<div class="row">
     <div class="col-md-6">
     </br>
-        Descrição detalhada:
-        <textarea rows="5" cols="50" placeholder="DIGITE A DESCRIÇÃO" class="form-control" id="ds_detalha" name="ds_detalha" required></textarea>
+        Problema:
+        <textarea rows="5" cols="50" placeholder="DIGITE O PROBLEMA" class="form-control" id="ds_oco" name="ds_oco" required></textarea>
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-md-4">
+        Serviço:
+        <select class="form-control" id="servico" name="servico">
+            <option> Selecione um valor</option>
+            <?php
+                while($row_serv = mysqli_fetch_array($result_serv)){
+                    echo '<option value="' .$row_serv['cd_servico'] . '">' . $row_serv['servico']. '</option>';
+                 } ?>
+        </select>
     </div>
 </div>
 <div class="row">

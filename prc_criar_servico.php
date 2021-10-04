@@ -8,7 +8,7 @@ $var_cd_usu = $_SESSION['cd_usu'];
 
 echo '</br> tp serv: </br>' . $var_tp_serv;
 
-@$result_serv_exis="SELECT COUNT(*) AS QTD FROM servicos WHERE servico like '%$var_tp_serv%'";
+@$result_serv_exis="SELECT COUNT(*) AS QTD FROM servicos WHERE servico = '$var_tp_serv'";
 echo $result_serv_exis;
 
 @$serv_exis = mysqli_query($conn,$result_serv_exis);

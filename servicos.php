@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'valida_usu.php';
+
 include 'cabecalho.php';
 include 'sql_servicos.php';
 //$row_usuario = mysqli_fetch_array($result_usuario);
@@ -67,7 +67,7 @@ if(@$row_qtd['qtd'] ==  '0'){
       </div>
       <div class="modal-body">
         <form method="Post" autocomplete="off" action='prc_criar_servico.php'>
-        <input class="form-control" type="text" id="id_tp_serv_c" name="tp_serv_c" placeholder="Digite o tipo de serviço"> </input>
+        <input class="form-control" type="text" id="id_tp_serv_c" name="tp_serv_c" placeholder="Digite o tipo de serviço" required> </input>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

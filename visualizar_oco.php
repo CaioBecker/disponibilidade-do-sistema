@@ -27,20 +27,40 @@
         <input class="form-control" type="text" id="cd_usuh" name="cd_usuh" value="<?php echo $row_oco_viu['cd_usuario'];?>" disabled>
     </div>
 </div>
+</br>
 <div class="row">
     <div class="col-md-4">
+        Titulo:
+        <input class="form-control" type="text" value="<?php echo $row_oco_viu['titulo']; ?>" id="titulo" name="titulo" disabled>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
     </br>
-        Descrição da ocorrencia:
+        Problema:
         <textarea rows="5" cols="50" class="form-control"  id="ds_oco" name="ds_oco" disabled><?php echo $row_oco_viu['ds_ocorrencia']?></textarea>
 
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
     </br>
-        Descrição detalhada:
+        Solução:
         <textarea rows="5" cols="50" class="form-control" id="ds_oco" name="ds_oco" disabled><?php echo $row_oco_viu['ds_detalhada']?></textarea>
 
     </div>
     
+</div>
+<div class="row">
+    <div class="col-md-4">
+        Serviço:
+        <?php 
+            $serv = $row_oco_viu['cd_servico'];
+
+            $consulta_serv = "SELECT * FROM servicos where cd_servico = '$serv'";
+            @$result = mysqli_query($conn,$consulta_serv);
+            @$row_serv = mysqli_fetch_array($result);
+        ?>
+        <input class="form-control" value="<?php echo @$row_serv['servico']; ?>"disabled>
+    </div>
 </div>
 </br>
 <div class="row">

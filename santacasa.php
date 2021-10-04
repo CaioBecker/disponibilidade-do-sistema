@@ -32,11 +32,11 @@ p{
             <center>
             <div class="row-md">
                 <div class="col-md-8 " style="color: #fff; background-color: #6996EF;"> <?php
-                    echo $row_hj['ds_ocorrencia'];
+                    echo $row_hj['titulo'];
             ?>
                 </div>
                 <div class="col-md-8 caixa_aviso" > <?php
-                echo 'Descrição: '. $row_hj['ds_detalhada'];
+                echo 'Problema: '. $row_hj['ds_ocorrencia'];
 
             ?>
                 </div>
@@ -74,35 +74,39 @@ p{
                             include "sql_oco.php";
                             
                             if(@$row_oco['dt_inicio'] != ''){
-                                $rest = substr(@$row_oco['dt_inicio'], -19, 10 );
-                                $fim  = substr(@$row_oco['dt_fim'], -19, 10 );
-                                
-                                //echo $data_while;
-                                //echo $rest;
-                                if($rest == $data_while && $fim != '1970-01-01'){ 
-                                $dataIni = date('H:i:s', strtotime(@$row_oco['dt_inicio']));
-                                    $dataFim = date('H:i:s', strtotime(@$row_oco['dt_fim']));
+                                while($row_oco_dias = mysqli_fetch_array($result_oco_dias)){
+                                    $rest = substr(@$row_oco_dias['dt_inicio'], -19, 10 );
+                                    $fim  = substr(@$row_oco_dias['dt_fim'], -19, 10 );
                                     
-                                    $dataFuturo = $dataIni;
-                                    $dataAtual = $dataFim;
-
-                                    $date_time  = new DateTime($dataAtual);
-                                    $diff       = $date_time->diff( new DateTime($dataFuturo));
-                                
-
+                                    //echo $data_while;
+                                    //echo $rest;
                                     
-                                    ?>
-                                <a href="#/" data-toggle="popover" style="text-decoration: none;" title="<?php echo date('d M Y', strtotime($data_while)); ?>" 
-                                data-content="<?php echo $diff->format('%H hrs %I mins');
-                                                    echo ' Descrição: '. $row_oco['ds_ocorrencia']; ?>">
-                                <img src="img/barra_erro.png" height="25px" width="5px" class="d-inline-block align-top" > </a>
-                    <?php }else{ ?>
+                                    if($rest == $data_while && $fim != '1970-01-01'){ 
+                                    $dataIni = date('H:i:s', strtotime(@$row_oco_dias['dt_inicio']));
+                                        $dataFim = date('H:i:s', strtotime(@$row_oco_dias['dt_fim']));
+                                        
+                                        $dataFuturo = $dataIni;
+                                        $dataAtual = $dataFim;
+
+                                        $date_time  = new DateTime($dataAtual);
+                                        $diff       = $date_time->diff( new DateTime($dataFuturo));
+                                    
+
+                                        
+                                        ?>
+                                    <a href="#/" data-toggle="popover" style="text-decoration: none;" title="<?php echo date('d M Y', strtotime($data_while)); ?>" 
+                                    data-content="<?php echo $diff->format('%H hrs %I mins');
+                                                        echo ' Problema:'. $row_oco_dias['ds_ocorrencia']; ?>">
+                                    <img src="img/barra_erro.png" height="25px" width="5px" class="d-inline-block align-top" > </a>
+                                    
+                            <?php }else{ ?>
                             
                                 <a href="#/" data-toggle="popover" style="text-decoration: none;" title="<?php echo date('d M Y', strtotime($data_while)); ?>" 
                                 data-content="Erro não resolvido"> 
                                 <img src="img/barra_hover.png" height="25" width="5px" class="d-inline-block align-top" > </a>
                         <?php 
-                            }           
+                            }   
+                        }        
                         }else{ 
                         ?>
                         
@@ -243,61 +247,122 @@ p{
                                     for($count_dias = 1; $count_dias <=31; $count_dias ++){ 
 
                                         //echo $count_script;
-                                    
+                                    $qtd_repita_dia = 0;
                                         include 'sql_oco_dia.php';
-                                    
-                                        while($row_dia = mysqli_fetch_array($result_dia)){
-                                    
-                                            ?>
-                                            <div class="col-md-2"  onclick="mostrar_dia<?php echo $count_script ?>()" >
-                                                <div id="seta-<?php echo $count_script?>">
-                                                    <h5 ><?php echo date('d/m/Y', strtotime($row_dia['dt_inicio'])).' <i class="fas fa-chevron-right" ></i>';?></h5>
-                                                </div>
-                                                <div  id="baixo-<?php echo $count_script ?>">
-                                                    <h5><?php
-                                                        echo date('d/m/Y', strtotime($row_dia['dt_inicio'])).' <i class="fas fa-chevron-down"></i>';
-                                                    ?></h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                            <div class="col-md-12" style="!importantbackground-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #6996EF; "  id= "<?php echo $count_script ?>">
-                                                <h6><?php 
-                                                    echo 'Descrição:</br>'. $row_dia['ds_ocorrencia'];
-                                                    echo '</br>Detalhado:</br>'. $row_dia['ds_detalhada'];
-                                                ?></h6>
-                                            </div>
-                                        </div>
-                                            <script>
+                                        
+                                            while($row_dia = mysqli_fetch_array($result_dia)){
+                                                if($row_qtd_dia['QTD'] > 1){
+                                                    $qtd_repita_dia = $qtd_repita_dia +1;
+                                                    ?>
+                                                    <div class="col-md-2"  onclick="mostrar_dia<?php echo $count_script; echo $qtd_repita_dia;?>()" >
+                                                        <div id="seta-<?php echo $count_script  .''. $qtd_repita_dia ?>">
+                                                            <h5 ><?php echo date('d/m/Y', strtotime($row_dia['dt_inicio'])).' <i class="fas fa-chevron-right" ></i>';?></h5>
+                                                        </div>
+                                                        <div  id="baixo-<?php echo $count_script; echo $qtd_repita_dia?>">
+                                                            <h5><?php
+                                                                echo date('d/m/Y', strtotime($row_dia['dt_inicio'])).' <i class="fas fa-chevron-down"></i>';
+                                                            ?></h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="col-md-12" style="!importantbackground-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #6996EF; "  id= "<?php echo $count_script; echo $qtd_repita_dia?>">
+                                                            <h6><center><?php 
+                                                                echo $row_dia['titulo'];?></center><?php
+                                                                echo 'Problema:</br>'. $row_dia['ds_ocorrencia'];
+                                                                echo '</br>Solução:</br>'. $row_dia['ds_detalhada'];
+                                                                if($row_dia['dt_fim'] == '1970-01-01 01:00:00'){
+                                                                    echo '</br> Inicio: '. $row_dia['dt_inicio'] .' Fim: não foi resolvido ainda';
+                                                                }else{
+                                                                    echo '</br> Inicio: '. $row_dia['dt_inicio'] .' Fim: '. $row_dia['dt_fim'];
+                                                                }
+                                                            ?></h6>
+                                                        </div>
+                                                    </div>
+                                                    <script>
 
-                                                var dia<?php echo $count_script ?> = document.getElementById("<?php echo $count_script ?>");
-                                                var seta_baixo<?php echo $count_script ?> = document.getElementById("baixo-<?php echo $count_script ?>");
-                                                var seta<?php echo $count_script ?> = document.getElementById("seta-<?php echo $count_script ?>");
+                                                        var dia<?php echo $count_script; echo $qtd_repita_dia?> = document.getElementById("<?php echo $count_script; echo $qtd_repita_dia?>");
+                                                        var seta_baixo<?php echo $count_script; echo $qtd_repita_dia?> = document.getElementById("baixo-<?php echo $count_script; echo $qtd_repita_dia?>");
+                                                        var seta<?php echo $count_script; echo $qtd_repita_dia?> = document.getElementById("seta-<?php echo $count_script; echo $qtd_repita_dia?>");
 
-                                                seta_baixo<?php echo $count_script ?>.style.display = 'none';
-                                                dia<?php echo $count_script ?>.style.display = 'none';
+                                                        seta_baixo<?php echo $count_script; echo $qtd_repita_dia ?>.style.display = 'none';
+                                                        dia<?php echo $count_script; echo $qtd_repita_dia ?>.style.display = 'none';
 
-                                                var aberto;
-                                                function mostrar_dia<?php echo $count_script ?>(){
-                                                    if(dia<?php echo $count_script ?>.style.display == 'none'){
-                                                        
-                                                        dia<?php echo $count_script ?>.style.display = 'block';
-                                                        seta_baixo<?php echo $count_script ?>.style.display = 'block';
-                                                        seta<?php echo $count_script ?>.style.display = 'none';
-    
-                                                    }else{
+                                                        var aberto;
+                                                        function mostrar_dia<?php echo $count_script; echo $qtd_repita_dia?>(){
+                                                            if(dia<?php echo $count_script; echo $qtd_repita_dia?>.style.display == 'none'){
+                                                                
+                                                                dia<?php echo $count_script; echo $qtd_repita_dia?>.style.display = 'block';
+                                                                seta_baixo<?php echo $count_script; echo $qtd_repita_dia?>.style.display = 'block';
+                                                                seta<?php echo $count_script; echo $qtd_repita_dia?>.style.display = 'none';
+            
+                                                            }else{
 
-                                                        dia<?php echo $count_script ?>.style.display = 'none';
+                                                                dia<?php echo $count_script; echo $qtd_repita_dia?>.style.display = 'none';
+                                                                seta_baixo<?php echo $count_script; echo $qtd_repita_dia?>.style.display = 'none';
+                                                                seta<?php echo $count_script; echo $qtd_repita_dia?>.style.display = 'block';
+                                                            
+                                                            }
+                                                        }
+
+                                                    </script>
+                                                    <?php
+                                                }else{
+                                                    ?>
+                                                    <div class="col-md-2"  onclick="mostrar_dia<?php echo $count_script ?>()" >
+                                                        <div id="seta-<?php echo $count_script?>">
+                                                            <h5 ><?php echo date('d/m/Y', strtotime($row_dia['dt_inicio'])).' <i class="fas fa-chevron-right" ></i>';?></h5>
+                                                        </div>
+                                                        <div  id="baixo-<?php echo $count_script ?>">
+                                                            <h5><?php
+                                                                echo date('d/m/Y', strtotime($row_dia['dt_inicio'])).' <i class="fas fa-chevron-down"></i>';
+                                                            ?></h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="col-md-12" style="!importantbackground-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #6996EF; "  id= "<?php echo $count_script ?>">
+                                                            <h6><center><?php 
+                                                                echo $row_dia['titulo'];?></center><?php
+                                                                echo 'Problema:</br>'. $row_dia['ds_ocorrencia'];
+                                                                echo '</br>Solução:</br>'. $row_dia['ds_detalhada'];
+                                                                if($row_dia['dt_fim'] == '1970-01-01 01:00:00'){
+                                                                    echo '</br> Inicio: '. $row_dia['dt_inicio'] .' Fim: não foi resolvido ainda';
+                                                                }else{
+                                                                    echo '</br> Inicio: '. $row_dia['dt_inicio'] .' Fim: '. $row_dia['dt_fim'];
+                                                                }
+                                                            ?></h6>
+                                                        </div>
+                                                    </div>
+                                                    <script>
+
+                                                        var dia<?php echo $count_script ?> = document.getElementById("<?php echo $count_script ?>");
+                                                        var seta_baixo<?php echo $count_script ?> = document.getElementById("baixo-<?php echo $count_script ?>");
+                                                        var seta<?php echo $count_script ?> = document.getElementById("seta-<?php echo $count_script ?>");
+
                                                         seta_baixo<?php echo $count_script ?>.style.display = 'none';
-                                                        seta<?php echo $count_script ?>.style.display = 'block';
-                                                    
-                                                    }
-                                                }
+                                                        dia<?php echo $count_script ?>.style.display = 'none';
 
-                                            </script>
-                                            <?php
-                                    
+                                                        var aberto;
+                                                        function mostrar_dia<?php echo $count_script ?>(){
+                                                            if(dia<?php echo $count_script ?>.style.display == 'none'){
+                                                                
+                                                                dia<?php echo $count_script ?>.style.display = 'block';
+                                                                seta_baixo<?php echo $count_script ?>.style.display = 'block';
+                                                                seta<?php echo $count_script ?>.style.display = 'none';
+            
+                                                            }else{
+
+                                                                dia<?php echo $count_script ?>.style.display = 'none';
+                                                                seta_baixo<?php echo $count_script ?>.style.display = 'none';
+                                                                seta<?php echo $count_script ?>.style.display = 'block';
+                                                            
+                                                            }
+                                                        }
+
+                                                    </script>
+                                                    <?php
+                                                
+                                            }
                                         }
-
                                         $count_script = $count_script + 1;
                                     
                                     }
