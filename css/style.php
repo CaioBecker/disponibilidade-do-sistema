@@ -60,7 +60,8 @@ p,li{
     
     
     text-align: center;
-    background-color: rgba(255,255,255,.99) !important;
+    background-color: #f9f9f9;
+
 }
 
 

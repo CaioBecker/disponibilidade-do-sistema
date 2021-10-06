@@ -301,7 +301,7 @@ $data_while = $data_ant;
                                                     </div>
                                                                                        
                                                         <div class="col-md-9">
-                                                            <div class="col-md-12" style="margin-top: 20px !important; margin-bottom: 20px; padding: 0px; background-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #6996EF; "  id= "<?php echo $count_script; echo $qtd_repita_dia?>">
+                                                            <div class="col-md-12" style="text-align: left; margin-top: 20px !important; margin-bottom: 20px; padding: 0px; background-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #6996EF; "  id= "<?php echo $count_script; echo $qtd_repita_dia?>">
                                                                 <?php while($row_dia_while = mysqli_fetch_array($result_dia_aux)){
                                                                     //echo $consulta_dia;
                                                                     ?>
@@ -319,9 +319,9 @@ $data_while = $data_ant;
                                                                                     echo 'Problema:</br>'. $row_dia_while['ds_ocorrencia'];
 
                                                                                     if(@$row_dia_while['ds_detalha'] == ''){
-                                                                                        echo '</br>Solução:</br>Estamos trabalhando para resolver esse erro';
+                                                                                        echo '</br></br>Solução:</br>Estamos trabalhando para resolver esse erro';
                                                                                     }else{
-                                                                                        echo '</br>Solução:</br>'. $row_dia_while['ds_detalhada'];
+                                                                                        echo '</br></br>Solução:</br>'. $row_dia_while['ds_detalhada'];
                                                                                     }
 
                                                                                     if($row_dia_while['dt_fim'] == '1970-01-01 01:00:00'){
@@ -380,7 +380,7 @@ $data_while = $data_ant;
                                                         </div>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="col-md-12" style="margin-top: 20px !important; margin-bottom: 20px; padding: 0px; background-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #cf6868; "  id= "<?php echo $count_script ?>">
+                                                        <div class="col-md-12" style="text-align: left; margin-top: 20px !important; margin-bottom: 20px; padding: 0px; background-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #cf6868; "  id= "<?php echo $count_script ?>">
                                                             <h6><?php 
 
                                                                 echo "<div style='background-color: #cf6868; color: #ffffff; text-align:center;'>";
@@ -391,9 +391,9 @@ $data_while = $data_ant;
                                                         
                                                                     echo 'Problema:</br>'. $row_dia['ds_ocorrencia'];
                                                                     if($row_dia['ds_detalhada'] == ''){
-                                                                        echo '</br>Solução:</br> Estamos trabalhando para resolver esse problema';
+                                                                        echo '</br></br>Solução:</br> Estamos trabalhando para resolver esse problema';
                                                                     }else{
-                                                                        echo '</br>Solução:</br>'. $row_dia['ds_detalhada'];
+                                                                        echo '</br></br>Solução:</br>'. $row_dia['ds_detalhada'];
                                                                     }
                                                                     if($row_dia['dt_fim'] == '1970-01-01 01:00:00'){
                                                                         echo '</br> Inicio: '. date('d/m/Y h:i:s', strtotime($row_dia['dt_inicio'])) .' Fim: não foi resolvido ainda';
