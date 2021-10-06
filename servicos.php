@@ -105,14 +105,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
          
 
         while ($row_servico = mysqli_fetch_array($result_servico)) {
-						
+          $cd_serv = $row_servico['cd_servico'];
+						$serv_qtd="SELECT COUNT(*) AS QTD FROM ocorrencias_sistema WHERE cd_servico = '$cd_serv'";
+            $result_qtd = mysqli_query($conn,$serv_qtd);
+            $row_serv_qtd = mysqli_fetch_array($result_qtd);
             echo "</tr></thead>";		
             echo "<td style='text-align: center;'>" . $row_servico['cd_servico']. "<br>" . "</td>";
             echo "<td style='text-align: center;'>" . $row_servico['servico'] . "<br>" . "</td>";
+            if($row_serv_qtd['QTD'] >= 1){
+              echo "<td style='text-align: center;'>" . "<a class='btn btn-adm' style='color: #3c3c3c;'
+                  ' onclick=\"alert('Esse registro não pode ser apagado');\">" . 
+                  "<i class='fas fa-trash-alt'></i>" . "</a>" . "</td>"; 
+            }else{
             echo "<td style='text-align: center;'>" . "<a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_serv.php?id=" .
                   $row_servico['cd_servico']. 
                   "' onclick=\"return confirm('Tem certeza que deseja excluir esse registro?');\">" . 
                   "<i class='fas fa-trash-alt'></i>" . "</a>" . "</td>"; 
+            }
             
              
             

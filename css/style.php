@@ -58,7 +58,7 @@ p,li{
 .col, .col-1, .col-2, .col-3, .col-4,.col-5, .col-6, 
 .col-7, .col-8,.col-9, .col-10, .col-11, .col-12 {
     
-    padding: 20px;
+    
     text-align: center;
     background-color: rgba(255,255,255,.99) !important;
 }
@@ -1060,23 +1060,25 @@ a.paginacao_atual {
 
     border-right-width: thin;
     border-right-style: solid;
-    border-right-color: #6996EF;
+    border-right-color: #cf6868;
     border-left-width: thin;
     border-left-style: solid;
-    border-left-color: #6996EF;
+    border-left-color: #cf6868;
     border-bottom-width: thin;
     border-bottom-style: solid;
-    border-bottom-color: #6996EF;
+    border-bottom-color: #cf6868;
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
+    text-align: center;
 }
 .caixa_aviso{
     border-right-width: thin;
     border-right-style: solid;
-    border-right-color: #6996EF;
+    border-right-color: #cf6868;
     border-left-width: thin;
     border-left-style: solid;
-    border-left-color: #6996EF;
+    border-left-color: #cf6868;
+    text-align: center;
 
     
 }

@@ -44,12 +44,6 @@ include 'sql_criar_oco.php';
         Hora inicial:
         <input class="form-control" type="datetime-local" id="dt_inicio" name="dt_inicio"  onblur="valida_dt_inicio()" required>
     </div>
-    <div class="col-md-3">
-    </br>
- 
-        Hora final:
-        <input class="form-control" type="datetime-local" id="dt_fim" name="dt_fim"  onblur="valida_dt_fim()">
-    </div>
 </div>
 <div class="row-md">
     <div class="col-md-2">
@@ -66,43 +60,14 @@ include 'sql_criar_oco.php';
 
 <script>
 
-    
+var data = new Date();
 
     function valida_dt_inicio(){
     
-        var dia_atual = Date.time();
+        
         var dt_inicio = document.getElementById('dt_inicio').value;
-        var dt_fim = document.getElementById('dt_fim').value;
-
-        if(dt_inicio.substring(0, 10) != dt_fim.substring(0, 10) && dt_fim != '' && dt_inicio != ''){
-            alert("Os Dias Não Podem Ser Diferentes");
-            document.getElementById('dt_fim').value= "";
-            window.setTiemout(function ()
-            {
-                document.getElementById('dt_fim').focus();
-            }, 0);
-            return false;
-        }  
-        if(dt_inicio == dt_fim ){
-            alert("Hora Final Não Pode Ser Igual A Hora Inicial");
-            document.getElementById('dt_fim').value= "";
-            window.setTiemout(function ()
-            {
-                document.getElementById('dt_fim').focus();
-            }, 0);
-            return false;
-        }  
-
-        if(dt_inicio.substring(11, 16) > dt_fim.substring(11, 16) && dt_fim != '' && dt_inicio != ''){
-            alert("Hora Final Não Pode Ser Menor Que Hora Final");
-            document.getElementById('dt_fim').value= "";
-            window.setTiemout(function ()
-            {
-                document.getElementById('dt_fim').focus();
-            }, 0);
-            return false;
-        } 
-        if(dt_inicio.substring(0, 10) > dia_atual.substring(0, 10)){
+    
+        if(dt_inicio.substring(0, 10) > dia_atual.setday(24,0,0,0); {
             alert("Hora inicial Não Pode Ser Maior Que O Dia Atual");
             document.getElementById('dt_inicio').value= "";
             window.setTiemout(function ()
@@ -111,54 +76,6 @@ include 'sql_criar_oco.php';
             }, 0);
             return false;
         }
-    }
-
-    function valida_dt_fim(){
-
-        var dia_atual = Date.time();
-        var dt_inicio = document.getElementById('dt_inicio').value;
-        var dt_fim = document.getElementById('dt_fim').value;
-
-        if(dt_inicio == dt_fim ){
-            alert("Hora Final Não Pode Ser Igual A Hora inicia");
-            document.getElementById('dt_fim').value= "";
-            window.setTiemout(function ()
-            {
-                document.getElementById('dt_fim').focus();
-            }, 0);
-            return false;
-        }  
-        if(dt_inicio.substring(0, 10) != dt_fim.substring(0, 10) && dt_inicio != '' && dt_inicio != ''){
-            alert("Os Dias Não Podem Ser Diferentes");
-            document.getElementById('dt_fim').value= "";
-            window.setTiemout(function ()
-            {
-                document.getElementById('dt_fim').focus();
-            }, 0);
-            return false;
-        }
-
-        if(dt_inicio.substring(11, 16) > dt_fim.substring(11, 16) && dt_fim != '' && dt_inicio != ''){
-            alert("Hora Final Não Pode Ser Menor Que Hora Final");
-            document.getElementById('dt_fim').value= "";
-            window.setTiemout(function ()
-            {
-                document.getElementById('dt_fim').focus();
-            }, 0);
-            return false;
-        } 
-
-        if(dt_fim.substring(0, 10) > dia_atual.substring(0, 10)){
-            alert("Hora Fina Não Pode Ser Maior Que O Dia Atual");
-            document.getElementById('dt_fim').value= "";
-            window.setTiemout(function ()
-            {
-                document.getElementById('dt_fim').focus();
-            }, 0);
-            return false;
-
-        }
-
     }
 
 

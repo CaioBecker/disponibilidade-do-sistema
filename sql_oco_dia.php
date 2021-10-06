@@ -24,7 +24,17 @@ if($count_mes < 10){
     }
 
 }
+
 $result_dia = mysqli_query($conn,$consulta_dia);
 $result_dia_qtd = mysqli_query($conn,$consulta_dia_qtd);
 @$row_qtd_dia = mysqli_fetch_array(@$result_dia_qtd);
+
+
+$result_dia_aux = mysqli_query($conn,$consulta_dia);
+
+
+
+
+
+
 ?>

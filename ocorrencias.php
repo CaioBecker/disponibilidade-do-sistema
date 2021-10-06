@@ -87,14 +87,14 @@ if( $row_qtd['qtd'] == '0'){
         echo "<td style='text-align: center;'>" . $row_oco['cd_ocorrencia']. "<br>" . "</td>";
         echo "<td style='text-align: center;'>" . $row_oco['titulo'] . "<br>" . "</td>";
         echo "<td style='text-align: center;'>" . date('d/m/Y H:i', strtotime($row_oco['dt_inicio'])) . "<br>" . "</td>"; 
-        if ($row_oco['dt_fim'] == '1970-01-01 01:00:00'){
+        if ($row_oco['dt_fim'] == '1970-01-01 01:00:00' || $row_oco['dt_fim'] == ''){
             echo "<td style='text-align: center;'> Não foi encerrado <br>" . "</td>"; 
         }else{
             echo "<td style='text-align: center;'>" . date('d/m/Y H:i', strtotime($row_oco['dt_fim'])) . "<br>" . "</td>"; 
         }
         echo "<td style='text-align: center;'>" . $row_oco['cd_usuario'] . "<br>" . "</td>";
         echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='visualizar_oco.php?cd_oco=" .  $row_oco['cd_ocorrencia'] . "'>" . "<i class='fas fa-eye'></i>" . "</a> "; 		
-        if ($row_oco['dt_fim'] == '1970-01-01 01:00:00'){
+        if ($row_oco['dt_fim'] == '1970-01-01 01:00:00' || $row_oco['dt_fim'] == ''){
             echo "<a class='btn btn-primary' href='editar_oco.php?cd_oco=" .  $row_oco['cd_ocorrencia'] . "'>" . "<i class='fas fa-pen'></i>". "</a>" ;
         }
         if ($_SESSION['adm'] == 'S'){

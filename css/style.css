@@ -67,7 +67,7 @@ p,li{
 }
 
 .navbar-brand :hover{
-    font-family: 'sans-serif', 'arial'; d
+    font-family: 'sans-serif', 'arial';
     color: rgba(255,255,255,.6) !important;
 }
 
