@@ -53,9 +53,51 @@ $count_script = 1;
    
     <?php
 
+        //STATUS GERAL
+
+        $consulta_servicos_ativos = "SELECT res.cd_servico, REPLACE(res.servico, ' ', ' ') as servico,
+                                     CASE 
+                                       WHEN res.qtd_dt_inicio = qtd_dt_fim THEN 's'
+                                       ELSE 'n'
+                                     END AS sn_ativo
+                                     FROM (SELECT serv.cd_servico, serv.servico, 
+                                            count(dt_inicio) AS qtd_dt_inicio, count(dt_fim) as qtd_dt_fim
+                                            FROM servicos serv
+                                            INNER JOIN ocorrencias_sistema os
+                                              ON os.cd_servico = serv.cd_servico
+                                            GROUP BY serv.cd_servico, serv.servico) res";
+
+        $result_servicos_ativos = mysqli_query($conn, $consulta_servicos_ativos);
+
+        echo '</br><div class="row justify-content-center">';
+            echo '<div class="col-md-11" style=" text-align: center; border-style: solid; border-radius: 7px;border-width: thin; border-color: rgb(128, 191, 255);">';
+
+                echo '<center><b style="font-size: 16px; color: #444444; text-align: center !important;"> Disponibilidades Serviços </b></center>';
+                
+                while($row_serv_ativos = mysqli_fetch_array($result_servicos_ativos)){
+
+                    //ATIVO
+                    if($row_serv_ativos['sn_ativo'] == 's'){
+
+                        echo '  ' . $row_serv_ativos['servico'] . ' <i style="color: green;" class="fas fa-circle"></i>  ';
+
+                    } else {
+
+                        //INATIVO                   
+                        echo '  ' . $row_serv_ativos['servico'] . ' <i style="color: red;" class="fas fa-exclamation-circle"> </i>  ';
+                        
+                    }                 
+                
+                }
+
+            echo '</div>';
+        echo '</div>';
+
     $count_serv = 0;
     $consulta_count_mes = "SELECT * FROM servicos";
     $result_count_mes = mysqli_query($conn, $consulta_count_mes);
+
+
     while($row_count_mes = mysqli_fetch_array($result_count_mes)){
 
     
