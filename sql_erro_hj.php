@@ -4,7 +4,11 @@ include 'conexao.php';
 
 
 //echo $data_ant. "</br>";
-$consulta_hj = "SELECT * FROM ocorrencias_sistema WHERE dt_inicio < '$data_hj' and dt_fim = '1970-01-01 01:00:00'";
+$consulta_hj = "SELECT os.*, serv.servico
+FROM ocorrencias_sistema os
+INNER JOIN servicos serv
+  ON serv.cd_servico = os.cd_servico WHERE dt_fim is null";
+
 //echo '</br> consulta: </br>' . $consulta_hj;
 $result_hj = mysqli_query($conn, $consulta_hj);
 

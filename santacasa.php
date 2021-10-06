@@ -25,7 +25,7 @@ $count_script = 1;
             
             <div class="row-md">
                 <div class="col-md-12 " style="color: #fff; background-color: #cf6868; text-align: center;"> <?php
-                    echo $row_hj['titulo'];
+                    echo $row_hj['servico'] . ' - ' . $row_hj['titulo'];
             ?>
                 </div>
                 <div class="col-md-12 caixa_aviso" > <?php
@@ -353,7 +353,7 @@ $data_while = $data_ant;
                                                                             <?php 
                                                                             
                                                                                 echo "<div style='background-color: #6996EF; color: #ffffff; text-align:center;'>";
-                                                                                    echo $row_dia_while['titulo'];
+                                                                                    echo $row_dia_while['servico'] . ' - ' . $row_dia_while['titulo'];
                                                                                 echo "</div>";
 
                                                                                 echo "<div style='padding: 10px;'>";
@@ -426,7 +426,7 @@ $data_while = $data_ant;
                                                             <h6><?php 
 
                                                                 echo "<div style='background-color: #cf6868; color: #ffffff; text-align:center;'>";
-                                                                    echo $row_dia['titulo'];
+                                                                    echo $row_dia['servico'] . ' - ' . $row_dia['titulo'];
                                                                 echo "</div>";
 
                                                                 echo "<div style='padding: 10px;'>";
