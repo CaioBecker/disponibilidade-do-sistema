@@ -2,12 +2,14 @@
 session_start();
 include 'conexao.php';
 
-
+echo 'senha normal: </br>' . $_POST['senha'];
+$var_senha = base64_encode($_POST['senha']);
 $var_cd_usu = $_POST['cd_usu'];
 $var_nm_usu = $_POST['nm_usu'];
 $var_setor  = $_POST['setor_usu'];
 $var_adm    = $_POST['tp_usu'];
 
+echo '</br> senha : </br>' . $var_senha;
 echo '</br> cd usu: </br>' . $var_cd_usu;
 echo '</br> nm usu: </br>' . $var_nm_usu;
 echo '</br> setor: </br>' . $var_setor;
@@ -16,6 +18,7 @@ echo '</br> adm: </br>' . $var_adm;
 
 $result_usu = "UPDATE usuarios SET 
                         nm_usuario='$var_nm_usu',
+                        senha = '$var_senha',
                         setor='$var_setor',
                         adm=UPPER('$var_adm') WHERE cd_usuario = '$var_cd_usu'";
                         echo "</br>".$result_usu;

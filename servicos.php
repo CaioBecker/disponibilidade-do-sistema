@@ -14,11 +14,13 @@ include 'sql_servicos.php';
             include 'js/mensagens_usuario.php';
         ?>
 <?php
-if(@$row_qtd['qtd'] ==  '0'){
-        $_SESSION['msgerro'] = "Valor não encontrado.";
-                        
-        header('Location: servicos.php');
-    }
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){   
+  if(@$row_qtd['qtd'] ==  '0'){
+    $_SESSION['msgerro'] = "Valor não encontrado.";
+                            
+    header('Location: servicos.php');
+  }
+}
 ?>
 <h11><i class="fa fa-list-ul"></i>Serviços</h11>
 <span class="espaco_pequeno" style="width: 6px;" ></span>

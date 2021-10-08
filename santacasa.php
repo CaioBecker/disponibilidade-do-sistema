@@ -425,13 +425,9 @@ $data_while = $data_ant;
                                                         <div class="col-md-12" style="text-align: left; margin-top: 20px !important; margin-bottom: 20px; padding: 0px; background-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #6996EF; "  id= "<?php echo $count_script ?>">
                                                             <h6><?php 
 
-<<<<<<< Updated upstream
-                                                                echo "<div style='background-color: #cf6868; color: #ffffff; text-align:center;'>";
-                                                                    echo $row_dia['servico'] . ' - ' . $row_dia['titulo'];
-=======
                                                                 echo "<div style='background-color: #6996EF; color: #ffffff; text-align:center;'>";
                                                                     echo $row_dia['titulo'];
->>>>>>> Stashed changes
+
                                                                 echo "</div>";
 
                                                                 echo "<div style='padding: 10px;'>";

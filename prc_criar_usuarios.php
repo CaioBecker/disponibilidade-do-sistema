@@ -8,12 +8,15 @@ $var_setor  = '';
 $var_adm    = '';
 $var_senha  = '';
 
+echo $_POST['senha'];
+
 $var_cd_usu = $_POST['cd_usus'];
 $var_nm_usu = $_POST['nm_usus'];
 $var_setor  = $_POST['setor_usus'];
 $var_adm    = $_POST['tp_usus'];
-$var_senha  = $_POST['senhas'];
+$var_senha  = base64_encode($_POST['senha']);
 
+echo '</br> senha: </br>' . $var_senha;
 echo '</br> cd usu: </br>' . $var_cd_usu;
 echo '</br> nm usu: </br>' . $var_nm_usu;
 echo '</br> setor: </br>' . $var_setor;
@@ -25,7 +28,7 @@ $usu_exis = mysqli_query($conn,$result_usu_exis);
 $row_usu_exis = mysqli_fetch_array($usu_exis);
 echo '</br> qtd: </br>'. $row_usu_exis['QTD'];
 if ($row_usu_exis['QTD'] == 0 && $var_cd_usu != ''){
-    $result_usu = "INSERT INTO usuarios (CD_USUARIO, NM_USUARIO, SETOR, CD_SENHA, SN_ATIVO, ADM)
+    $result_usu = "INSERT INTO usuarios (CD_USUARIO, NM_USUARIO, SETOR, SENHA, SN_ATIVO, ADM)
                                 VALUES
                             ('$var_cd_usu',
                             '$var_nm_usu',

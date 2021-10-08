@@ -13,11 +13,12 @@ $qtd_row = '1';
             include 'js/mensagens_usuario.php';
         ?>
 <?php
-if($row_qtd['qtd'] ==  '0'){
-        $_SESSION['msgerro'] = "Valor não encontrado.";
-                        
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){   
+    if($row_qtd['qtd'] ==  '0'){
+        $_SESSION['msgerro'] = "Valor não encontrado.";                        
         header('Location: usuarios.php');
     }
+}
 ?>
 <h11><i class="fa fa-list-ul"></i>Usuarios</h11>
 <span class="espaco_pequeno" style="width: 6px;" ></span>
@@ -76,7 +77,7 @@ if($row_qtd['qtd'] ==  '0'){
                         
                                 Tipo usuario:
                             
-                                <select class="form-control" name="tp_usu" id="tp_usus" onblur="">
+                                <select class="form-control" name="tp_usus" id="tp_usus" onblur="">
                                 <option value='S'>Administrador</option>
                                 <option value='N'>Comum</option>
                                 </select>
@@ -87,8 +88,8 @@ if($row_qtd['qtd'] ==  '0'){
                             <div class="col-md-12 input-group">
                                 Senha:
                             </div>
-                            <div class="col-md-3 input-group">
-                                <input class="input-group form-control " type="password" id="senhas" name="senha" required>
+                            <div class="col-md-5 input-group">
+                                <input class="input-group form-control " type="password" id="senha" name="senha" required>
                                 <button class="btn btn-primary" type="button" onclick="mostrarSenha()"><i class="fa fa-eye" aria-hidden="true"></i></button> <span class="espaco">
                             </div>
                         </div>
@@ -239,6 +240,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                 <?php
                                 }
                                 ?>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 input-group">
+                                Senha:
+                            </div>
+                            <div class="col-md-5 input-group">
+                            <input class="input-group form-control " value="<?php echo base64_decode($row_usuario['senha']); ?>" type="text" id="senha_v" name="senha_v" disabled>
                             </div>
                         </div>
                     </div>
@@ -305,6 +314,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                             
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12 input-group">
+                                Senha:
+                            </div>
+                            <div class="col-md-5 input-group">
+                            <input class="input-group form-control " value="<?php echo base64_decode($row_usuario['senha']); ?>" type="text" id="senha" name="senha" >
+                            </div>
+                        </div>
                         </br>
                         
                         <div class="modal-footer">
@@ -334,4 +351,17 @@ include 'rodape.php';
         var usu_js = document.getElementById('cd_usu');
         $_SESSION['cd_usuario_js'] = usu_js;
     }
+
+	function mostrarSenha(){
+		var tipo = document.getElementById("senha");
+		if(tipo.type == "password"){
+			tipo.type = "text";
+		}else{
+			tipo.type = "password";
+			}
+	}
+
+  
+
+
 </script>

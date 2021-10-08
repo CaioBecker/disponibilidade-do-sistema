@@ -14,13 +14,13 @@ include 'sql_ocorrencias.php';
 ?>
 
 <?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){  
+    if( $row_qtd['qtd'] == '0'){
 
-if( $row_qtd['qtd'] == '0'){
-
-    $_SESSION['msgerro'] = "Valor não encontrado.";
-                        
-    header('Location: ocorrencias.php');
-
+        $_SESSION['msgerro'] = "Valor não encontrado.";
+                            
+        header('Location: ocorrencias.php');
+    }
 }?>
 
 <h11><i class="fa fa-list-ul"></i> Ocorrências </h11>
