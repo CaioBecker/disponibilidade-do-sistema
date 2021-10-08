@@ -132,9 +132,9 @@ $count_script = 1;
             
                                                 $date_time  = new DateTime($dataAtual);
                                                 $diff       = $date_time->diff( new DateTime($dataFuturo));
-                                                echo 'Problema:'. $row_oco_dias['ds_ocorrencia'] .'<br/>'. $diff->format('%H hrs %I mins'). '<br/>'; 
+                                                echo 'Problema: '. $row_oco_dias['ds_ocorrencia'] .'<br/> '. $diff->format('%H hrs %I mins'). '<br/>'; 
                                             }else{
-                                                echo 'Problema:'. $row_oco_dias['ds_ocorrencia'].'<br/>Estamos trablhando para resolver esse erro<br/>';
+                                                echo 'Problema: '. $row_oco_dias['ds_ocorrencia'].'<br/> Estamos trablhando para resolver esse erro<br/>';
                                             }
                                         }?>">
                                     <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_erro.png" height="25px" width="5px" class="d-inline-block align-top" > </a>
@@ -359,14 +359,14 @@ $data_while = $data_ant;
                                                                                 echo "<div style='padding: 10px;'>";
 
                                                                                     echo 'Problema:</br>'. $row_dia_while['ds_ocorrencia'];
-
-                                                                                    if(@$row_dia_while['ds_detalha'] == ''){
+                                                                                    //echo $row_dia_while['ds_detalhada'];
+                                                                                    if(@$row_dia_while['ds_detalhada'] == ''){
                                                                                         echo '</br></br>Solução:</br>Estamos trabalhando para resolver esse erro';
                                                                                     }else{
                                                                                         echo '</br></br>Solução:</br>'. $row_dia_while['ds_detalhada'];
                                                                                     }
 
-                                                                                    if($row_dia_while['dt_fim'] == '1970-01-01 01:00:00'){
+                                                                                    if($row_dia_while['dt_fim'] == '1970-01-01 01:00:00'  || $row_dia_while['dt_fim'] == ''){
                                                                                         echo '</br> Inicio: '. date('d/m/Y h:i:s', strtotime($row_dia_while['dt_inicio'])) .' Fim: não foi resolvido ainda';
                                                                                     }else{
                                                                                         echo '</br> Inicio: '. date('d/m/Y h:i:s', strtotime($row_dia_while['dt_inicio'])) .' Fim: '. date('d/m/Y h:i:s', strtotime($row_dia_while['dt_fim']));
@@ -422,22 +422,28 @@ $data_while = $data_ant;
                                                         </div>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="col-md-12" style="text-align: left; margin-top: 20px !important; margin-bottom: 20px; padding: 0px; background-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #cf6868; "  id= "<?php echo $count_script ?>">
+                                                        <div class="col-md-12" style="text-align: left; margin-top: 20px !important; margin-bottom: 20px; padding: 0px; background-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #6996EF; "  id= "<?php echo $count_script ?>">
                                                             <h6><?php 
 
+<<<<<<< Updated upstream
                                                                 echo "<div style='background-color: #cf6868; color: #ffffff; text-align:center;'>";
                                                                     echo $row_dia['servico'] . ' - ' . $row_dia['titulo'];
+=======
+                                                                echo "<div style='background-color: #6996EF; color: #ffffff; text-align:center;'>";
+                                                                    echo $row_dia['titulo'];
+>>>>>>> Stashed changes
                                                                 echo "</div>";
 
                                                                 echo "<div style='padding: 10px;'>";
                                                         
                                                                     echo 'Problema:</br>'. $row_dia['ds_ocorrencia'];
+                                                                    //echo $row_dia['ds_detalhada'];
                                                                     if($row_dia['ds_detalhada'] == ''){
                                                                         echo '</br></br>Solução:</br> Estamos trabalhando para resolver esse problema';
                                                                     }else{
                                                                         echo '</br></br>Solução:</br>'. $row_dia['ds_detalhada'];
                                                                     }
-                                                                    if($row_dia['dt_fim'] == '1970-01-01 01:00:00'){
+                                                                    if($row_dia['dt_fim'] == '1970-01-01 01:00:00' || @$row_dia['dt_fim'] == ''){
                                                                         echo '</br> Inicio: '. date('d/m/Y h:i:s', strtotime($row_dia['dt_inicio'])) .' Fim: não foi resolvido ainda';
                                                                     }else{
                                                                         echo '</br> Inicio: '. date('d/m/Y h:i:s', strtotime($row_dia['dt_inicio'])) .' Fim: '. date('d/m/Y h:i:s', strtotime($row_dia['dt_fim']));
