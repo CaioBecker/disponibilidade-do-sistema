@@ -6,7 +6,7 @@
 
     <!--RODAPE -->
     <footer class="footer-bs">
-        <div class="row">
+    <div class="row">
         	<div class="col-md-5 footer-brand animated fadeInLeft">
             
             	<h2> <img src="img/logo/icone_santa_casa_sjc_branco.png" height="28px" width="28px"  alt="Santa Casa de São José dos Campos">
@@ -17,7 +17,29 @@
                    Atendemos todas as idades com nosso corpo de médicos e especialistas. Nossas instalações estão prontas para lhe atender e proporcionar o máximo de conforto.</p>
                 <p>Projeto desenvolvido pela equipe de Tecnologia.</p>
             </div>
-        	
+            <?php if(@$_SESSION['cd_usu'] != ''){?> 
+        	<div class="col-md-4 footer-nav animated fadeInUp">
+            	<h4>Menu</h4>
+            	<div class="col-md-10">
+                
+                    <ul class="pages">
+                        <li><a href="home.php">Home</a></li>
+                        <li><a href="usuarios.php"> Usuarios</a></li>
+                        <li><a href="ocorrencias.php">Ocorrencias</a></li>
+                        <?php if($_SESSION['adm'] == 'S'){?>
+                            <li><a href="servicos.php">Serviços</a></li>
+                        <?php } ?>
+                        <li><a href="santacasa.php">Visualizar</a></li>                           
+                    </ul>
+
+                </div>
+            	<div class="col-md-10">
+                    <ul class="list">
+                        <li><a href="sair.php">Sair</a></li>
+                    </ul>
+                </div>
+            </div>
+            <?php } ?>
         	<div class="col-md-3 footer-social animated fadeInDown">
             	<h4>Outros Projetos</h4>
             	<ul>

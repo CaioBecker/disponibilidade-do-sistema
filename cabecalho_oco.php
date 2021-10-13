@@ -80,6 +80,10 @@
 							<a class="dropdown-item" href="home.php"><i class="fas fa-home"></i> Home</a>
                             <a class="dropdown-item" href="usuarios.php"><i class="fas fa-users"></i> Usuarios</a>
                             <a class="dropdown-item" href="ocorrencias.php"><i class="fa fa-book"></i> Ocorrencias</a>
+                            <?php if($_SESSION['adm'] == 'S'){?>
+                                <a class="dropdown-item" href="servicos.php"><i class="fa fa-book"></i> Serviços</a>
+                            <?php } ?>
+                            <a class="dropdown-item" href="santacasa.php"><i class="fa fa-eye"></i> Visualizar</a>
 
         <div class="div_br"> </div>
 
