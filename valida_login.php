@@ -2,9 +2,9 @@
 include 'conexao.php';
 session_start();
 $cd_usu = $_POST['login'];
-
-$consulta_login_qtd = "SELECT COUNT(*) AS QTD FROM usuarios WHERE cd_usuario = '$cd_usu' and sn_ativo = 'S'";
-$consulta_login = "SELECT * FROM usuarios WHERE cd_usuario = '$cd_usu' ";
+$cd_senha = base64_encode($_POST['senha']);
+$consulta_login_qtd = "SELECT COUNT(*) AS QTD FROM usuarios WHERE cd_usuario = '$cd_usu' and sn_ativo = 'S' and senha = '$cd_senha'";
+$consulta_login = "SELECT * FROM usuarios WHERE cd_usuario = '$cd_usu' and senha = '$cd_senha' and sn_ativo = 'S'";
 
 $result_login_qtd = mysqli_query($conn,$consulta_login_qtd);
 $result_login = mysqli_query($conn,$consulta_login);
@@ -21,7 +21,7 @@ header("Location: home.php");
     if($row_login['sn_ativo'] == 'N'){
         $_SESSION['msgerro'] = "Usuario desativado";
     }else{
-        $_SESSION['msgerro'] = "Usuario não existe";
+        $_SESSION['msgerro'] = "Usuario ou senha invalido";
     }
     header("Location: index.php");
 }
