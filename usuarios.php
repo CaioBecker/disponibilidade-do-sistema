@@ -14,9 +14,15 @@ $qtd_row = '1';
         ?>
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){   
-    if($row_qtd['qtd'] ==  '0'){
-        $_SESSION['msgerro'] = "Valor não encontrado.";                        
+    $consulta_nulo = "SELECT COUNT(*) AS QTD FROM usuarios";
+    $result_nulo = mysqli_query($conn,$consulta_nulo);
+    $row_nulo = mysqli_fetch_array($result_nulo);
+    if($row_nulo['QTD'] > 0){ 
+        if(@$row_qtd['qtd'] ==  '0'){
+            $_SESSION['msgerro'] = "Valor não encontrado.";
+                              
         header('Location: usuarios.php');
+        }
     }
 }
 ?>

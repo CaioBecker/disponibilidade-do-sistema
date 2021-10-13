@@ -1,7 +1,7 @@
 
 <?php
     //PHP GERAL
-
+    //include 'valida_usu.php';
     //PAGINA ATUAL
     $_SESSION['pagina_acesso'] = substr($_SERVER["PHP_SELF"],1,30);
 
@@ -9,8 +9,8 @@
     ob_start();
 
     //VARIAVEIS NOME
-    @$nome = @$_SESSION['usuarioNome'];
-    @$pri_nome = substr(@$nome, 0, strpos(@$nome, ' '));
+    @$nome = @$_SESSION['nomeusuario'];
+    $pri_nome = substr(@$nome, 0, strpos(@$nome, ' '));
 
     //ACESSO RESTRITO
     //include 'acesso_restrito.php';
@@ -42,15 +42,21 @@
     <header>    
 
         <nav class="navbar navbar-expand-md navbar-dark bg-color">
-            <a class="navbar-brand" >
+        <?php if(@$_SESSION['cd_usu'] == ''){ ?>
+            <a class="navbar-brand">
                 <img src="img/logo/icone_santa_casa_sjc_branco.png" height="28px" width="28px" class="d-inline-block align-top" alt="Santa Casa de São José dos Campos">
                 <h10>Controle de ocorrências</h10>
             </a>
-            
+        <?php }else{?>
+            <a class="navbar-brand" href="home.php">
+                <img src="img/logo/icone_santa_casa_sjc_branco.png" height="28px" width="28px" class="d-inline-block align-top" alt="Santa Casa de São José dos Campos">
+                <h10>Controle de ocorrências</h10>
+            </a>
+        <?php }?>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+    <?php if(@$_SESSION['cd_usu'] != ''){ ?>
             <div class="collapse navbar-collapse justify-content-end" id="navbarsExample06">
                 <ul class="navbar-nav">          
                 <li class="nav-item active">
@@ -61,7 +67,34 @@
                         <h10><a class="nav-link" href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Faq</a></h10>
                     </li>
                 </div>
-               
+                <div class="menu_preto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#.php" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bars" aria-hidden="true"></i> Menu</a></a>
+                        
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
+
+                            <!--Menu
+                            <a class="dropdown-item" style="background-color: #f5f5f5;" href="javascript:void(0)" ><i class="fas fa-pills"></i> Medicamentos</a>-->
+
+							<a class="dropdown-item" href="home.php"><i class="fas fa-home"></i> Home</a>
+                            <a class="dropdown-item" href="usuarios.php"><i class="fas fa-users"></i> Usuarios</a>
+                            <a class="dropdown-item" href="ocorrencias.php"><i class="fa fa-book"></i> Ocorrencias</a>
+
+        <div class="div_br"> </div>
+
+                        </div>
+                </div>
+                </li>
+                <div class="menu_perfil">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i> <?php echo $pri_nome ?></a></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
+                        <a class="dropdown-item" href="sair.php"> <i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
+                        </div>
+                    </li>
+                <div class="menu_vermelho">
                 </ul>
             </div>
         </nav>
@@ -78,7 +111,7 @@
             //echo ucwords(substr(basename($nome_pagina),0,-4)); ?>
         </a>
     </div>-->
-
+    <?php } ?>
     </header>
     
     <main>
