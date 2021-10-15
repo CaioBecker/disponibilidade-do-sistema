@@ -24,9 +24,9 @@
                 
                     <ul class="pages">
                         <li><a href="home.php">Home</a></li>
-                        <li><a href="usuarios.php"> Usuarios</a></li>
                         <li><a href="ocorrencias.php">Ocorrencias</a></li>
                         <?php if($_SESSION['adm'] == 'S'){?>
+                            <li><a href="usuarios.php"> Usuarios</a></li>
                             <li><a href="servicos.php">Serviços</a></li>
                         <?php } ?>
                         <li><a href="santacasa.php">Visualizar</a></li>                           

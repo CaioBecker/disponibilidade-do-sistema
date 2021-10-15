@@ -2,7 +2,7 @@
 include 'sql_criar_oco.php';
     include 'cabecalho.php';
     $id  = filter_input(INPUT_GET, 'cd_usuario', FILTER_SANITIZE_STRING);
-    
+    session_start();
     //echo $adm;
     
 ?>

@@ -4,6 +4,7 @@
     //echo $id;
     include 'sql_edit_oco.php';
     //echo $_SESSION['CD_USUARIO'];
+    session_start();
     $dt_inicio = date('d/m/Y H:i:s', strtotime($row_oco_edit['dt_inicio']));
     @$dt_fim = date('d/m/Y H:i:s', strtotime($row_oco_edit['dt_fim']));
     $dt_inicio_j = date('Y-m-d H:i:s', strtotime($row_oco_edit['dt_inicio']));
