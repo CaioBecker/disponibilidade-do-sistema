@@ -51,6 +51,18 @@
 </div>
 <div class="row">
     <div class="col-md-4">
+        Tipo:
+        <?php 
+            $tp = $row_oco_viu['tp_ocorrencia'];
+
+            if($tp=="O"){ $tp_res = 'Ocorrência'; }
+            if($tp=="M"){ $tp_res = 'Manutenção Preventiva'; }
+        ?>
+        <input class="form-control" value="<?php echo $tp_res; ?>" disabled>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
         Serviço:
         <?php 
             $serv = $row_oco_viu['cd_servico'];

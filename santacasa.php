@@ -21,11 +21,26 @@ $count_script = 1;
         $data_hj = date("Y-m-d H:i:s");
         include "sql_erro_hj.php";
         while($row_hj = mysqli_fetch_array($result_hj)){
+
+            $tp_ocorr = $row_hj['tp_ocorrencia']; 
+
+            $cor_barra = "#cf6868";
+            $aviso = "";
+
+            if($tp_ocorr == 'M'){
+
+                $cor_barra = "#FF9D0A";
+
+                $aviso = "<i class='fas fa-info-circle' style='font-size: 14px;'></i> 
+                          Manutenção Preventiva";
+                                                                                    
+            }
+
             ?>
             
             <div class="row-md">
-                <div class="col-md-12 " style="color: #fff; background-color: #cf6868; text-align: center;"> <?php
-                    echo $row_hj['servico'] . ' - ' . $row_hj['titulo'];
+                <div class="col-md-12 " style="color: #fff; background-color: <?php echo$cor_barra; ?> ; text-align: center;"> <?php
+                    echo $row_hj['servico'] . ' - ' . $row_hj['titulo'] . ' ' . $aviso;
             ?>
                 </div>
                 <div class="col-md-12 caixa_aviso" > <?php
@@ -47,25 +62,31 @@ $count_script = 1;
         
 
     </div>
-</div>
-
-   
+</div>   
    
     <?php
 
         //STATUS GERAL
-
         $consulta_servicos_ativos = "SELECT res.cd_servico, REPLACE(res.servico, ' ', ' ') as servico,
                                      CASE 
-                                       WHEN res.qtd_dt_inicio = qtd_dt_fim THEN 's'
-                                       ELSE 'n'
-                                     END AS sn_ativo
+                                     WHEN res.qtd_dt_inicio = qtd_dt_fim THEN 's'
+                                     ELSE 'n'
+                                     END AS sn_ativo, res.tp_ocorrencia
                                      FROM (SELECT serv.cd_servico, serv.servico, 
-                                            count(dt_inicio) AS qtd_dt_inicio, count(dt_fim) as qtd_dt_fim
-                                            FROM servicos serv
-                                            INNER JOIN ocorrencias_sistema os
-                                              ON os.cd_servico = serv.cd_servico
-                                            GROUP BY serv.cd_servico, serv.servico) res";
+(SELECT aux_os.tp_ocorrencia 
+ FROM servicos aux_serv
+ INNER JOIN ocorrencias_sistema aux_os
+   ON aux_os.cd_servico = aux_serv.cd_servico
+ WHERE aux_os.cd_servico = serv.cd_servico
+ AND aux_os.cd_ocorrencia IN (SELECT max(ult.cd_ocorrencia) AS ULT
+                              FROM ocorrencias_sistema ult
+                              WHERE ult.tp_ocorrencia IN ('O','M')) 
+) AS tp_ocorrencia,
+count(dt_inicio) AS qtd_dt_inicio, count(dt_fim) as qtd_dt_fim
+FROM servicos serv
+INNER JOIN ocorrencias_sistema os
+  ON os.cd_servico = serv.cd_servico
+GROUP BY serv.cd_servico, serv.servico) res";
 
         $result_servicos_ativos = mysqli_query($conn, $consulta_servicos_ativos);
 
@@ -83,9 +104,16 @@ $count_script = 1;
 
                     } else {
 
-                        //INATIVO                   
-                        echo '  ' . $row_serv_ativos['servico'] . ' <i style="color: red;" class="fas fa-exclamation-circle"> </i>  ';
-                        
+                        if($row_serv_ativos['tp_ocorrencia'] == 'M'){
+
+                            //MANUTENCAO
+                            echo '  ' . $row_serv_ativos['servico'] . ' <i style="color: orange;" class="fas fa-info-circle"></i> ';
+
+                        }else{
+
+                            //INATIVO                   
+                            echo '  ' . $row_serv_ativos['servico'] . ' <i style="color: red;" class="fas fa-exclamation-circle"> </i>  ';
+                        }
                     }                 
                 
                 }
@@ -96,7 +124,6 @@ $count_script = 1;
     $count_serv = 0;
     $consulta_count_mes = "SELECT * FROM servicos";
     $result_count_mes = mysqli_query($conn, $consulta_count_mes);
-
 
     while($row_count_mes = mysqli_fetch_array($result_count_mes)){
 
@@ -155,11 +182,22 @@ $count_script = 1;
                                     $date_time  = new DateTime($dataAtual);
                                     $diff       = $date_time->diff( new DateTime($dataFuturo));
 
-                        
-                                    echo '<a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" title="'.date('d M Y', strtotime($data_while)).'" 
+                                    if($row_oco_dias['tp_ocorrencia'] == 'M'){
+
+                                        //MANUTENCAO
+                                        echo '<a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" title="'.date('d M Y', strtotime($data_while)).'" 
                                         data-content="Problema:' .$row_oco_dias['ds_ocorrencia'] . '<br/>'. $diff->format('%H hrs %I mins') .'">
-                                    <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_erro.png" height="25px" width="5px" class="d-inline-block align-top" > </a>';
-                
+                                        <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_manu.png" height="25px" width="5px" class="d-inline-block align-top" > </a>';
+
+                                    }else{
+
+                                        //ERRO
+                                        echo '<a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" title="'.date('d M Y', strtotime($data_while)).'" 
+                                        data-content="Problema:' .$row_oco_dias['ds_ocorrencia'] . '<br/>'. $diff->format('%H hrs %I mins') .'">
+                                        <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_erro.png" height="25px" width="5px" class="d-inline-block align-top" > </a>';
+
+                                    }
+                                    
                                 }else{ 
                                     echo '<a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" title="' . date('d M Y', strtotime($data_while)).'"
                                         data-content="Problema:' .$row_oco_dias['ds_ocorrencia'] . '<br/> Estamos trablhando para resolver esse erro"> 
@@ -351,9 +389,24 @@ $data_while = $data_ant;
                                                                         <h6>
                                                                             
                                                                             <?php 
+
+                                                                                $tp_ocorr = $row_dia_while['tp_ocorrencia']; 
+
+                                                                                $cor_barra = "#6996EF";
+                                                                                $aviso = "";
+
+                                                                                if($tp_ocorr == 'M'){
+
+                                                                                    $cor_barra = "#FF970A";
+
+                                                                                    $aviso = "<i class='fas fa-info-circle' style='font-size: 14px;'></i> 
+                                                                                              Manutenção Preventiva";
+                                                                                    
+                                                                                }
                                                                             
-                                                                                echo "<div style='background-color: #6996EF; color: #ffffff; text-align:center;'>";
-                                                                                    echo $row_dia_while['servico'] . ' - ' . $row_dia_while['titulo'];
+                                                                                echo "<div style='background-color: " . $cor_barra . "; color: #ffffff; text-align:center;'>";
+                                                                                    echo $row_dia_while['servico'] . ' - ' . $row_dia_while['titulo'] . ' ' . $aviso;                                                                                   
+
                                                                                 echo "</div>";
 
                                                                                 echo "<div style='padding: 10px;'>";

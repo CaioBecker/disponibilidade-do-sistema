@@ -10,7 +10,7 @@ include 'sql_criar_oco.php';
 <h11><i class="fas fa-user"></i> Adicionar ocorrência </h11>
 <h27> <a href="ocorrencias.php" style="color: #444444; text-decoration: none;"> <i class="fa fa-reply" aria-hidden="true"></i> Voltar </a> </h27> 
 
-</br>
+</br></br>
 <form method="post" action="prc_adicionar_ocorrencia.php">
 <div class="row">
     <div class="col-md-3">
@@ -28,10 +28,18 @@ include 'sql_criar_oco.php';
 </div>
 <div class="row">
     <div class="col-md-4">
+        Tipo:
+        <select class="form-control" id="tipo" name="tipo">
+            <option value="O"> Ocorrência </option>
+            <option value="M"> Manutenção Preventiva </option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
         Serviço:
         <select class="form-control" id="servico" name="servico">
-            <option> Selecione um valor</option>
-            <?php
+                <?php
                 while($row_serv = mysqli_fetch_array($result_serv)){
                     echo '<option value="' .$row_serv['cd_servico'] . '">' . $row_serv['servico']. '</option>';
                  } ?>
@@ -45,7 +53,7 @@ include 'sql_criar_oco.php';
         <input class="form-control" type="datetime-local" id="dt_inicio" name="dt_inicio"  onblur="valida_dt_inicio()" required>
     </div>
 </div>
-<div class="row-md">
+<div class="row">
     <div class="col-md-2">
             </br>
         <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Adicionar</button> 
