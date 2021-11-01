@@ -7,13 +7,9 @@ include 'sql_servicos.php';
 //$_SESSION['adm'] = $row_usuario['adm'];
 //echo $_SESSION['adm'];
 
-?>
-
-<?php
             include 'js/mensagens.php';
             include 'js/mensagens_usuario.php';
-        ?>
-<?php
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){  
   $consulta_nulo = "SELECT COUNT(*) AS QTD FROM SERVICOS";
   $result_nulo = mysqli_query($conn,$consulta_nulo);
