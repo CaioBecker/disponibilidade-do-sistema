@@ -44,7 +44,7 @@
     <div class="col-md-6">
     </br>
         Solução:
-        <textarea rows="5" cols="50" class="form-control" id="ds_oco" name="ds_oco" disabled><?php if(@$row_oco['ds_detalhada'] == ''){ echo 'Estamos trabalhando para resolver esse problema'; }else{ echo @$row_oco_viu['ds_detalhada']; }?></textarea>
+        <textarea rows="5" cols="50" class="form-control" id="ds_oco" name="ds_oco" disabled><?php if($row_oco_viu['ds_detalhada'] == ''){ echo 'Estamos trabalhando para resolver esse problema'; }else{ echo @$row_oco_viu['ds_detalhada']; }?></textarea>
 
     </div>
     
@@ -82,7 +82,7 @@
     </div>
     <div class="col-md-3">
         Data fim:
-        <input class="form-control" type="text" value="<?php if($dt_fim == '01/01/1970 01:00:00' || @$row_oco['dt_fim'] == ''){ echo "não foi encerrado ainda";
+        <input class="form-control" type="text" value="<?php if($dt_fim == '01/01/1970 01:00:00' || @$row_oco_viu['dt_fim'] == ''){ echo "não foi encerrado ainda";
                                                             }else{echo $dt_fim;} ?>" id="dt_fim" name="dt_fim" disabled>
     </div>
 

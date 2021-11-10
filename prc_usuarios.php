@@ -2,12 +2,12 @@
 session_start();
 include 'conexao.php';
 
-echo 'senha normal: </br>' . $_POST['senha'];
-$var_senha = base64_encode($_POST['senha']);
-$var_cd_usu = $_POST['cd_usu'];
-$var_nm_usu = $_POST['nm_usu'];
-$var_setor  = $_POST['setor_usu'];
-$var_adm    = $_POST['tp_usu'];
+echo 'senha normal: </br>' . $_POST['senha_e'];
+$var_senha = base64_encode($_POST['senha_e']);
+$var_cd_usu = $_POST['cd_usu_e'];
+$var_nm_usu = $_POST['nm_usu_e'];
+$var_setor  = $_POST['setor_usu_e'];
+$var_adm    = $_POST['tp_usu_e'];
 
 echo '</br> senha : </br>' . $var_senha;
 echo '</br> cd usu: </br>' . $var_cd_usu;
@@ -27,11 +27,11 @@ $updade_usu = mysqli_query($conn,$result_usu);
 if(!$updade_usu){
     $erro = mysqli_error($updade_usu);	
     $_SESSION['msgerro'] = 'Erro ao atualizar o usuario! ';
-    header('location: usuarios.php');
+    //header('location: usuarios.php');
     return 0;
 }else{
     $_SESSION['msg'] = 'Usuario ' . $var_cd_usu . ' editado com sucesso!';
-    header('location: usuarios.php'); 
+    //header('location: usuarios.php'); 
     return 0;
 }
 ?>

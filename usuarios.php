@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                             <div class="col-md-4">
                             </br>
                                 Usuario:
-                                <input class="form-control" type="text" id="cd_usu" name="cd_usus" onblur="valida_usu()" required>
+                                <input class="form-control" type="text" id="cd_usu" name="cd_usu_c" onblur="valida_usu()" required>
                         
                             </div>
                         </div>
@@ -71,19 +71,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                             <div class="col-md-5">
                             </br>
                                 Nome do Usuario:
-                                <input class="form-control"  type="text" id="nm_usu" name="nm_usus" required>
+                                <input class="form-control"  type="text" id="nm_usu_c" name="nm_usu_c" required>
                             </div>
                             <div class="col-md-3">
                             </br>
                                 Setor:
-                                <input class="form-control" type="text" id="setor_usu" name="setor_usus" required>
+                                <input class="form-control" type="text" id="setor_usu_c" name="setor_usu_c" required>
                             </div>
                             <div class="col-md-4">
                             </br>
                         
                                 Tipo usuario:
                             
-                                <select class="form-control" name="tp_usus" id="tp_usus" onblur="">
+                                <select class="form-control" name="tp_usu_c" id="tp_usu_c" onblur="">
                                 <option value='S'>Administrador</option>
                                 <option value='N'>Comum</option>
                                 </select>
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                 Senha:
                             </div>
                             <div class="col-md-5 input-group">
-                                <input class="input-group form-control " type="password" id="senha" name="senha" required>
+                                <input class="input-group form-control " type="password" id="senha_c" name="senha_c" required>
                                 <button class="btn btn-primary" type="button" onclick="mostrarSenha()"><i class="fa fa-eye" aria-hidden="true"></i></button> <span class="espaco">
                             </div>
                         </div>
@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                             <div class="col-md-4">
                             </br>
                                 Nome do Usuario:
-                                <input class="form-control"  type="text" id="nm_usu" name="nm_usu" value="<?php echo $row_usuario['nm_usuario']?>" disabled>
+                                <input class="form-control"  type="text" id="nm_usu" name="nm_usuh" value="<?php echo $row_usuario['nm_usuario']?>" disabled>
                             </div>
                             <div class="col-md-3">
                             </br>
@@ -288,19 +288,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                             <div class="col-md-4">
                             </br>
                                 Nome do Usuario:
-                                <input class="form-control"  type="text" id="nm_usu" name="nm_usu" value="<?php echo $row_usuario['nm_usuario']?>">
+                                <input class="form-control"  type="text" id="nm_usu_e" name="nm_usu_e" value="<?php echo $row_usuario['nm_usuario']?>">
                             </div>
                             <div class="col-md-3">
                             </br>
                                 Setor:
-                                <input class="form-control" type="text" id="setor_usu" name="setor_usu" value="<?php echo $row_usuario['setor']?>">
+                                <input class="form-control" type="text" id="setor_usu_e" name="setor_usu_e" value="<?php echo $row_usuario['setor']?>">
                             </div>
                             <div class="col-md-4">
                             </br>
                         
                                 Tipo usuario:
                             
-                                <select class="form-control" name="tp_usu" id="tp_usu">
+                                <select class="form-control" name="tp_usu_e" id="tp_usu_e">
                                 <?php
                                 if(isset($row_usuario['adm'])){
                                     if($row_usuario['adm'] == 'S'){
@@ -325,7 +325,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                 Senha:
                             </div>
                             <div class="col-md-5 input-group">
-                            <input class="input-group form-control " value="<?php echo base64_decode($row_usuario['senha']); ?>" type="text" id="senha" name="senha" >
+                            <input class="input-group form-control " value="<?php echo base64_decode($row_usuario['senha']); ?>" type="text" id="senha_e" name="senha_e" >
                             </div>
                         </div>
                         </br>
@@ -359,7 +359,7 @@ include 'rodape.php';
     }
 
 	function mostrarSenha(){
-		var tipo = document.getElementById("senha");
+		var tipo = document.getElementById("senha_c");
 		if(tipo.type == "password"){
 			tipo.type = "text";
 		}else{

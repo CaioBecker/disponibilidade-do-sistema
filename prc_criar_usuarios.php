@@ -8,13 +8,13 @@ $var_setor  = '';
 $var_adm    = '';
 $var_senha  = '';
 
-echo $_POST['senha'];
+echo '</br> senha: </br>' .$_POST['senha_c'];
 
-$var_cd_usu = $_POST['cd_usus'];
-$var_nm_usu = $_POST['nm_usus'];
-$var_setor  = $_POST['setor_usus'];
-$var_adm    = $_POST['tp_usus'];
-$var_senha  = base64_encode($_POST['senha']);
+$var_cd_usu = $_POST['cd_usu_c'];
+$var_nm_usu = $_POST['nm_usu_c'];
+$var_setor  = $_POST['setor_usu_c'];
+$var_adm    = $_POST['tp_usu_c'];
+$var_senha  = base64_encode($_POST['senha_c']);
 
 echo '</br> senha: </br>' . $var_senha;
 echo '</br> cd usu: </br>' . $var_cd_usu;

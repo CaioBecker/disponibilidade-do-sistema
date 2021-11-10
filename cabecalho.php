@@ -25,7 +25,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="img/logo/icone_santa_casa_sjc_colorido.png">
-    <title>Controle de ocorrências </title>
+    <title>Disponibilidade do sistema </title>
     <!--CSS-->
     <?php 
         include 'css/style.php';
@@ -44,7 +44,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-color">
             <a class="navbar-brand" href="home.php">
                 <img src="img/logo/icone_santa_casa_sjc_branco.png" height="28px" width="28px" class="d-inline-block align-top" alt="Santa Casa de São José dos Campos">
-                <h10>Controle de ocorrências</h10>
+                <h10>Disponibilidade do sistema</h10>
             </a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
