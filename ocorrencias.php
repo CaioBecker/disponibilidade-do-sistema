@@ -99,10 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         echo "<td style='text-align: center;'>" . $row_oco['cd_usuario'] . "<br>" . "</td>";
         echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='visualizar_oco.php?cd_oco=" .  $row_oco['cd_ocorrencia'] . "'>" . "<i class='fas fa-eye'></i>" . "</a> "; 		
         if ($row_oco['dt_fim'] == '1970-01-01 01:00:00' || $row_oco['dt_fim'] == ''){
-            echo "<a class='btn btn-primary' href='editar_oco.php?cd_oco=" .  $row_oco['cd_ocorrencia'] . "'>" . "<i class='fas fa-pen'></i>". "</a>" ;
+            echo "<a class='btn btn-primary' href='editar_oco.php?cd_oco=" .  $row_oco['cd_ocorrencia'] . "'>" . "<i class='fas fa-pen'> </i> ". "</a>" ;
         }
         if ($_SESSION['adm'] == 'S'){
-            echo "<a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_oco.php?id=" . $row_oco['cd_ocorrencia']  . "&sn_ativo=S&tabela=usuarios" . 
+            echo " <a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_oco.php?id=" . $row_oco['cd_ocorrencia']  . "&sn_ativo=S&tabela=usuarios" . 
                 "' onclick=\"return confirm('Tem certeza que deseja excluir esse registro?');\">" . 
                 "<i class='fas fa-trash-alt'></i>" . "</a>" . "</td>";
         } 

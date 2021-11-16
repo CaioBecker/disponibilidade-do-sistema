@@ -89,7 +89,7 @@
     </div>
     <div class="col-md-3">
         Data fim:
-        <input class="form-control" type="datetime-local" id="dt_fim" name="dt_fim" >
+        <input class="form-control" type="datetime-local" id="dt_fim" name="dt_fim" required>
     </div>
 
 </div>
