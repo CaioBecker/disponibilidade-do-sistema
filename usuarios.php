@@ -5,6 +5,10 @@ include 'sql_usuarios.php';
 //$row_usuario = mysqli_fetch_array($result_usuario);
 //$_SESSION['adm'] = $row_usuario['adm'];
 //echo $_SESSION['adm'];
+
+//ACESSO RESTRITO
+include 'acesso_restrito_adm.php';
+
 $qtd_row = '1';
 ?>
 

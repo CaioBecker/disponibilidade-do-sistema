@@ -1,7 +1,7 @@
 <?php
 @session_start();
 // Se o usuário não está logado, manda para página de login.
-if (!isset($_SESSION['cd_usu'])){
+if ($_SESSION['adm'] <> 'S'){
 	
 	unset(
 		$_SESSION['cd_usu'],
