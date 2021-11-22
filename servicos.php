@@ -104,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				
 		echo "<th class='align-middle' style='text-align: center;'> Código do serviço</th>			  
 		      <th class='align-middle' style='text-align: center;'> Tipo do serviço</th>
+          <th class='align-middle' style='text-align: center;'> T.I.</th>
               <th class='align-middle' style='text-align: center;'> Opções</th>";
          
 
@@ -115,6 +116,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             echo "</tr></thead>";		
             echo "<td style='text-align: center;'>" . $row_servico['cd_servico']. "<br>" . "</td>";
             echo "<td style='text-align: center;'>" . $row_servico['servico'] . "<br>" . "</td>";
+            if ($row_servico['sn_ti'] == 'S') { 
+                
+              echo "<td class='text-center'>" .
+              "<a class='botoes' style='color: #3c3c3c;' href='sn_ti_serv.php?id=" . 
+              $row_servico['cd_servico']  . "&sn_ativo=N&tabela=usuarios" .
+               "' onclick=\"return confirm('Tem certeza que deseja desativar esse usuario?');\">" . 
+              "<i class='fa fa-toggle-on' aria-hidden='true'></i>" . "</a>" . "</td>";
+            } 
+            else {
+              echo "<td class='text-center'>" . 
+              "<a class='botoes' style='color: #3c3c3c;' href='sn_ti_serv.php?id=" .
+              $row_servico['cd_servico']  . "&sn_ativo=S&tabela=usuarios" . 
+              "' onclick=\"return confirm('Tem certeza que deseja ativar esse usuario?');\">" . 
+              "<i class='fa fa-toggle-off' aria-hidden='true'></i>" . "</a>" . "</td>"; 
+            };
             if($row_serv_qtd['QTD'] >= 1){
               echo "<td style='text-align: center;'>" . "<a class='btn btn-adm' style='color: #3c3c3c;'
                   ' onclick=\"alert('Esse registro não pode ser apagado');\">" . 

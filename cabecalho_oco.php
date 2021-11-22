@@ -43,14 +43,14 @@
 
         <nav class="navbar navbar-expand-md navbar-dark bg-color">
         <?php if(@$_SESSION['cd_usu'] == ''){ ?>
-            <a class="navbar-brand">
+            <a class="navbar-brand" href="index.php">
                 <img src="img/logo/icone_santa_casa_sjc_branco.png" height="28px" width="28px" class="d-inline-block align-top" alt="Santa Casa de São José dos Campos">
                 <h10>Disponibilidade do sistema</h10>
             </a>
         <?php }else{?>
             <a class="navbar-brand" href="home.php">
                 <img src="img/logo/icone_santa_casa_sjc_branco.png" height="28px" width="28px" class="d-inline-block align-top" alt="Santa Casa de São José dos Campos">
-                <h10>Controle de ocorrências</h10>
+                <h10>Disponibilidade do sistema</h10>
             </a>
         <?php }?>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">

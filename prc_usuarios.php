@@ -27,11 +27,11 @@ $updade_usu = mysqli_query($conn,$result_usu);
 if(!$updade_usu){
     $erro = mysqli_error($updade_usu);	
     $_SESSION['msgerro'] = 'Erro ao atualizar o usuario! ';
-    //header('location: usuarios.php');
+    header('location: usuarios.php');
     return 0;
 }else{
     $_SESSION['msg'] = 'Usuario ' . $var_cd_usu . ' editado com sucesso!';
-    //header('location: usuarios.php'); 
+    header('location: usuarios.php'); 
     return 0;
 }
 ?>
