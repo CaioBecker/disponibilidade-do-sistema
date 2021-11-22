@@ -2,6 +2,9 @@
     session_start();
     include 'conexao.php';
 
+    //ACESSO RESTRITO
+    include 'acesso_restrito_adm.php';
+
     $cd_oco = filter_input(INPUT_GET,'id');
     echo '</br> cd_ooc: </br>'. $cd_oco;
     $result_excluir_usu = "DELETE FROM ocorrencias_sistema WHERE cd_ocorrencia = '$cd_oco'";

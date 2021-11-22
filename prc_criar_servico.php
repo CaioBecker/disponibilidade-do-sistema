@@ -2,6 +2,9 @@
 session_start();
 include 'conexao.php';
 
+//ACESSO RESTRITO
+include 'acesso_restrito_adm.php';
+
 
 $var_tp_serv = $_POST['tp_serv_c'];
 $var_cd_usu = $_SESSION['cd_usu'];

@@ -666,13 +666,16 @@ $data_while = $data_ant;
                     }
                 }
             ?>
+
+        </br>
+        </br>
+        </br>  
+        
         </div>
         
     </div>
 </div>
-        </br>
-        </br>
-        </br>  
+        
 <?php
 
 include "rodape_oco.php";

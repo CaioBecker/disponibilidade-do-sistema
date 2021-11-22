@@ -2,6 +2,9 @@
     session_start();
     include 'conexao.php';
 
+    //ACESSO RESTRITO
+    include 'acesso_restrito_adm.php';
+
     $cd_usu = filter_input(INPUT_GET,'id');
     echo '</br> cd_usu: </br>'. $cd_usu;
     $result_excluir_usu = "DELETE FROM usuarios WHERE cd_usuario = '$cd_usu'";

@@ -7,6 +7,9 @@ include 'sql_servicos.php';
 //$_SESSION['adm'] = $row_usuario['adm'];
 //echo $_SESSION['adm'];
 
+ //ACESSO RESTRITO
+ include 'acesso_restrito_adm.php';
+
             include 'js/mensagens.php';
             include 'js/mensagens_usuario.php';
 

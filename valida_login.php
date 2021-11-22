@@ -13,8 +13,8 @@ $row_login = mysqli_fetch_array($result_login);
 
 $_SESSION['nomeusuario'] = $row_login['nm_usuario'];
 if($row_qtd['QTD'] == '1'){
-    //$_COOKIE = $row_login['cd_usuario'];
-    echo$_SESSION['cd_usu'] = $row_login['cd_usuario'];
+
+    $_SESSION['cd_usu'] = $row_login['cd_usuario'];
 
 header("Location: home.php");
 }else{

@@ -13,7 +13,7 @@
     $pri_nome = substr(@$nome, 0, strpos(@$nome, ' '));
 
     //ACESSO RESTRITO
-    //include 'acesso_restrito.php';
+    include 'acesso_restrito.php';
 
 
 ?>

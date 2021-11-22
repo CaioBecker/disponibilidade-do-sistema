@@ -2,6 +2,9 @@
 session_start();
 include 'conexao.php';
 
+//ACESSO RESTRITO
+include 'acesso_restrito_adm.php';
+
 $var_cd_usu = '';
 $var_nm_usu = '';
 $var_setor  = '';
