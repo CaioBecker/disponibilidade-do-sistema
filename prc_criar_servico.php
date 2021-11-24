@@ -8,6 +8,7 @@ include 'acesso_restrito_adm.php';
 
 $var_tp_serv = $_POST['tp_serv_c'];
 $var_cd_usu = $_SESSION['cd_usu'];
+$var_cor = $_POST['cor'];
 
 echo '</br> tp serv: </br>' . $var_tp_serv;
 
@@ -19,9 +20,9 @@ echo $result_serv_exis;
 
 echo '</br> qtd: </br>'. @$row_serv_exis['QTD'];
 if (@$row_serv_exis['QTD'] == 0){
-    $result_serv = "INSERT INTO servicos (servico, cd_usuario)
+    $result_serv = "INSERT INTO servicos (servico,  rgb, cd_usuario)
                                 VALUES
-                            ('$var_tp_serv', '$var_cd_usu')";
+                            ('$var_tp_serv',  '$var_cor', '$var_cd_usu')";
                             echo "</br>".$result_serv;
     $insert_serv = mysqli_query($conn,$result_serv);
 

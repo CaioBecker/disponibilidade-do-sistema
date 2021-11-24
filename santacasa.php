@@ -147,7 +147,7 @@ $count_script = 1;
     $result_count_mes = mysqli_query($conn, $consulta_count_mes);
 
     while($row_count_mes = mysqli_fetch_array($result_count_mes)){
-
+    $qtd_minutos = 129600;
     if($row_count_mes['sn_ti'] == 'S' ){
         if(@$_SESSION['cd_usu'] != ''){
             $cd_serv = $row_count_mes['cd_servico'];
@@ -180,8 +180,9 @@ $count_script = 1;
                                                         $dataAtual = $dataFim;
                     
                                                         $date_time  = new DateTime($dataAtual);
-                                                        $diff       = $date_time->diff( new DateTime($dataFuturo));
-                                                        echo 'Problema: '. $row_oco_dias['ds_ocorrencia'] .'<br/> '. $diff->format('%H hrs %I mins'). '<br/>'; 
+                                                         $diff       = $date_time->diff( new DateTime($dataFuturo));
+                                                        echo 'Problema: '. $row_oco_dias['ds_ocorrencia'] .'<br/> '. $diff->format('%H hrs %I mins'). '<br/>';
+                                                        $qtd_minutos = $qtd_minutos - (60*($diff->format('%H')) + $diff->format('%I'));
                                                     }else{
                                                         echo 'Problema: '. $row_oco_dias['ds_ocorrencia'].'<br/> Estamos trablhando para resolver esse erro<br/>';
                                                     }
@@ -202,7 +203,7 @@ $count_script = 1;
                                             $dataAtual = $dataFim;
 
                                             $date_time  = new DateTime($dataAtual);
-                                            $diff       = $date_time->diff( new DateTime($dataFuturo));
+                                            $diff = $date_time->diff( new DateTime($dataFuturo));
 
                                             if($row_oco_dias['tp_ocorrencia'] == 'M'){
 
@@ -210,21 +211,19 @@ $count_script = 1;
                                                 echo '<a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" title="'.date('d M Y', strtotime($data_while)).'" 
                                                 data-content="Problema:' .$row_oco_dias['ds_ocorrencia'] . '<br/>'. $diff->format('%H hrs %I mins') .'">
                                                 <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_manu.png" height="25px" width="5px" class="d-inline-block align-top" > </a>';
-
+                                                $qtd_minutos = $qtd_minutos - (60*($diff->format('%H')) + $diff->format('%I'));                                        
                                             }else{
-
                                                 //ERRO
                                                 echo '<a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" title="'.date('d M Y', strtotime($data_while)).'" 
                                                 data-content="Problema:' .$row_oco_dias['ds_ocorrencia'] . '<br/>'. $diff->format('%H hrs %I mins') .'">
                                                 <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_erro.png" height="25px" width="5px" class="d-inline-block align-top" > </a>';
-
-                                            }
+                                                $qtd_minutos = $qtd_minutos - (60*($diff->format('%H')) + $diff->format('%I'));                                        }
                                             
                                         }else{ 
                                             echo '<a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" title="' . date('d M Y', strtotime($data_while)).'"
-                                                data-content="Problema:' .$row_oco_dias['ds_ocorrencia'] . '<br/> Estamos trablhando para resolver esse erro"> 
+                                            data-content="Problema:' .$row_oco_dias['ds_ocorrencia'] . '<br/> Estamos trablhando para resolver esse erro"> 
                                             <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_hover.png" height="25" width="5px" class="d-inline-block align-top" > </a>';
-                                        }   
+                                    }   
                                     }
                                 }        
                             }else{
@@ -233,17 +232,15 @@ $count_script = 1;
                                 data-content="Nenhum problema relatado nesse dia">
                                 <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_ok.png" height="25px" width="5px" class="d-inline-block align-top" > </a>';
                                         
-                                $count = $count + 1;    
+                                  
                             }        
                             $data_while = date("Y-m-d", strtotime('+1 days', strtotime($data_while)));
                         }
                         $data_while = date("Y-m-d", strtotime('-90 days', strtotime($data)));
-                        $porcentagem_dias = 100*($count/90);
+                        $qtd_minutos;
+                        $porcentagem_dias = 100*($qtd_minutos/129600);
+                         echo '<center>' .substr(@$porcentagem_dias, 0, 5 ) . '% de dias estaveis   (Ultimos 90 dias)</center>';
                         ?>
-                        <center>
-                        <?php echo substr(@$porcentagem_dias, 0, 5 ) . '% de dias estaveis   (Ultimos 90 dias)';?></center><?php
-                        ?>
-                    
                     
                     </div>
                 
@@ -282,8 +279,9 @@ $count_script = 1;
                                                     $dataAtual = $dataFim;
                 
                                                     $date_time  = new DateTime($dataAtual);
-                                                    $diff       = $date_time->diff( new DateTime($dataFuturo));
+                                                     $diff       = $date_time->diff( new DateTime($dataFuturo));
                                                     echo 'Problema: '. $row_oco_dias['ds_ocorrencia'] .'<br/> '. $diff->format('%H hrs %I mins'). '<br/>'; 
+                                                    $qtd_minutos = $qtd_minutos - (60*($diff->format('%H')) + $diff->format('%I'));                                                
                                                 }else{
                                                     echo 'Problema: '. $row_oco_dias['ds_ocorrencia'].'<br/> Estamos trablhando para resolver esse erro<br/>';
                                                 }
@@ -304,7 +302,7 @@ $count_script = 1;
                                         $dataAtual = $dataFim;
 
                                         $date_time  = new DateTime($dataAtual);
-                                        $diff       = $date_time->diff( new DateTime($dataFuturo));
+                                         $diff = $date_time->diff( new DateTime($dataFuturo));
 
                                         if($row_oco_dias['tp_ocorrencia'] == 'M'){
 
@@ -312,15 +310,13 @@ $count_script = 1;
                                             echo '<a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" title="'.date('d M Y', strtotime($data_while)).'" 
                                             data-content="Problema:' .$row_oco_dias['ds_ocorrencia'] . '<br/>'. $diff->format('%H hrs %I mins') .'">
                                             <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_manu.png" height="25px" width="5px" class="d-inline-block align-top" > </a>';
-
+                                            $qtd_minutos = $qtd_minutos - (60*($diff->format('%H')) + $diff->format('%I'));                                        
                                         }else{
-
                                             //ERRO
                                             echo '<a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" title="'.date('d M Y', strtotime($data_while)).'" 
                                             data-content="Problema:' .$row_oco_dias['ds_ocorrencia'] . '<br/>'. $diff->format('%H hrs %I mins') .'">
                                             <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_erro.png" height="25px" width="5px" class="d-inline-block align-top" > </a>';
-
-                                        }
+                                            $qtd_minutos = $qtd_minutos - (60*($diff->format('%H')) + $diff->format('%I'));                                        }
                                         
                                     }else{ 
                                         echo '<a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" title="' . date('d M Y', strtotime($data_while)).'"
@@ -340,7 +336,7 @@ $count_script = 1;
                         $data_while = date("Y-m-d", strtotime('+1 days', strtotime($data_while)));
                     }
                     $data_while = date("Y-m-d", strtotime('-90 days', strtotime($data)));
-                    $porcentagem_dias = 100*($count/90);
+                    $porcentagem_dias = 100*($qtd_minutos/129600);
                     ?>
                     <center>
                     <?php echo substr(@$porcentagem_dias, 0, 5 ) . '% de dias estaveis   (Ultimos 90 dias)';?></center><?php
@@ -366,7 +362,7 @@ $data_while = $data_ant;
 <div class="row justify-content-center" style="background-color: #f9f9f9;">
             <div class="col-md-11" >
                 <?php
-                for($ano = date("Y"); $ano <= date("Y") + 2; $ano++){
+                for($ano = date("Y"); $ano <= date("Y"); $ano++){
                     include 'sql_oco_ano.php';
                     if($row_ano['QTD'] > 0){
                         ?>

@@ -26,7 +26,9 @@ $_SESSION['adm'] = $row_usuario_home['adm'];
         <a href="santacasa.php" class="botao_home" type="submit"><h21><i class="far fa-eye"></i> Visualizar </h21></a>
 		<span class="espaco_pequeno"></span>
         
-        
+        <a href="dashboard.php" class="botao_home" type="submit"><h21><i class="fas fa-chart-pie"></i> Dashboard </h21></a>
+		<span class="espaco_pequeno"></span>
+
         <div class="div_br"> </div>
 
         <!--ADMIN-->

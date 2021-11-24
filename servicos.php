@@ -74,11 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       <div class="modal-body">
         <form method="Post" autocomplete="off" action='prc_criar_servico.php'>
         <input class="form-control" type="text" id="id_tp_serv_c" name="tp_serv_c" placeholder="Digite o tipo de serviço" required> </input>
+        Cor(RGB):
+        <input class="form-control" type="text" id="cor" name="cor" placeholder="Codigo rgb" required> </input>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Salvar</button>
-        </from>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button>
+        </form>
       </div>
     </div>
   </div>
@@ -107,47 +109,90 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				
 		echo "<th class='align-middle' style='text-align: center;'> Código do serviço</th>			  
 		      <th class='align-middle' style='text-align: center;'> Tipo do serviço</th>
+          <th class='align-middle' style='text-align: center;'> Cor</th>
           <th class='align-middle' style='text-align: center;'> T.I.</th>
-              <th class='align-middle' style='text-align: center;'> Opções</th>";
+          <th class='align-middle' style='text-align: center;'> Opções</th>
+          <th class='align-middle' style='text-align: center;'> </th>";
          
-
+      $qtd = 1;
         while ($row_servico = mysqli_fetch_array($result_servico)) {
           $cd_serv = $row_servico['cd_servico'];
 						$serv_qtd="SELECT COUNT(*) AS QTD FROM ocorrencias_sistema WHERE cd_servico = '$cd_serv'";
             $result_qtd = mysqli_query($conn,$serv_qtd);
             $row_serv_qtd = mysqli_fetch_array($result_qtd);
             echo "</tr></thead>";		
-            echo "<td style='text-align: center;'>" . $row_servico['cd_servico']. "<br>" . "</td>";
-            echo "<td style='text-align: center;'>" . $row_servico['servico'] . "<br>" . "</td>";
+            echo "<td class='align-middle' style='text-align: center;'>" . $row_servico['cd_servico'] . "</br>" . "</td>";
+            echo "<td class='align-middle' style='text-align: center;'> " .  $row_servico['servico']  . "</br>" . "</td>";
+            echo "<td class='align-middle' style='align-items: center; justify-content: center; '> 
+                    </br>
+                    <center>
+                      <div style='height: 20px; width: 20px; background-color: rgb". $row_servico['rgb'] .";'> 
+                      </div>
+                    </center>
+                    </br>
+                  </td>";
             if ($row_servico['sn_ti'] == 'S') { 
                 
-              echo "<td class='text-center'>" .
+              echo "<td class='text-center align-middle'>" .
               "<a class='botoes' style='color: #3c3c3c;' href='sn_ti_serv.php?id=" . 
               $row_servico['cd_servico']  . "&sn_ativo=N&tabela=usuarios" .
-               "' onclick=\"return confirm('Tem certeza que deseja desativar esse usuario?');\">" . 
+               "' onclick=\"return confirm('Tem certeza que deseja desativar esse serviço como T.I.?');\">" . 
               "<i class='fa fa-toggle-on' aria-hidden='true'></i>" . "</a>" . "</td>";
             } 
             else {
-              echo "<td class='text-center'>" . 
+              echo "<td class='text-center align-middle'>" . 
               "<a class='botoes' style='color: #3c3c3c;' href='sn_ti_serv.php?id=" .
               $row_servico['cd_servico']  . "&sn_ativo=S&tabela=usuarios" . 
-              "' onclick=\"return confirm('Tem certeza que deseja ativar esse usuario?');\">" . 
+              "' onclick=\"return confirm('Tem certeza que deseja ativar esse serviço como T.I.?');\">" . 
               "<i class='fa fa-toggle-off' aria-hidden='true'></i>" . "</a>" . "</td>"; 
             };
+              
             if($row_serv_qtd['QTD'] >= 1){
-              echo "<td style='text-align: center;'>" . "<a class='btn btn-adm' style='color: #3c3c3c;'
+              echo "<td class='align-middle' style='text-align: center;'> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal_edit_" . $qtd . "'>
+              <h21><i class='fas fa-pen'></i></h21></button> ". "<a class='btn btn-adm' style='color: #3c3c3c;'
                   ' onclick=\"alert('Esse registro não pode ser apagado');\">" . 
                   "<i class='fas fa-trash-alt'></i>" . "</a>" . "</td>"; 
             }else{
-            echo "<td style='text-align: center;'>" . "<a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_serv.php?id=" .
+              echo "<td class='align-middle' style='text-align: center;'> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal_edit_". $qtd ."'>" . 
+              "<i class='fas fa-pen'></i>" . "</button> ".  "<a class='btn btn-adm' style='color: #3c3c3c;' href='prc_excluir_serv.php?id=" .
                   $row_servico['cd_servico']. 
                   "' onclick=\"return confirm('Tem certeza que deseja excluir esse registro?');\">" . 
                   "<i class='fas fa-trash-alt'></i>" . "</a>" . "</td>"; 
             }
+            ?>
+              <div class="modal fade " id="modal_edit_<?php echo $qtd; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Cadastrar serviço</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form method="Post" autocomplete="off" action='prc_servico.php'>
+                        Codigo
+                        <input class="form-control" type="text" id="id_cd_serv" name="cd_servico_c" value="<?php echo $row_servico['cd_servico'] ?>" disabled> </input>
+                        <input class="form-control" type="hidden" id="id_cd_serv" name="cd_servico" value="<?php echo $row_servico['cd_servico'] ?>"> </input>
+                        Tipo
+                        <input class="form-control" type="text" id="id_tp_serv_c" name="tp_serv_c" value="<?php echo $row_servico['servico'] ?>" required> </input>
+                        Cor(RGB):
+                        <input class="form-control" type="text" id="cor" name="cor" value="<?php echo $row_servico['rgb'] ?>" placeholder="(***, ***, ***)" required> </input>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             
+            <?php
              
             
          echo "</tr>";
+         $qtd = $qtd +1;
         }
 
         echo "</table></div>";

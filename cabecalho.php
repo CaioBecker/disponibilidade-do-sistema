@@ -36,7 +36,7 @@
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/a3000fd09d.js" crossorigin="anonymous"></script>
     <!--GRAFICOS CHART JS-->  
-    <script src="js/Chart.js-2.9.4/dist/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>    
