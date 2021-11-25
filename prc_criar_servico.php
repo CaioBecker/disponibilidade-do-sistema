@@ -20,9 +20,9 @@ echo $result_serv_exis;
 
 echo '</br> qtd: </br>'. @$row_serv_exis['QTD'];
 if (@$row_serv_exis['QTD'] == 0){
-    $result_serv = "INSERT INTO servicos (servico,  rgb, cd_usuario)
+    $result_serv = "INSERT INTO servicos (servico,  rgb, cd_usuario, SN_TI)
                                 VALUES
-                            ('$var_tp_serv',  '$var_cor', '$var_cd_usu')";
+                            ('$var_tp_serv',  '$var_cor', '$var_cd_usu', 'N')";
                             echo "</br>".$result_serv;
     $insert_serv = mysqli_query($conn,$result_serv);
 
