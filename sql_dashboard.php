@@ -1,5 +1,11 @@
 <?php
     include 'conexao.php';
+    $v_valor = filter_input(INPUT_GET,'ano_filtro');
+    if(isset($v_valor)){
+        $valor = $v_valor;
+    }else{
+        $valor = 'NULL';
+    }
 
     $consulta_oco = "SELECT DISTINCT 
                         YEAR(os.DT_INICIO) AS ANO,
@@ -7,7 +13,7 @@
                         FROM servicos sv
                         LEFT JOIN ocorrencias_sistema os
                         ON os.CD_SERVICO = sv.CD_SERVICO
-                        WHERE YEAR(os.DT_INICIO) = 2021
+                        WHERE YEAR(os.DT_INICIO) = IFNULL(" . $valor . ", YEAR(SYSDATE()))
                         GROUP BY MONTH(os.DT_INICIO), YEAR(os.DT_INICIO),
                         sv.CD_SERVICO, sv.SERVICO, sv.RGB, sv.SN_TI";
 

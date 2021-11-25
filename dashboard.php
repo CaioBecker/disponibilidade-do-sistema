@@ -13,10 +13,23 @@
 <div class="div_br"> </div>
 
 <div class="row">
-    <div class="col-md-12">
-
+    Ano:
+    <form type="Post">
+    <div class="col-md-8 input-group">
+        <input class="input-group form-control " type="text" id="ano_filtro" name="ano_filtro" required>
+        <button class="btn btn-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
     </div>
+    </form>
 </div>
+
+<?php
+//echo $row_qtd['qtd'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){   
+    $temp_v_valor = @$_POST['ano_filtro'];						
+    header('Location: dashboard.php.php?pagina=1&filtro=' . $temp_v_valor);	
+}
+
+?>
 
 <div class="row justify-content-center" >
     <div style='width: 100%'>
@@ -30,7 +43,7 @@
                         labels: [<?php
                                       $mes = 1;
                                       while($mes <12){
-                                         echo "'" . $mes . "',";
+                                         echo "'" . date('M', strtotime('01-'. $mes .'-2000')) . "',";
                                          $mes = $mes + 1;
                                      }
                                   ?>],
@@ -52,7 +65,7 @@
                                                             ON 1 = 1
                                                             LEFT JOIN ocorrencias_sistema os
                                                             ON os.CD_SERVICO = sv.CD_SERVICO
-                                                            WHERE YEAR(os.DT_INICIO) = 2021
+                                                            WHERE YEAR(os.DT_INICIO) = IFNULL(" . $valor . ", YEAR(SYSDATE()))
                                                             AND os.CD_SERVICO = " . $row_oco['CD_SERVICO'] . "
                                                             ORDER BY aux_mes.mes ASC) res
                                                             LEFT JOIN ocorrencias_sistema oco
