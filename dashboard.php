@@ -28,94 +28,87 @@
                     type: 'line',
                     data: {
                         labels: [<?php
-                                     $result_oco = mysqli_query($conn ,$consulta_oco);
-                                     while($row_oco = mysqli_fetch_array($result_oco)){
-                                         echo "'" . $row_oco['MES'] . "',";
+                                      $mes = 1;
+                                      while($mes <12){
+                                         echo "'" . $mes . "',";
+                                         $mes = $mes + 1;
                                      }
                                   ?>],
-                        datasets: [{
-                        label: 'Resultado',
-                            data: [<?php
-                                    $result_oco = mysqli_query($conn ,$consulta_oco);
-                                     while($row_oco = mysqli_fetch_array($result_oco)){
-                                         echo "'" . $row_oco['DISPONIBILIDADE'] . "',";
-                                     }
-                                  ?>],
-                            borderWidth: 2,
-                            pointStyle: 'rectRot',
-                            pointBorderWidth: 3,
-                            pointHoverBorderWidth: 4,
-                            backgroundColor: [
-                                <?php
-                                                $result_oco = mysqli_query($conn ,$consulta_oco);
-                                                while($row_oco = mysqli_fetch_array($result_oco)){
-                                                    echo "'rgba". $row_oco['RGB'] . "',";
-                                                }
-                                  ?>
-                            ],
-                            borderColor: [
-                                <?php
-                                                $result_oco = mysqli_query($conn ,$consulta_oco);
-                                                while($row_oco = mysqli_fetch_array($result_oco)){
-                                                    echo "'rgba". $row_oco['RGB'] . "',";
-                                                }
-                                  ?>
-                            ],
-                            pointBackgroundColor: [<?php
-                                    $result_oco = mysqli_query($conn ,$consulta_oco);
-                                     while($row_oco = mysqli_fetch_array($result_oco)){
-                                        echo "'rgba". $row_oco['RGB'] . "',";
-                                     }
-                                  ?>],
-                            pointBorderColor: [<?php
-                                                $result_oco = mysqli_query($conn ,$consulta_oco);
-                                                while($row_oco = mysqli_fetch_array($result_oco)){
-                                                    echo "'rgba". $row_oco['RGB'] . "',";
-                                                }
-                                  ?>],
-                        },{
-                            label: 'Meta',
-                            data: [<?php
-                                    $result_oco = mysqli_query($conn ,$consulta_oco);
-                                    while($row_oco = mysqli_fetch_array($result_oco)){
-                                         echo "'90',";
-                                    }
-                                    ?>],
-                            borderWidth: 2,
-                            pointStyle: 'rectRot',
-                            pointBorderWidth: 3,
-                            pointHoverBorderWidth: 4,
-                            backgroundColor: [
-                                <?php
-                                                $result_oco = mysqli_query($conn ,$consulta_oco);
-                                                while($row_oco = mysqli_fetch_array($result_oco)){
-                                                    echo "'rgba". $row_oco['RGB'] . "',";
-                                                }
-                                  ?>
-                            ],
-                            borderColor: [
-                                <?php
-                                                $result_oco = mysqli_query($conn ,$consulta_oco);
-                                                while($row_oco = mysqli_fetch_array($result_oco)){
-                                                    echo "'rgba". $row_oco['RGB'] . "',";
-                                                }
-                                  ?>
+                        datasets: [                            
+                            
+                            <?php 
+                                $result_oco = mysqli_query($conn ,$consulta_oco);
+                                while($row_oco = mysqli_fetch_array($result_oco)){
 
-                            ],  
-                            pointBackgroundColor: [<?php
-                                                    $result_oco = mysqli_query($conn ,$consulta_oco);
-                                                    while($row_oco = mysqli_fetch_array($result_oco)){
-                                                        echo "'rgba". $row_oco['RGB'] . "',";
-                                                    }
-                                                   ?>], 
-                            pointBorderColor: [<?php
-                                                    $result_oco = mysqli_query($conn ,$consulta_oco);
-                                                    while($row_oco = mysqli_fetch_array($result_oco)){
-                                                        echo "'rgba". $row_oco['RGB'] . "',";
-                                                    }
-                                                   ?>], 
-                                
-                            }]
+                                    $consulta_oco_serv = "SELECT res.*, 
+                                                          SUM(43200) AS MINUTOS_TOTAIS_MES, 
+                                                          IFNULL(SUM(TIMESTAMPDIFF(MINUTE, oco.DT_INICIO, oco.DT_FIM)),0) AS MINUTOS_FORA_MES,
+                                                          IFNULL(ROUND((1-(SUM(TIMESTAMPDIFF(MINUTE, oco.DT_INICIO, oco.DT_FIM))/SUM(43200)))*100,2),100) AS DISPONIBILIDADE
+                                                          FROM (
+                                                            SELECT aux_mes.mes AS MES, YEAR(os.DT_INICIO) AS ANO,
+                                                            sv.CD_SERVICO, sv.SERVICO, sv.RGB, sv.SN_TI
+                                                            FROM aux_mes
+                                                            LEFT JOIN servicos sv
+                                                            ON 1 = 1
+                                                            LEFT JOIN ocorrencias_sistema os
+                                                            ON os.CD_SERVICO = sv.CD_SERVICO
+                                                            WHERE YEAR(os.DT_INICIO) = 2021
+                                                            AND os.CD_SERVICO = " . $row_oco['CD_SERVICO'] . "
+                                                            ORDER BY aux_mes.mes ASC) res
+                                                            LEFT JOIN ocorrencias_sistema oco
+                                                            ON oco.CD_SERVICO = res.CD_SERVICO
+                                                            AND res.ANO = YEAR(oco.DT_INICIO)
+                                                            AND res.MES = MONTH(oco.DT_INICIO)                         
+                                                            GROUP BY res.MES, res.ANO, res.CD_SERVICO, res.SERVICO, res.RGB, res.SN_TI";
+                            ?>
+                                {
+
+                                    label: <?php echo "'" . $row_oco['SERVICO'] . "',"; ?>
+                                        data: [<?php
+                                                $result_oco_serv = mysqli_query($conn ,$consulta_oco_serv);
+                                                while($row_oco_serv = mysqli_fetch_array($result_oco_serv)){
+                                                    echo "'" . $row_oco_serv['DISPONIBILIDADE'] . "',";
+                                                }
+                                            ?>],
+                                        borderWidth: 2,
+                                        pointStyle: 'rectRot',
+                                        pointBorderWidth: 3,
+                                        pointHoverBorderWidth: 4,
+                                        backgroundColor: [
+                                            <?php
+                                                            $result_oco_serv = mysqli_query($conn ,$consulta_oco_serv);
+                                                            while($row_oco_serv = mysqli_fetch_array($result_oco_serv)){
+                                                                echo "'rgba". $row_oco['RGB'] . "',";
+                                                            }
+                                            ?>
+                                        ],
+                                        borderColor: [
+                                            <?php
+                                                            $result_oco_serv = mysqli_query($conn ,$consulta_oco_serv);
+                                                            while($row_oco_serv = mysqli_fetch_array($result_oco_serv)){
+                                                                echo "'rgba". $row_oco['RGB'] . "',";
+                                                            }
+                                            ?>
+                                        ],
+                                        pointBackgroundColor: [<?php
+                                                $result_oco_serv = mysqli_query($conn ,$consulta_oco_serv);
+                                                while($row_oco_serv = mysqli_fetch_array($result_oco_serv)){
+                                                    echo "'rgba". $row_oco['RGB'] . "',";
+                                                }
+                                            ?>],
+                                        pointBorderColor: [<?php
+                                                            $result_oco_serv = mysqli_query($conn ,$consulta_oco_serv);
+                                                            while($row_oco_serv = mysqli_fetch_array($result_oco_serv)){
+                                                                echo "'rgba". $row_oco['RGB'] . "',";
+                                                            }
+                                            ?>],
+                                },
+                      
+                        
+                            <?php
+                                } 
+                            ?>                       
+                        ]
                         },
                         options: {
                             scales: {
