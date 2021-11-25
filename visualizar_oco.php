@@ -1,7 +1,7 @@
 <?php
     include 'cabecalho.php';
     $id  = filter_input(INPUT_GET, 'cd_oco', FILTER_SANITIZE_STRING);
-    session_start();
+    
     include 'sql_visu_oco.php';
     //echo $_SESSION['CD_USUARIO'];
     $dt_inicio = date('d/m/Y H:i:s', strtotime($row_oco_viu['dt_inicio']));

@@ -28,16 +28,17 @@
                     type: 'line',
                     data: {
                         labels: [<?php
-                                     while($row_resultado = @oci_fetch_array($result_resultado)){
-                                         echo "'" . $row_resultado['DS_PERIODO'] . "',";
+                                     $result_oco = mysqli_query($conn ,$consulta_oco);
+                                     while($row_oco = mysqli_fetch_array($result_oco)){
+                                         echo "'" . $row_oco['MES'] . "',";
                                      }
                                   ?>],
                         datasets: [{
                         label: 'Resultado',
                             data: [<?php
-                                    @oci_execute($result_resultado);
-                                     while($row_resultado = @oci_fetch_array($result_resultado)){
-                                         echo "'" . $row_resultado['VL_LANCAMENTO'] . "',";
+                                    $result_oco = mysqli_query($conn ,$consulta_oco);
+                                     while($row_oco = mysqli_fetch_array($result_oco)){
+                                         echo "'" . $row_oco['DISPONIBILIDADE'] . "',";
                                      }
                                   ?>],
                             borderWidth: 2,
@@ -45,29 +46,39 @@
                             pointBorderWidth: 3,
                             pointHoverBorderWidth: 4,
                             backgroundColor: [
-                                'rgba(70, 165, 212, 0.15)',
+                                <?php
+                                                $result_oco = mysqli_query($conn ,$consulta_oco);
+                                                while($row_oco = mysqli_fetch_array($result_oco)){
+                                                    echo "'rgba". $row_oco['RGB'] . "',";
+                                                }
+                                  ?>
                             ],
                             borderColor: [
-                                'rgba(70, 165, 212, 1)',
+                                <?php
+                                                $result_oco = mysqli_query($conn ,$consulta_oco);
+                                                while($row_oco = mysqli_fetch_array($result_oco)){
+                                                    echo "'rgba". $row_oco['RGB'] . "',";
+                                                }
+                                  ?>
                             ],
                             pointBackgroundColor: [<?php
-                                    @oci_execute($result_resultado);
-                                     while($row_resultado = @oci_fetch_array($result_resultado)){
-                                        echo "'rgba(70, 165, 212, 0.15)',";
+                                    $result_oco = mysqli_query($conn ,$consulta_oco);
+                                     while($row_oco = mysqli_fetch_array($result_oco)){
+                                        echo "'rgba". $row_oco['RGB'] . "',";
                                      }
                                   ?>],
                             pointBorderColor: [<?php
-                                                @oci_execute($result_resultado);
-                                                while($row_resultado = @oci_fetch_array($result_resultado)){
-                                                    echo "'rgba(70, 165, 212, 1)',";
+                                                $result_oco = mysqli_query($conn ,$consulta_oco);
+                                                while($row_oco = mysqli_fetch_array($result_oco)){
+                                                    echo "'rgba". $row_oco['RGB'] . "',";
                                                 }
                                   ?>],
                         },{
                             label: 'Meta',
                             data: [<?php
-                                    @oci_execute($result_resultado);
-                                    while($row_resultado = @oci_fetch_array($result_resultado)){
-                                         echo "'" . $row_resultado['VL_RANG_FIN_FAV'] . "',";
+                                    $result_oco = mysqli_query($conn ,$consulta_oco);
+                                    while($row_oco = mysqli_fetch_array($result_oco)){
+                                         echo "'90',";
                                     }
                                     ?>],
                             borderWidth: 2,
@@ -75,22 +86,32 @@
                             pointBorderWidth: 3,
                             pointHoverBorderWidth: 4,
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0)',
+                                <?php
+                                                $result_oco = mysqli_query($conn ,$consulta_oco);
+                                                while($row_oco = mysqli_fetch_array($result_oco)){
+                                                    echo "'rgba". $row_oco['RGB'] . "',";
+                                                }
+                                  ?>
                             ],
                             borderColor: [
-                                'rgba(255, 99, 132, 1)',
+                                <?php
+                                                $result_oco = mysqli_query($conn ,$consulta_oco);
+                                                while($row_oco = mysqli_fetch_array($result_oco)){
+                                                    echo "'rgba". $row_oco['RGB'] . "',";
+                                                }
+                                  ?>
 
                             ],  
                             pointBackgroundColor: [<?php
-                                                    @oci_execute($result_resultado);
-                                                    while($row_resultado = @oci_fetch_array($result_resultado)){
-                                                        echo "'rgba(255, 99, 132, 0.15)',";
+                                                    $result_oco = mysqli_query($conn ,$consulta_oco);
+                                                    while($row_oco = mysqli_fetch_array($result_oco)){
+                                                        echo "'rgba". $row_oco['RGB'] . "',";
                                                     }
                                                    ?>], 
                             pointBorderColor: [<?php
-                                                    @oci_execute($result_resultado);
-                                                    while($row_resultado = @oci_fetch_array($result_resultado)){
-                                                        echo "'rgba(255, 99, 132, 1)',";
+                                                    $result_oco = mysqli_query($conn ,$consulta_oco);
+                                                    while($row_oco = mysqli_fetch_array($result_oco)){
+                                                        echo "'rgba". $row_oco['RGB'] . "',";
                                                     }
                                                    ?>], 
                                 
