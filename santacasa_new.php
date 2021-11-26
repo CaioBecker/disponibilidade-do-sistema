@@ -265,8 +265,16 @@
             ///////
             //ANO//
             ///////
-            
-            $consulta_anos = "SELECT DISTINCT substr(dia,7,4) AS ano FROM vw_status_diario_detalhe";
+
+            if(@$_SESSION['cd_usu'] != ''){
+
+                $consulta_anos = "SELECT DISTINCT substr(dia,7,4) AS ano FROM vw_status_diario_detalhe";
+        
+            }else{                
+
+                $consulta_anos = "SELECT DISTINCT substr(dia,7,4) AS ano FROM vw_status_diario_detalhe  WHERE sn_ti <> 'S'";
+
+            }            
 
             $result_anos = mysqli_query($conn, $consulta_anos);    
 
@@ -282,9 +290,19 @@
                 ///////
                 //MES//
                 ///////
-                
-                $consulta_mes = "SELECT DISTINCT substr(dia,4,2) AS mes FROM vw_status_diario_detalhe
+
+                if(@$_SESSION['cd_usu'] != ''){
+
+                    $consulta_mes = "SELECT DISTINCT substr(dia,4,2) AS mes FROM vw_status_diario_detalhe
                                  WHERE substr(dia,7,4) = " . $row_anos['ano'];
+            
+                }else{       
+                    
+                    $consulta_mes = "SELECT DISTINCT substr(dia,4,2) AS mes FROM vw_status_diario_detalhe
+                                 WHERE substr(dia,7,4) = " . $row_anos['ano'] .
+                                 " AND sn_ti <> 'S'";
+    
+                }   
 
                 $result_mes = mysqli_query($conn, $consulta_mes);    
 
@@ -302,14 +320,27 @@
                     //DIA//
                     ///////
 
-                    $consulta_dias = "SELECT DISTINCT substr(vd.dia,1,2) as dia_aux,
+                    if(@$_SESSION['cd_usu'] != ''){
+
+                        $consulta_dias = "SELECT DISTINCT substr(vd.dia,1,2) as dia_aux,
                                       substr(vd.dia,4,2) AS mes_aux,
                                       substr(vd.dia,7,4) AS ano_aux,
                                       DATE_FORMAT(vd.dt_inicio, '%d/%m/%Y') AS dt_inicio
                                       FROM vw_status_diario_detalhe vd
                                       WHERE substr(vd.dia,7,4) = " . $row_anos['ano'] . 
                                       " AND substr(vd.dia,4,2)  = " . $row_mes['mes'];
-                    
+                
+                    }else{       
+
+                        $consulta_dias = "SELECT DISTINCT substr(vd.dia,1,2) as dia_aux,
+                                      substr(vd.dia,4,2) AS mes_aux,
+                                      substr(vd.dia,7,4) AS ano_aux,
+                                      DATE_FORMAT(vd.dt_inicio, '%d/%m/%Y') AS dt_inicio
+                                      FROM vw_status_diario_detalhe vd
+                                      WHERE substr(vd.dia,7,4) = " . $row_anos['ano'] . 
+                                      " AND substr(vd.dia,4,2)  = " . $row_mes['mes'] .
+                                      " AND sn_ti <> 'S'";        
+                    }   
 
                     $result_dias = mysqli_query($conn, $consulta_dias);    
 
@@ -332,7 +363,83 @@
                             <div class="col-md-9">
                                 <div class="col-md-12" style="text-align: left; margin-top: 20px !important; margin-bottom: 20px; padding: 0px; background-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #6996EF; "  id= "<?php echo $count_script;?>">
                                     
-                                    AAA
+                                    <?php
+
+                                        ////////////////
+                                        //DETALHE DIAS//
+                                        ////////////////
+
+                                        if(@$_SESSION['cd_usu'] != ''){
+
+                                            $consulta_dias_detalhes = "SELECT *
+                                            FROM vw_status_diario_detalhe vd
+                                            WHERE substr(vd.dia,7,4) = " . $row_anos['ano'] . 
+                                            " AND substr(vd.dia,4,2)  = " . $row_mes['mes'] .      
+                                            " AND substr(vd.dia,1,2)  = " . $row_dias['dia_aux'];
+                                    
+                                        }else{       
+
+                                            $consulta_dias_detalhes = "SELECT *
+                                            FROM vw_status_diario_detalhe vd
+                                            WHERE substr(vd.dia,7,4) = " . $row_anos['ano'] . 
+                                            " AND substr(vd.dia,4,2)  = " . $row_mes['mes'] .      
+                                            " AND substr(vd.dia,1,2)  = " . $row_dias['dia_aux'] .
+                                            " AND sn_ti <> 'S'";
+
+                                        }   
+
+                                        $result_dias_detalhes = mysqli_query($conn, $consulta_dias_detalhes); 
+
+                                        while($row_dia_while_detalhes = mysqli_fetch_array($result_dias_detalhes)){
+                                        
+                                            ?>
+                                            
+                                                <h6>
+                                                    
+                                                    <?php 
+    
+                                                        $tp_ocorr = $row_dia_while_detalhes['tp_ocorrencia']; 
+    
+                                                        $cor_barra = "#6996EF";
+                                                        $aviso = "";
+    
+                                                        if($tp_ocorr == 'M'){
+    
+                                                            $cor_barra = "#FF970A";
+    
+                                                            $aviso = "<i class='fas fa-info-circle' style='font-size: 14px;'></i> 
+                                                                        Manutenção Preventiva";
+                                                            
+                                                        }
+                                                    
+                                                        echo "<div style='background-color: " . $cor_barra . "; color: #ffffff; text-align:center;'>";
+                                                            echo $row_dia_while_detalhes['servico'] . ' - ' . $row_dia_while_detalhes['titulo'] . ' ' . $aviso;                                                                                   
+    
+                                                        echo "</div>";
+    
+                                                        echo "<div style='padding: 10px;'>";
+    
+                                                            echo 'Problema:</br>'. $row_dia_while_detalhes['ds_ocorrencia'];
+                                                            //echo $row_dia_while['ds_detalhada'];
+                                                            if(@$row_dia_while_detalhes['ds_detalhada'] == ''){
+                                                                echo '</br></br>Solução:</br>Em correção';
+                                                            }else{
+                                                                echo '</br></br>Solução:</br>'. $row_dia_while_detalhes['ds_detalhada'];
+                                                            }
+    
+                                                            if($row_dia_while_detalhes['dt_fim'] == '1970-01-01 01:00:00'  || $row_dia_while_detalhes['dt_fim'] == ''){
+                                                                echo '</br> Inicio: '. date('d/m/Y h:i:s', strtotime($row_dia_while_detalhes['dt_inicio'])) .' Fim: Em correção';
+                                                            }else{
+                                                                echo '</br> Inicio: '. date('d/m/Y h:i:s', strtotime($row_dia_while_detalhes['dt_inicio'])) .' Fim: '. date('d/m/Y h:i:s', strtotime($row_dia_while_detalhes['dt_fim']));
+                                                            }
+    
+                                                        echo "</div>";
+                                                    
+                                                    ?>
+                                                
+                                                </h6>
+                                    
+                                    <?php } ?>                                                                     
 
                                 </div>
                             </div>
