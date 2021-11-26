@@ -157,7 +157,12 @@
                     //BARRAS STATUS DIARIO//
                     //////////////////////// 
                     
-                    $consulta_barras = "SELECT * FROM vw_status_diario WHERE cd_servico = $cd_serv ORDER BY dia asc";
+                    $consulta_barras = "SELECT * FROM vw_status_diario WHERE cd_servico = $cd_serv 
+                                        ORDER BY                                        
+                                        substr(dia,7,4) * 1 ASC,
+                                        substr(dia,4,2) * 1 ASC,
+                                        substr(dia,1,2) * 1 ASC";
+                                        
                     $result_barras = mysqli_query($conn, $consulta_barras);    
 
                     while($row_barras = mysqli_fetch_array($result_barras)){
