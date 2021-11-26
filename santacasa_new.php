@@ -138,8 +138,17 @@
 
         $cd_serv = $row_count_mes['cd_servico'];
 
-        echo '</br><div class="row justify-content-center">';
-            echo '<div class="col-md-11" style="border-style: solid; border-radius: 7px;border-width: thin; border-color: rgb(80, 9, 165);">';
+        echo '</br><div class="row justify-content-center">';       
+
+            if($row_count_mes['sn_ti'] == 'S'){
+
+                echo '<div class="col-md-11" style="border-style: solid; border-radius: 7px;border-width: thin; border-color: rgb(80, 9, 165);">';
+
+            }else{
+
+                echo '<div class="col-md-11" style="border-style: solid; border-radius: 7px;border-width: thin; border-color: rgb(128, 191, 255);">';
+            }
+            
 
                 echo '<div class="col-md-12" style="text-align: center !important;">
                       <b style="font-size: 16px; color: #444444; text-align: left !important;">' . $row_count_mes['servico'] .'</b></br>'; 
@@ -148,7 +157,7 @@
                     //BARRAS STATUS DIARIO//
                     //////////////////////// 
                     
-                    $consulta_barras = "SELECT * FROM vw_status_diario WHERE cd_servico = $cd_serv";
+                    $consulta_barras = "SELECT * FROM vw_status_diario WHERE cd_servico = $cd_serv ORDER BY dia asc";
                     $result_barras = mysqli_query($conn, $consulta_barras);    
 
                     while($row_barras = mysqli_fetch_array($result_barras)){
@@ -161,7 +170,7 @@
                             <!-------->                           
 
                             <a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" 
-                            title="<?php echo $row_barras['dia'] ?>" 
+                            title="<?php echo $row_barras['dia']; ?>" 
                             data-content="
                                 <?php 
 
@@ -183,9 +192,7 @@
                                         }else{
 
                                             echo '</br>Fim: Em correção';
-                                        }
-                                        
-
+                                        }                                       
 
                                     }
                                 ?>
@@ -193,6 +200,16 @@
                             <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_erro.png" height="25px" width="5px" class="d-inline-block align-top" > </a>
 
 <?php
+                        }else{
+
+                            //////
+                            //OK//
+                            //////
+
+                            echo '<a href="#/" data-toggle="popover" data-html="true" style="text-decoration: none;" title="'. $row_barras['dia'] .'" 
+                            data-content="Nenhum problema relatado nesse dia">
+                            <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_ok.png" height="25px" width="5px" class="d-inline-block align-top" > </a>';
+
                         }     
                     }             
                    

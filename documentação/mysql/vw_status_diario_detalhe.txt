@@ -2,11 +2,14 @@ CREATE VIEW vw_status_diario_detalhe AS
 
 SELECT vd.dia, sv.servico, sv.sn_ti,
 os.*, 
-DATE_FORMAT(os.dt_inicio, '%d/%m/%Y %H : %i') AS dt_inicio_conv,
-DATE_FORMAT(os.dt_fim, '%d/%m/%Y %H : %i') AS dt_fim_conv
+DATE_FORMAT(os.dt_inicio, '%d/%m/%Y %H:%i') AS dt_inicio_conv,
+DATE_FORMAT(os.dt_fim, '%d/%m/%Y %H:%i') AS dt_fim_conv
 FROM vw_ultimos_90_dias vd
 LEFT JOIN servicos sv
   ON 1 = 1
 INNER JOIN ocorrencias_sistema os
   ON os.CD_SERVICO = sv.CD_SERVICO
   AND vd.dia = DATE_FORMAT(os.dt_inicio, '%d/%m/%Y')
+ORDER BY 
+DATE_FORMAT(os.dt_inicio, '%Y') ASC,
+DATE_FORMAT(os.dt_inicio, '%m') ASC,
