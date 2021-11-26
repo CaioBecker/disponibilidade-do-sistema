@@ -162,7 +162,7 @@
                                         substr(dia,7,4) * 1 ASC,
                                         substr(dia,4,2) * 1 ASC,
                                         substr(dia,1,2) * 1 ASC";
-                                        
+
                     $result_barras = mysqli_query($conn, $consulta_barras);    
 
                     while($row_barras = mysqli_fetch_array($result_barras)){
@@ -192,17 +192,33 @@
 
                                         if(isset($row_erro['dt_fim_conv'])){
 
-                                            echo '</br>Fim: '. $row_erro['dt_fim_conv'];
+                                            echo '</br>Fim: '. $row_erro['dt_fim_conv'] . '</br>';
 
                                         }else{
 
-                                            echo '</br>Fim: Em correção';
+                                            echo '</br>Fim: Em correção' . '</br>';
                                         }                                       
 
                                     }
                                 ?>
                             ">
-                            <img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_erro.png" height="25px" width="5px" class="d-inline-block align-top" > </a>
+
+                            <?php 
+
+                                if($row_barras['tp_ocorrencia'] == 'M'){
+
+                                    //MANUTENCAO
+                                    echo '<img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_manu.png" height="25px" width="5px" class="d-inline-block align-top" > </a>';
+
+                                }else{
+
+                                    //ERRO
+                                    echo '<img style="margin-top: 5px; margin-bottom: 5px;" src="img/barra_erro.png" height="25px" width="5px" class="d-inline-block align-top" > </a>';
+                                
+                                }
+
+                            ?>
+                            
 
 <?php
                         }else{
@@ -236,6 +252,134 @@
         </div>       
 
     <?php } ?>
+
+<!----------------------->
+<!--DETALHE ANO MÊS DIA-->
+<!----------------------->    
+</br>
+<div class="row justify-content-center" style="background-color: #f9f9f9;">
+    <div class="col-md-11" >
+        
+        <?php
+
+            ///////
+            //ANO//
+            ///////
+            
+            $consulta_anos = "SELECT DISTINCT substr(dia,7,4) AS ano FROM vw_status_diario_detalhe";
+
+            $result_anos = mysqli_query($conn, $consulta_anos);    
+
+            while($row_anos = mysqli_fetch_array($result_anos)){
+
+        ?>
+                <div class="col-md-12" style="border-radius: 3px; color : #fff; background-color :#6996EF;">
+                    <h3 style="font-size: 24px;"><?php echo $row_anos['ano'];?></h3>
+                </div>
+
+        <?php 
+
+                ///////
+                //MES//
+                ///////
+                
+                $consulta_mes = "SELECT DISTINCT substr(dia,4,2) AS mes FROM vw_status_diario_detalhe
+                                 WHERE substr(dia,7,4) = " . $row_anos['ano'];
+
+                $result_mes = mysqli_query($conn, $consulta_mes);    
+
+                while($row_mes = mysqli_fetch_array($result_mes)){
+        ?>
+
+                    <div style="padding: 0px !important; text-align: left; border-bottom-width: thin;border-bottom-style: solid;border-bottom-color: #6996EF; " class="col-8">
+                                                
+                        <h4><?php echo $row_mes['mes'] . '/' . $row_anos['ano']; ?></h4>
+                        
+                    </div>
+
+        <?php 
+                    ///////
+                    //DIA//
+                    ///////
+
+                    $consulta_dias = "SELECT DISTINCT substr(vd.dia,1,2) as dia_aux,
+                                      substr(vd.dia,4,2) AS mes_aux,
+                                      substr(vd.dia,7,4) AS ano_aux,
+                                      DATE_FORMAT(vd.dt_inicio, '%d/%m/%Y') AS dt_inicio
+                                      FROM vw_status_diario_detalhe vd
+                                      WHERE substr(vd.dia,7,4) = " . $row_anos['ano'] . 
+                                      " AND substr(vd.dia,4,2)  = " . $row_mes['mes'];
+                    
+
+                    $result_dias = mysqli_query($conn, $consulta_dias);    
+
+                    while($row_dias = mysqli_fetch_array($result_dias)){                                        
+
+                        $count_script = $row_dias['ano_aux'] . $row_dias['mes_aux'] . $row_dias['dia_aux'];
+                        $data_extensa = $row_dias['dia_aux'] . '/' . $row_dias['mes_aux'] . '/' . $row_dias['ano_aux'];
+        ?>
+                        <div class="col-md-4" style="text-align: left;" onclick="mostrar_dia<?php echo $count_script;?>()" >
+                            <div id="seta-<?php echo $count_script;?>">
+                                <h5><?php echo $data_extensa . ' <i class="fas fa-chevron-right" ></i>';?></h5>
+                            </div>
+                            <div  id="baixo-<?php echo $count_script;?>">
+                                <h5><?php
+                                    echo $data_extensa . ' <i class="fas fa-chevron-down"></i>';
+                                ?></h5>
+                            </div>
+                        </div>
+                                                            
+                            <div class="col-md-9">
+                                <div class="col-md-12" style="text-align: left; margin-top: 20px !important; margin-bottom: 20px; padding: 0px; background-color : #fff; border-style: solid; border-radius: 5px;border-width: thin; border-color: #6996EF; "  id= "<?php echo $count_script;?>">
+                                    
+                                    AAA
+
+                                </div>
+                            </div>
+                        
+                        <script>
+
+                            var dia<?php echo $count_script;?> = document.getElementById("<?php echo $count_script;?>");
+                            var seta_baixo<?php echo $count_script;?> = document.getElementById("baixo-<?php echo $count_script;?>");
+                            var seta<?php echo $count_script;?> = document.getElementById("seta-<?php echo $count_script;?>");
+
+                            seta_baixo<?php echo $count_script; ?>.style.display = 'none';
+                            dia<?php echo $count_script; ?>.style.display = 'none';
+
+                            var aberto;
+                            function mostrar_dia<?php echo $count_script;?>(){
+                                if(dia<?php echo $count_script;?>.style.display == 'none'){    
+                                    dia<?php echo $count_script;?>.style.display = 'block';
+                                    seta_baixo<?php echo $count_script;?>.style.display = 'block';
+                                    seta<?php echo $count_script;?>.style.display = 'none';
+                                }else{
+                                    dia<?php echo $count_script;?>.style.display = 'none';
+                                    seta_baixo<?php echo $count_script;?>.style.display = 'none';
+                                    seta<?php echo $count_script;?>.style.display = 'block';
+                                }
+                            }
+
+                        </script>
+        <?php
+                    }
+
+        ?>
+                    
+        <?php 
+                }
+
+            }
+
+        ?>
+
+        </br>
+        </br>
+        </br>  
+        
+        </div>
+        
+    </div>
+</div>
 
 <?php
 

@@ -1,7 +1,8 @@
 CREATE VIEW vw_status_diario AS
 
 SELECT vd.dia, sv.cd_servico, sv.servico, sv.sn_ti,  
-IFNULL(COUNT(os.cd_ocorrencia)) AS qtd_ocorrencias
+IFNULL(COUNT(os.cd_ocorrencia),0) AS qtd_ocorrencias,
+MAX(os.tp_ocorrencia) AS tp_ocorrencia
 FROM vw_ultimos_90_dias vd
 LEFT JOIN servicos sv
   ON 1 = 1
