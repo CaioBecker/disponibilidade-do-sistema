@@ -1,0 +1,13 @@
+CREATE VIEW 
+
+SELECT sv.cd_servico, sv.servico, sv.sn_ti,  
+IFNULL(SUM(TIMESTAMPDIFF(MINUTE,os.dt_inicio,os.dt_fim)),0) AS min_off,
+129600 AS min_tot,
+ROUND(100-((IFNULL(SUM(TIMESTAMPDIFF(MINUTE,os.dt_inicio,os.dt_fim)),0) /129600)*100),2) AS porc_estab
+FROM vw_ultimos_90_dias vd
+LEFT JOIN servicos sv
+  ON 1 = 1
+LEFT JOIN ocorrencias_sistema os
+  ON os.CD_SERVICO = sv.CD_SERVICO
+  AND vd.dia = DATE_FORMAT(os.dt_inicio, '%d/%m/%Y')
+GROUP BY sv.cd_servico, sv.servico, sv.sn_ti

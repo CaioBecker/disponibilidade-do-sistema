@@ -1,0 +1,77 @@
+CREATE VIEW vw_status_atual AS
+
+select res . cd_servico AS cd_servico,
+       res . servico AS servico,
+       res . sn_ti AS sn_ti,
+       res . titulo, res.dt_inicio,
+       res . ds_ocorrencia AS ds_ocorrencia,
+       res . tp_ocorrencia AS tp_ocorrencia,
+       res . qtd_ocorrencias AS qtd_ocorrencias
+  from (select sv . cd_servico AS cd_servico,
+               sv . servico AS servico,
+               sv . sn_ti AS sn_ti,
+               os . titulo, os.dt_inicio,
+               os . ds_ocorrencia AS ds_ocorrencia,
+               ifnull(os . tp_ocorrencia, 'V') AS tp_ocorrencia,
+               ifnull(count(os . cd_ocorrencia), 0) AS qtd_ocorrencias
+          from ((vw_ultimos_90_dias vd left join servicos sv on((1 = 1))) left join
+                ocorrencias_sistema os
+                on(((os . cd_servico = sv . cd_servico) and
+                   (vd . dia = date_format(os . dt_inicio, '%d/%m/%Y')) and
+                   isnull(os . dt_fim))))
+         group by sv . cd_servico,
+                  sv . servico,
+                  sv . sn_ti,
+                  os . titulo, os.dt_inicio,
+                  os . ds_ocorrencia,
+                  ifnull(os . tp_ocorrencia, 'V')) res
+ where (res . qtd_ocorrencias >= 1)
+union all
+select ok . cd_servico AS cd_servico,
+       ok . servico AS servico,
+       ok . sn_ti AS sn_ti,
+       ok . titulo, ok.dt_inicio,
+       ok . ds_ocorrencia AS ds_ocorrencia,
+       ok . tp_ocorrencia AS tp_ocorrencia,
+       ok . qtd_ocorrencias AS qtd_ocorrencias
+  from (select sv . cd_servico AS cd_servico,
+               sv . servico AS servico,
+               sv . sn_ti AS sn_ti,
+               os . titulo, os.dt_inicio,
+               os . ds_ocorrencia AS ds_ocorrencia,
+               ifnull(os . tp_ocorrencia, 'V') AS tp_ocorrencia,
+               ifnull(count(os . cd_ocorrencia), 0) AS qtd_ocorrencias
+          from ((vw_ultimos_90_dias vd left join servicos sv on((1 = 1))) left join
+                ocorrencias_sistema os
+                on(((os . cd_servico = sv . cd_servico) and
+                   (vd . dia = date_format(os . dt_inicio, '%d/%m/%Y')) and
+                   isnull(os . dt_fim))))
+         group by sv . cd_servico,
+                  sv . servico,
+                  sv . sn_ti,
+                  os . titulo, os.dt_inicio,
+                  os . ds_ocorrencia,
+                  ifnull(os . tp_ocorrencia, 'V')) ok
+ where (not
+        (ok . cd_servico in
+         (select distinct aux . cd_servico
+                  from (select sv . cd_servico AS cd_servico,
+                               sv . servico AS servico,
+                               sv . sn_ti AS sn_ti,
+                               os . titulo, os.dt_inicio,
+                               os . ds_ocorrencia AS ds_ocorrencia,
+                               ifnull(os . tp_ocorrencia, 'V') AS tp_ocorrencia,
+                               ifnull(count(os . cd_ocorrencia), 0) AS qtd_ocorrencias
+                          from ((vw_ultimos_90_dias vd left join servicos sv
+                                on((1 = 1))) left join ocorrencias_sistema os
+                                on(((os . cd_servico = sv . cd_servico) and
+                                   (vd . dia =
+                                    date_format(os . dt_inicio, '%d/%m/%Y')) and
+                                   isnull(os . dt_fim))))
+                         group by sv . cd_servico,
+                                  sv . servico,
+                                  sv . sn_ti,
+                                  os . titulo, os.dt_inicio,
+                                  os . ds_ocorrencia,
+                                  ifnull(os . tp_ocorrencia, 'V')) aux
+                 where (aux . qtd_ocorrencias >= 1))));

@@ -1,0 +1,10 @@
+CREATE VIEW vw_status_diario_detalhe AS
+
+SELECT vd.dia, sv.servico, sv.sn_ti,
+os.*
+FROM vw_ultimos_90_dias vd
+LEFT JOIN servicos sv
+  ON 1 = 1
+INNER JOIN ocorrencias_sistema os
+  ON os.CD_SERVICO = sv.CD_SERVICO
+  AND vd.dia = DATE_FORMAT(os.dt_inicio, '%d/%m/%Y')
