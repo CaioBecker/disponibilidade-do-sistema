@@ -79,7 +79,6 @@
     }else{        
 
         $consulta_servicos_ativos = "SELECT * FROM vw_status_atual WHERE sn_ti <> 'S'";
-
     }
 
     $result_servicos_ativos = mysqli_query($conn, $consulta_servicos_ativos);
@@ -125,7 +124,7 @@
 
     if(@$_SESSION['cd_usu'] != ''){
 
-        $consulta_count_mes = "SELECT * FROM servicos";
+        $consulta_count_mes = "SELECT * FROM servicos ";
 
     }else{        
 
@@ -181,7 +180,10 @@
 
                                     $consulta_erro = "SELECT * FROM vw_status_diario_detalhe 
                                                       WHERE cd_servico = $cd_serv
-                                                      AND dia = '" . $row_barras['dia'] . "'";
+                                                      AND dia = '" . $row_barras['dia'] . "' ORDER BY                                        
+                                                      substr(dia,7,4) * 1 ASC,
+                                                      substr(dia,4,2) * 1 ASC,
+                                                      substr(dia,1,2) * 1 ASC";
 
                                     $result_erro = mysqli_query($conn, $consulta_erro);    
 
@@ -268,11 +270,19 @@
 
             if(@$_SESSION['cd_usu'] != ''){
 
-                $consulta_anos = "SELECT DISTINCT substr(dia,7,4) AS ano FROM vw_status_diario_detalhe";
+                $consulta_anos = "SELECT DISTINCT substr(dia,7,4) AS ano FROM vw_status_diario_detalhe
+                                    ORDER BY                                        
+                                    substr(dia,7,4) * 1 ASC,
+                                    substr(dia,4,2) * 1 ASC,
+                                    substr(dia,1,2) * 1 ASC";
         
             }else{                
 
-                $consulta_anos = "SELECT DISTINCT substr(dia,7,4) AS ano FROM vw_status_diario_detalhe  WHERE sn_ti <> 'S'";
+                $consulta_anos = "SELECT DISTINCT substr(dia,7,4) AS ano FROM vw_status_diario_detalhe  WHERE sn_ti <> 'S'
+                                  ORDER BY                                        
+                                  substr(dia,7,4) * 1 ASC,
+                                  substr(dia,4,2) * 1 ASC,
+                                  substr(dia,1,2) * 1 ASC";
 
             }            
 
@@ -294,13 +304,21 @@
                 if(@$_SESSION['cd_usu'] != ''){
 
                     $consulta_mes = "SELECT DISTINCT substr(dia,4,2) AS mes FROM vw_status_diario_detalhe
-                                 WHERE substr(dia,7,4) = " . $row_anos['ano'];
+                                 WHERE substr(dia,7,4) = " . $row_anos['ano'] . "
+                                 ORDER BY                                        
+                                 substr(dia,7,4) * 1 ASC,
+                                 substr(dia,4,2) * 1 ASC,
+                                 substr(dia,1,2) * 1 ASC";
             
                 }else{       
                     
                     $consulta_mes = "SELECT DISTINCT substr(dia,4,2) AS mes FROM vw_status_diario_detalhe
                                  WHERE substr(dia,7,4) = " . $row_anos['ano'] .
-                                 " AND sn_ti <> 'S'";
+                                 " AND sn_ti <> 'S'
+                                 ORDER BY                                        
+                                 substr(dia,7,4) * 1 ASC,
+                                 substr(dia,4,2) * 1 ASC,
+                                 substr(dia,1,2) * 1 ASC";
     
                 }   
 
@@ -328,7 +346,11 @@
                                       DATE_FORMAT(vd.dt_inicio, '%d/%m/%Y') AS dt_inicio
                                       FROM vw_status_diario_detalhe vd
                                       WHERE substr(vd.dia,7,4) = " . $row_anos['ano'] . 
-                                      " AND substr(vd.dia,4,2)  = " . $row_mes['mes'];
+                                      " AND substr(vd.dia,4,2)  = " . $row_mes['mes'] ."
+                                      ORDER BY                                        
+                                      substr(dia,7,4) * 1 ASC,
+                                      substr(dia,4,2) * 1 ASC,
+                                      substr(dia,1,2) * 1 ASC";
                 
                     }else{       
 
@@ -339,7 +361,11 @@
                                       FROM vw_status_diario_detalhe vd
                                       WHERE substr(vd.dia,7,4) = " . $row_anos['ano'] . 
                                       " AND substr(vd.dia,4,2)  = " . $row_mes['mes'] .
-                                      " AND sn_ti <> 'S'";        
+                                      " AND sn_ti <> 'S'
+                                      ORDER BY                                        
+                                      substr(dia,7,4) * 1 ASC,
+                                      substr(dia,4,2) * 1 ASC,
+                                      substr(dia,1,2) * 1 ASC";        
                     }   
 
                     $result_dias = mysqli_query($conn, $consulta_dias);    
@@ -375,7 +401,11 @@
                                             FROM vw_status_diario_detalhe vd
                                             WHERE substr(vd.dia,7,4) = " . $row_anos['ano'] . 
                                             " AND substr(vd.dia,4,2)  = " . $row_mes['mes'] .      
-                                            " AND substr(vd.dia,1,2)  = " . $row_dias['dia_aux'];
+                                            " AND substr(vd.dia,1,2)  = " . $row_dias['dia_aux'] ."
+                                            ORDER BY                                        
+                                            substr(dia,7,4) * 1 ASC,
+                                            substr(dia,4,2) * 1 ASC,
+                                            substr(dia,1,2) * 1 ASC";
                                     
                                         }else{       
 
@@ -384,7 +414,11 @@
                                             WHERE substr(vd.dia,7,4) = " . $row_anos['ano'] . 
                                             " AND substr(vd.dia,4,2)  = " . $row_mes['mes'] .      
                                             " AND substr(vd.dia,1,2)  = " . $row_dias['dia_aux'] .
-                                            " AND sn_ti <> 'S'";
+                                            " AND sn_ti <> 'S'
+                                            ORDER BY                                        
+                                            substr(dia,7,4) * 1 ASC,
+                                            substr(dia,4,2) * 1 ASC,
+                                            substr(dia,1,2) * 1 ASC";
 
                                         }   
 

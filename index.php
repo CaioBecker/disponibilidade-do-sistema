@@ -65,9 +65,6 @@
                             </div>
                             <button type="submit" class="botao_home" style="padding-top: 14px; padding-bottom: 14px;"> <i class="fa fa-key" aria-hidden="true"></i> Acessar</button>
                         </form>
-                        <a style="color: #3498DB" href="santacasa.php">
-                           Dash board
-                        </a>
                         <!--MENSAGENS-->
                         <?php
                             include 'js/mensagens.php';
