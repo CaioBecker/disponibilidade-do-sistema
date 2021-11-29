@@ -28,7 +28,8 @@
                             <li><a href="usuarios.php"> Usuarios</a></li>
                             <li><a href="servicos.php"> Serviços</a></li>
                         <?php } ?>
-                        <li><a href="santacasa.php"> Visualizar</a></li>                           
+                        <li><a href="santacasa.php"> Visualizar</a></li>   
+                        <li><a href="dashboard.php"> Dashboard</a></li>                         
                     </ul>
 
                 </div>
